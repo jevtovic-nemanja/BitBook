@@ -2,11 +2,15 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import ServiceAuthentication from "../services/serviceAuthentication";
+
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = this.initState();
+        this.authService = new ServiceAuthentication();
+
         this.bindEventHandlers();
 
     }
@@ -22,6 +26,7 @@ class RegisterForm extends React.Component {
 
     bindEventHandlers() {
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.register = this.register.bind(this);
     }
 
     handleInputChange(event) {
@@ -33,9 +38,18 @@ class RegisterForm extends React.Component {
         });
     }
 
-    register() {
+    register(event) {
         event.preventDefault();
         
+        const data = {
+            username: this.state.email,
+            password: this.state.password,
+            name: this.state.fullName,
+            email: this.state.email,
+            surname: ""
+        };
+
+        this.authService.register(data);
     }
 
     render() {

@@ -9,6 +9,8 @@ class LoginForm extends React.Component {
         super(props);
 
         this.state = this.initState();
+        this.authService = new ServiceAuthentication();
+
         this.bindEventHandlers();
     }
 
@@ -23,6 +25,7 @@ class LoginForm extends React.Component {
     
     bindEventHandlers() {
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.logIn = this.logIn.bind(this);
     }
 
     handleInputChange(event) {
@@ -34,18 +37,16 @@ class LoginForm extends React.Component {
         });
     }
 
-    logIn() {
+    logIn(event) {
         event.preventDefault();
 
         const data = {
             username: this.state.email,
             password: this.state.password
-        }
+        };
 
-        ServiceAuthentication.logIn(data);
+        this.authService.logIn();
     }
-
-
 
     render() {
         return (

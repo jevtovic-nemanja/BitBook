@@ -1,20 +1,44 @@
 import serviceAPI from "./serviceApi";
-import { BASE_URL } from "../../constants";
+import { redirect } from "./serviceRedirect";
+
+import { BASE_URL, SESSION_ID } from "../../constants";
 
 class ServiceAuthentication {
-    constructor() { }
+    constructor() {
+        this.apiService = new serviceAPI();
+    }
 
     isAuthenticated() {
         const sessionId = JSON.parse(sessionStorage.getItem(SESSION_ID));
-        sessionId
-            ? true
-            : false;
+        if (sessionId) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     logIn(data) {
         const url = `${BASE_URL}/login`;
         
-        serviceAPI.postToAPI(url, data, );
+        console.log(data);
+
+        this.apiService.postToAPI(url, data, sessionId => {
+            sessionStorage.setItem(SESSION_ID, sessionId);
+            redirect("/");
+        });
+    }
+
+    logOut() {
+        sessionStorage.clear();
+        redirect("/");
+    }
+
+    register(data) {
+        const url = `${BASE_URL}/register`;
+
+        this.apiService.postToAPI(url, data, response => {
+            redirect("/");
+        });
     }
 }
 

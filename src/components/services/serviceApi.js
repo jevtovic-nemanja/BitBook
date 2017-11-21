@@ -9,7 +9,7 @@ class ServiceAPI {
             method: "GET",
             body: dataObject,
             callback: callback
-        }
+        };
 
         this.createRequest(requestData);
     }
@@ -20,7 +20,7 @@ class ServiceAPI {
             method: "POST",
             body: dataObject,
             callback: callback
-        }
+        };
 
         this.createRequest(requestData);
     }
@@ -34,23 +34,24 @@ class ServiceAPI {
                 "Content-type": "application/json; charset=UTF-8",
                 "Key": API_KEY,
                 "SessionId": sessionId
-            }
+            };
         } else {
             headers = {
                 "Content-type": "application/json; charset=UTF-8",
                 "Key": API_KEY
-            }
+            };
         }
 
         const requestOptions = {
             headers: headers,
             method: requestData.method,
-            body: JSON.stringify(requestData.body)
-        }
+            body: JSON.stringify(requestData.body),
+            mode: "no-cors"
+        };
 
         fetch(requestData.url, requestOptions)
             .then(response => response.json())
-            .then(result => requestData.callback(result))
+            .then(result => requestData.callback(result));
     }
 
 }

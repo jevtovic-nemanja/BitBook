@@ -1,23 +1,24 @@
 import React from "react";
-import LoginPage from "./login/loginPage";
 import { Switch, Route } from "react-router-dom";
 
 import ServiceAuthentication from "./services/serviceAuthentication";
 
+import LoginPage from "./login/loginPage";
+import Main from "./common/main";
+
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.authService = new ServiceAuthentication();
     }
 
     render() {
-        const isAuthenticated = ServiceAuthentication.isAuthenticated();
+        const isAuthenticated = this.authService.isAuthenticated();
 
         if (isAuthenticated) {
-            return 
+            return <Main />;
         } else {
-            return (
-                <LoginPage />
-            );
+            return <LoginPage />;
         }
     }
 }
