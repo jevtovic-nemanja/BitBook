@@ -1,4 +1,4 @@
-import { SESSION_ID } from "../../constants";
+import { SESSION_ID, API_KEY } from "../../constants";
 
 class ServiceAPI {
     constructor() { }
@@ -32,13 +32,13 @@ class ServiceAPI {
         if (sessionId) {
             headers = {
                 "Content-type": "application/json; charset=UTF-8",
-                "Key": "beFcEQ4d",
+                "Key": API_KEY,
                 "SessionId": sessionId
             }
         } else {
             headers = {
                 "Content-type": "application/json; charset=UTF-8",
-                "Key": "beFcEQ4d"
+                "Key": API_KEY
             }
         }
 
