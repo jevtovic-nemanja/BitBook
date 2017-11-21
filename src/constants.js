@@ -1,1 +1,1 @@
-// export const SOME_GLOBAL_CONFIG = "value";
+export const SESSION_ID = "sessionId";
