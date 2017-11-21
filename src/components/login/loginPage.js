@@ -3,9 +3,6 @@ import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 import { Switch, Route, Link } from "react-router-dom";
 
-
-
-
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);

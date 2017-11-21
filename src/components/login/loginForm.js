@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import ServiceAuthentication from "../services/serviceAuthentication";
+
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
@@ -34,7 +36,13 @@ class LoginForm extends React.Component {
 
     logIn() {
         event.preventDefault();
-        
+
+        const data = {
+            username: this.state.email,
+            password: this.state.password
+        }
+
+        ServiceAuthentication.logIn(data);
     }
 
 
