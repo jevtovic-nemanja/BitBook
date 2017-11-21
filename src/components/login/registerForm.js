@@ -45,8 +45,7 @@ class RegisterForm extends React.Component {
             username: this.state.email,
             password: this.state.password,
             name: this.state.fullName,
-            email: this.state.email,
-            surname: ""
+            email: this.state.email
         };
 
         this.authService.register(data);

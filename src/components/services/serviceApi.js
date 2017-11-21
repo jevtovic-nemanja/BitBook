@@ -30,24 +30,25 @@ class ServiceAPI {
 
         let headers = null;
         if (sessionId) {
-            headers = {
-                "Content-type": "application/json; charset=UTF-8",
+            headers = new Headers({
+                "Content-Type": "application/json; charset=UTF-8",
                 "Key": API_KEY,
                 "SessionId": sessionId
-            };
+            });
         } else {
-            headers = {
-                "Content-type": "application/json; charset=UTF-8",
+            headers = new Headers ({
+                "Content-Type": "application/x-www-for-urlencoded",
                 "Key": API_KEY
-            };
+            });
         }
 
         const requestOptions = {
             headers: headers,
             method: requestData.method,
             body: JSON.stringify(requestData.body),
-            mode: "no-cors"
         };
+
+        console.log(requestOptions);
 
         fetch(requestData.url, requestOptions)
             .then(response => response.json())
