@@ -1,0 +1,33 @@
+.welcomeText{
+    width: 80%;
+    margin: 15% auto 0;
+    text-align: justify;
+   
+ 
+
+}
+
+.loginTitle{
+    font-size: 45px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: yellowgreen;
+    margin-bottom: 20px;
+    
+}
+
+.loginParagraph{
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+.form {
+    margin: 9% auto 0;
+    margin-left: 30px;
+    border: 1px solid yellowgreen;
+    padding: 20px;
+    border-radius: 5%;
+    
+
+}
