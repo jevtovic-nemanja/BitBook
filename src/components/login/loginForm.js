@@ -45,7 +45,7 @@ class LoginForm extends React.Component {
             password: this.state.password
         };
 
-        this.authService.logIn();
+        this.authService.logIn(data);
     }
 
     render() {

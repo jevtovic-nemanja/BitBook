@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import { SESSION_ID, API_KEY } from "../../constants";
 
 class ServiceAPI {
@@ -30,31 +32,29 @@ class ServiceAPI {
 
         let headers = null;
         if (sessionId) {
-            headers = new Headers({
-                "Content-Type": "application/json; charset=UTF-8",
+            headers = {
+                "Content-Type": "application/json",
                 "Key": API_KEY,
-                "SessionId": sessionId
-            });
+                "SessionId": sessionId,
+                "Allow": "application/json"
+            };
         } else {
-            headers = new Headers ({
-                "Content-Type": "application/x-www-for-urlencoded",
-                "Key": API_KEY
-            });
+            headers = {
+                "Content-Type": "application/json",
+                "Key": API_KEY,
+                "Allow": "application/json"
+            };
         }
 
-        const requestOptions = {
-            headers: headers,
+        axios({
             method: requestData.method,
-            body: JSON.stringify(requestData.body),
-        };
-
-        console.log(requestOptions);
-
-        fetch(requestData.url, requestOptions)
-            .then(response => response.json())
-            .then(result => requestData.callback(result));
+            url: requestData.url,
+            headers: headers,
+            data: JSON.stringify(requestData.body),
+            JSON: true
+        })
+            .then(response => requestData.callback(response.data));
     }
-
 }
 
 export default ServiceAPI;

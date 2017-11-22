@@ -17,7 +17,7 @@ class RegisterForm extends React.Component {
 
     initState(){
         return{
-            fullName: "",
+            name: "",
             email: "",
             password: ""
         };
@@ -44,9 +44,11 @@ class RegisterForm extends React.Component {
         const data = {
             username: this.state.email,
             password: this.state.password,
-            name: this.state.fullName,
+            name: this.state.name,
             email: this.state.email
         };
+
+        console.log(data);
 
         this.authService.register(data);
     }
@@ -59,7 +61,7 @@ class RegisterForm extends React.Component {
                     <Link to="/register"><button>Register</button></Link>
                 </div>
                 <form>
-                    <input type="text" name="fullName" placeholder="Full Name" value={this.state.fullName} onChange={this.handleInputChange} />
+                    <input type="text" name="name" placeholder="Full Name" value={this.state.fullName} onChange={this.handleInputChange} />
                     <input type="email" name="email" placeholder="Email Address" value={this.state.email} onChange={this.handleInputChange} />
                     <input type="password" name="password" placeholder="Min 6 characters" value={this.state.password} onChange={this.handleInputChange} />
                     <input type="submit" value="Register" onClick={this.register} />

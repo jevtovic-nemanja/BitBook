@@ -9,7 +9,7 @@ class ServiceAuthentication {
     }
 
     isAuthenticated() {
-        const sessionId = JSON.parse(sessionStorage.getItem(SESSION_ID));
+        const sessionId = sessionStorage.getItem(SESSION_ID);
         if (sessionId) {
             return true;
         } else {
@@ -19,8 +19,6 @@ class ServiceAuthentication {
 
     logIn(data) {
         const url = `${BASE_URL}/login`;
-        
-        console.log(data);
 
         this.apiService.postToAPI(url, data, sessionId => {
             sessionStorage.setItem(SESSION_ID, sessionId);
