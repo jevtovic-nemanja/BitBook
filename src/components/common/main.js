@@ -6,7 +6,7 @@ class Main extends React.Component {
     }
 
     render() {
-        return <p>AAAAAAAAAAA</p>;
+        return <p>You can see this page only if you are logged in.</p>;
     }
 
 }
