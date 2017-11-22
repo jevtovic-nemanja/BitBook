@@ -1,15 +1,15 @@
-import serviceAPI from "./serviceApi";
+import { APIService } from "./serviceApi";
 import { redirect } from "./serviceRedirect";
 
 import { BASE_URL, SESSION_ID } from "../../constants";
+import { storageService } from "./serviceStorage";
 
 class ServiceAuthentication {
-    constructor() {
-        this.apiService = new serviceAPI();
-    }
+    constructor() { }
 
     isAuthenticated() {
-        const sessionId = sessionStorage.getItem(SESSION_ID);
+        const sessionId = storageService.getStorageItem(SESSION_ID);
+        
         if (sessionId) {
             return true;
         } else {
@@ -17,27 +17,27 @@ class ServiceAuthentication {
         }
     }
 
-    logIn(data) {
-        const url = `${BASE_URL}/login`;
+    logIn(data, errorCallback) {
+        const url = "/login";
 
-        this.apiService.postToAPI(url, data, responseData => {
-            sessionStorage.setItem(SESSION_ID, responseData.sessionId);
+        APIService.postToAPI(url, data, responseData => {
+            storageService.setStorageItem(SESSION_ID, responseData.sessionId);
             redirect("/");
-        });
+        }, error => errorCallback(error));
     }
 
     logOut() {
-        sessionStorage.clear();
+        storageService.clearStorage();
         redirect("/");
     }
 
-    register(data) {
-        const url = `${BASE_URL}/register`;
+    register(data, errorCallback) {
+        const url = "/register";
 
-        this.apiService.postToAPI(url, data, responseData => {
+        APIService.postToAPI(url, data, responseData => {
             redirect("/");
-        });
+        }, error => errorCallback(error));
     }
 }
 
-export default ServiceAuthentication;
+export const authenticationService = new ServiceAuthentication();

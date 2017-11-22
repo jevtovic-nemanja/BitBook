@@ -2,26 +2,24 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import ServiceAuthentication from "../services/serviceAuthentication";
+import { authenticationService } from "../services/serviceAuthentication";
 
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
-        this.authService = new ServiceAuthentication();
 
         this.bindEventHandlers();
-
     }
 
-    initState(){
-        return{
+    initState() {
+        return {
             name: "",
             email: "",
-            password: ""
+            password: "",
+            confirmPassword: "",
+            error: false
         };
-
     }
 
     bindEventHandlers() {
@@ -38,17 +36,58 @@ class RegisterForm extends React.Component {
         });
     }
 
+    handleNetworkRequestError(error) {
+        if (error.response) {
+            this.setState({ error: error.response.data.error.message });
+        } else if (error.request) {
+            this.setState({ error: "There is no response from server." });
+        }
+    }
+
     register(event) {
         event.preventDefault();
-        
-        const data = {
-            username: this.state.email,
-            password: this.state.password,
-            name: this.state.name,
-            email: this.state.email
-        };
 
-        this.authService.register(data);
+        const isValid = this.validateInput();
+
+        if (isValid) {
+            const { name, email, password, error } = this.state;
+
+            const data = {
+                username: email,
+                password: password,
+                name: name,
+                email: email
+            };
+
+            authenticationService.register(data, error => this.handleNetworkRequestError(error));
+        }
+    }
+
+    validateInput() {
+        const { name, email, password, confirmPassword } = this.state;
+
+        if (!name) {
+            this.setState({ error: "Please enter your name." });
+            return false;
+        } else if (!email) {
+            this.setState({ error: "Please enter your email address." });
+            return false;
+        } else if (!email.includes("@")) {
+            this.setState({ error: "A valid email address contains \"@\"." });
+            return false;
+        } else if (!password) {
+            this.setState({ error: "Please enter your password." });
+            return false;
+        } else if (password.length < 6) {
+            this.setState({ error: "Your password must contain at least 6 characters." });
+            return false;
+        } else if (password !== confirmPassword) {
+            this.setState({ error: "Passwords don't match!" });
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     render() {
@@ -59,12 +98,11 @@ class RegisterForm extends React.Component {
                     <Link to="/register"><button className="btn btn-light">Register</button></Link>
                 </div>
 
-
                 <form>
 
                     <div className="form-group">
                         <label htmlFor="exampleInputText1">Full Name</label>
-                        <input type="text" className="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="Full Name" name="fullName" value={this.state.fullName} onChange={this.handleInputChange}/>
+                        <input type="text" className="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
                     </div>
 
                     <div className="form-group">
@@ -77,19 +115,26 @@ class RegisterForm extends React.Component {
                         <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Min 6 characters" name="password" value={this.state.password} onChange={this.handleInputChange} />
                     </div>
-                
+
+                    <div className="form-group">
+                        <label htmlFor="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" className="form-control" id="exampleConfirmPassword1" placeholder="Confirm password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleInputChange} />
+                    </div>
+
+                    <div className="error">
+                        {this.state.error
+                            ? <p>{this.state.error}</p>
+                            : <p></p>
+                        }
+                    </div>
+
                     <button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
 
                 </form>
 
             </main>
         );
-
-
     }
-
-
-
 }
 
 export default RegisterForm;

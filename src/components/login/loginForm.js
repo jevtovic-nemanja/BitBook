@@ -2,23 +2,21 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import ServiceAuthentication from "../services/serviceAuthentication";
+import { authenticationService } from "../services/serviceAuthentication";
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
-        this.authService = new ServiceAuthentication();
-
+        
         this.bindEventHandlers();
     }
-
 
     initState() {
         return {
             email: "",
-            password: ""
+            password: "",
+            error: false
         };
 
     }
@@ -37,15 +35,46 @@ class LoginForm extends React.Component {
         });
     }
 
+    handleNetworkRequestError(error) {
+        if (error.response) {
+            this.setState({ error: error.response.data.error.message });
+        } else if (error.request) {
+            this.setState({ error: "There is no response from server." });
+        }
+    }
+
     logIn(event) {
         event.preventDefault();
 
-        const data = {
-            username: this.state.email,
-            password: this.state.password
-        };
+        const isValid = this.validateInput();
 
-        this.authService.logIn(data);
+        if (isValid) {
+            const { email, password } = this.state;
+
+            const data = {
+                username: email,
+                password: password
+            };
+
+            authenticationService.logIn(data, error => this.handleNetworkRequestError(error));
+        }
+    }
+
+    validateInput() {
+        const { email, password } = this.state;
+
+        if (!email) {
+            this.setState({ error: "Please enter your email address." });
+            return false;
+        } else if (!email.includes("@")) {
+            this.setState({ error: "A valid email address contains \"@\"." });
+            return false;
+        } else if (!password) {
+            this.setState({ error: "Please enter your password." });
+            return false;
+        } else {
+            return true;
+        }
     }
 
     render() {
@@ -53,7 +82,7 @@ class LoginForm extends React.Component {
             <main className="form">
                 <div>
                     <Link to="/login"><button className="btn btn-light">Login</button></Link>
-                    <Link to="/register"><button  className="btn btn-light">Register</button></Link>
+                    <Link to="/register"><button className="btn btn-light">Register</button></Link>
                 </div>
 
                 <form>
@@ -66,21 +95,20 @@ class LoginForm extends React.Component {
                         <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
                     </div>
-                
+                    <div className="error">
+                        {this.state.error
+                            ? <p>{this.state.error}</p>
+                            : <p></p>
+                        }
+                    </div>
+
                     <button type="submit" className="btn btn-primary" onClick={this.logIn}>Login</button>
 
                 </form>
 
-
             </main>
-
-
         );
     }
-
-
-
-
 }
 
 export default LoginForm;
