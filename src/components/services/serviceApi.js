@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { SESSION_ID, API_KEY } from "../../constants";
+import { SESSION_ID, API_KEY, BASE_URL } from "../../constants";
 
 class ServiceAPI {
     constructor() { }
@@ -43,6 +43,7 @@ class ServiceAPI {
         }
 
         axios({
+            baseURL: BASE_URL,
             method: requestData.method,
             url: requestData.url,
             headers: headers,
@@ -54,4 +55,4 @@ class ServiceAPI {
     }
 }
 
-export default ServiceAPI;
+export const APIService = new ServiceAPI();

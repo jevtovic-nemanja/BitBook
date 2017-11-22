@@ -1,12 +1,10 @@
-import serviceAPI from "./serviceApi";
+import { APIService } from "./serviceApi";
 import { redirect } from "./serviceRedirect";
 
 import { BASE_URL, SESSION_ID } from "../../constants";
 
 class ServiceAuthentication {
-    constructor() {
-        this.apiService = new serviceAPI();
-    }
+    constructor() {}
 
     isAuthenticated() {
         const sessionId = sessionStorage.getItem(SESSION_ID);
@@ -18,9 +16,9 @@ class ServiceAuthentication {
     }
 
     logIn(data, errorCallback) {
-        const url = `${BASE_URL}/login`;
+        const url = "/login";
 
-        this.apiService.postToAPI(url, data, responseData => {
+        APIService.postToAPI(url, data, responseData => {
             sessionStorage.setItem(SESSION_ID, responseData.sessionId);
             redirect("/");
         }, error => errorCallback(error));
@@ -32,12 +30,12 @@ class ServiceAuthentication {
     }
 
     register(data, errorCallback) {
-        const url = `${BASE_URL}/register`;
+        const url = "/register";
 
-        this.apiService.postToAPI(url, data, responseData => {
+        APIService.postToAPI(url, data, responseData => {
             redirect("/");
         }, error => errorCallback(error));
     }
 }
 
-export default ServiceAuthentication;
+export const  authenticationService = new ServiceAuthentication();

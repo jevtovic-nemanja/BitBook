@@ -2,14 +2,14 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import ServiceAuthentication from "../services/serviceAuthentication";
+import {authenticationService} from "../services/serviceAuthentication";
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = this.initState();
-        this.authService = new ServiceAuthentication();
+       
 
         this.bindEventHandlers();
     }
@@ -59,7 +59,7 @@ class LoginForm extends React.Component {
                 password: password
             };
 
-            this.authService.logIn(data, error => this.handleNetworkRequestError(error));
+            authenticationService.logIn(data, error => this.handleNetworkRequestError(error));
         }
     }
 
