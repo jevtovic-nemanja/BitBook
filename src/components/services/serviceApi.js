@@ -28,7 +28,7 @@ class ServiceAPI {
     }
 
     createRequest(requestData) {
-        const sessionId = JSON.parse(sessionStorage.getItem(SESSION_ID));
+        const sessionId = sessionStorage.getItem(SESSION_ID);
 
         let headers = null;
         if (sessionId) {

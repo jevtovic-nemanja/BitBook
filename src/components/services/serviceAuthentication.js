@@ -20,8 +20,8 @@ class ServiceAuthentication {
     logIn(data) {
         const url = `${BASE_URL}/login`;
 
-        this.apiService.postToAPI(url, data, sessionId => {
-            sessionStorage.setItem(SESSION_ID, sessionId);
+        this.apiService.postToAPI(url, data, responseData => {
+            sessionStorage.setItem(SESSION_ID, responseData.sessionId);
             redirect("/");
         });
     }
@@ -34,7 +34,7 @@ class ServiceAuthentication {
     register(data) {
         const url = `${BASE_URL}/register`;
 
-        this.apiService.postToAPI(url, data, response => {
+        this.apiService.postToAPI(url, data, responseData => {
             redirect("/");
         });
     }

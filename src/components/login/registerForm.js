@@ -48,8 +48,6 @@ class RegisterForm extends React.Component {
             email: this.state.email
         };
 
-        console.log(data);
-
         this.authService.register(data);
     }
 
