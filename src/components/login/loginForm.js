@@ -41,18 +41,41 @@ class LoginForm extends React.Component {
     logIn(event) {
         event.preventDefault();
 
-        const data = {
-            username: this.state.email,
-            password: this.state.password
-        };
+        const validation = this.validateInput();
 
-        this.authService.logIn(data, error => {
-            if (error.response) {
-                this.setState({ error: error.response.data.error.message });
-            } else if (error.request) {
-                this.setState({ error: "There is no response from server." });
-            }
-        });
+        if (validation) {
+            const { email, password } = this.state;
+
+            const data = {
+                username: email,
+                password: password
+            };
+
+            this.authService.logIn(data, error => {
+                if (error.response) {
+                    this.setState({ error: error.response.data.error.message });
+                } else if (error.request) {
+                    this.setState({ error: "There is no response from server." });
+                }
+            });
+        }
+    }
+
+    validateInput() {
+        const { email, password } = this.state;
+
+        if (!email) {
+            this.setState({ error: "Please enter your email address." });
+            return false;
+        } else if (!email.includes("@")) {
+            this.setState({ error: "A valid email address contains \"@\"." });
+            return false;
+        } else if (!password) {
+            this.setState({ error: "Please enter your password." });
+            return false;
+        } else {
+            return true;
+        }
     }
 
     render() {
@@ -60,7 +83,7 @@ class LoginForm extends React.Component {
             <main className="form">
                 <div>
                     <Link to="/login"><button className="btn btn-light">Login</button></Link>
-                    <Link to="/register"><button  className="btn btn-light">Register</button></Link>
+                    <Link to="/register"><button className="btn btn-light">Register</button></Link>
                 </div>
 
                 <form>
@@ -79,7 +102,7 @@ class LoginForm extends React.Component {
                             : <p></p>
                         }
                     </div>
-                
+
                     <button type="submit" className="btn btn-primary" onClick={this.logIn}>Login</button>
 
                 </form>

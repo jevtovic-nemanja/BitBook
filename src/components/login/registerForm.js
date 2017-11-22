@@ -42,20 +42,50 @@ class RegisterForm extends React.Component {
     register(event) {
         event.preventDefault();
 
-        const data = {
-            username: this.state.email,
-            password: this.state.password,
-            name: this.state.name,
-            email: this.state.email
-        };
+        const validation = this.validateInput();
 
-        this.authService.register(data, error => {
-            if (error.response) {
-                this.setState({ error: error.response.data.error.message });
-            } else if (error.request) {
-                this.setState({ error: "There is no response from server." });
-            }
-        });
+        if (validation) {
+            const { name, email, password, error } = this.state;
+
+            const data = {
+                username: email,
+                password: password,
+                name: name,
+                email: email
+            };
+
+
+            this.authService.register(data, error => {
+                if (error.response) {
+                    this.setState({ error: error.response.data.error.message });
+                } else if (error.request) {
+                    this.setState({ error: "There is no response from server." });
+                }
+            });
+        }
+    }
+
+    validateInput() {
+        const { name, email, password } = this.state;
+
+        if (!name) {
+            this.setState({ error: "Please enter your name." });
+            return false;
+        } else if (!email) {
+            this.setState({ error: "Please enter your email address." });
+            return false;
+        } else if (!email.includes("@")) {
+            this.setState({ error: "A valid email address contains \"@\"." });
+            return false;
+        } else if (!password) {
+            this.setState({ error: "Please enter your password." });
+            return false;
+        } else if (password.length < 6) {
+            this.setState({ error: "Your password must contain at least 6 characters." });
+            return false;
+        } else {
+            return true;
+        }
     }
 
     render() {
