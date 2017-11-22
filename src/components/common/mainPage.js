@@ -11,7 +11,6 @@ class MainPage extends React.Component {
             <Header />
         );
     }
-
 }
 
 export default MainPage;
