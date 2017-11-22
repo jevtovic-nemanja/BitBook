@@ -50,9 +50,9 @@ class RegisterForm extends React.Component {
     register(event) {
         event.preventDefault();
 
-        const validation = this.validateInput();
+        const isValid = this.validateInput();
 
-        if (validation) {
+        if (isValid) {
             const { name, email, password, error } = this.state;
 
             const data = {

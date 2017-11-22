@@ -2,12 +2,13 @@ import { APIService } from "./serviceApi";
 import { redirect } from "./serviceRedirect";
 
 import { BASE_URL, SESSION_ID } from "../../constants";
+import {storageService} from "./serviceStorage";
 
 class ServiceAuthentication {
     constructor() {}
 
     isAuthenticated() {
-        const sessionId = sessionStorage.getItem(SESSION_ID);
+        const sessionId = storageService.getStorageItem(SESSION_ID);
         if (sessionId) {
             return true;
         } else {
@@ -19,13 +20,13 @@ class ServiceAuthentication {
         const url = "/login";
 
         APIService.postToAPI(url, data, responseData => {
-            sessionStorage.setItem(SESSION_ID, responseData.sessionId);
+            storageService.setStorageItem(SESSION_ID, responseData.sessionId);
             redirect("/");
         }, error => errorCallback(error));
     }
 
     logOut() {
-        sessionStorage.clear();
+        storageService.clearStorage();
         redirect("/");
     }
 

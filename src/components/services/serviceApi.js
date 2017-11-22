@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { SESSION_ID, API_KEY, BASE_URL } from "../../constants";
+import {storageService} from "./serviceStorage";
 
 class ServiceAPI {
     constructor() { }
@@ -30,7 +31,7 @@ class ServiceAPI {
     }
 
     createRequest(requestData) {
-        const sessionId = sessionStorage.getItem(SESSION_ID);
+        const sessionId = storageService.getStorageItem(SESSION_ID);
 
         let headers = {
             "Content-Type": "application/json",

@@ -49,9 +49,9 @@ class LoginForm extends React.Component {
     logIn(event) {
         event.preventDefault();
 
-        const validation = this.validateInput();
+        const isValid = this.validateInput();
 
-        if (validation) {
+        if (isValid) {
             const { email, password } = this.state;
 
             const data = {
