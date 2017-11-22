@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import { SESSION_ID, API_KEY } from "../../constants";
 
 class ServiceAPI {
@@ -9,7 +11,7 @@ class ServiceAPI {
             method: "GET",
             body: dataObject,
             callback: callback
-        }
+        };
 
         this.createRequest(requestData);
     }
@@ -20,39 +22,39 @@ class ServiceAPI {
             method: "POST",
             body: dataObject,
             callback: callback
-        }
+        };
 
         this.createRequest(requestData);
     }
 
     createRequest(requestData) {
-        const sessionId = JSON.parse(sessionStorage.getItem(SESSION_ID));
+        const sessionId = sessionStorage.getItem(SESSION_ID);
 
         let headers = null;
         if (sessionId) {
             headers = {
-                "Content-type": "application/json; charset=UTF-8",
+                "Content-Type": "application/json",
                 "Key": API_KEY,
-                "SessionId": sessionId
-            }
+                "SessionId": sessionId,
+                "Allow": "application/json"
+            };
         } else {
             headers = {
-                "Content-type": "application/json; charset=UTF-8",
-                "Key": API_KEY
-            }
+                "Content-Type": "application/json",
+                "Key": API_KEY,
+                "Allow": "application/json"
+            };
         }
 
-        const requestOptions = {
-            headers: headers,
+        axios({
             method: requestData.method,
-            body: JSON.stringify(requestData.body)
-        }
-
-        fetch(requestData.url, requestOptions)
-            .then(response => response.json())
-            .then(result => requestData.callback(result))
+            url: requestData.url,
+            headers: headers,
+            data: JSON.stringify(requestData.body),
+            JSON: true
+        })
+            .then(response => requestData.callback(response.data));
     }
-
 }
 
 export default ServiceAPI;

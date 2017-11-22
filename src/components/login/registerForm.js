@@ -2,18 +2,22 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
+import ServiceAuthentication from "../services/serviceAuthentication";
+
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = this.initState();
+        this.authService = new ServiceAuthentication();
+
         this.bindEventHandlers();
 
     }
 
     initState(){
         return{
-            fullName: "",
+            name: "",
             email: "",
             password: ""
         };
@@ -22,6 +26,7 @@ class RegisterForm extends React.Component {
 
     bindEventHandlers() {
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.register = this.register.bind(this);
     }
 
     handleInputChange(event) {
@@ -33,9 +38,17 @@ class RegisterForm extends React.Component {
         });
     }
 
-    register() {
+    register(event) {
         event.preventDefault();
         
+        const data = {
+            username: this.state.email,
+            password: this.state.password,
+            name: this.state.name,
+            email: this.state.email
+        };
+
+        this.authService.register(data);
     }
 
     render() {
@@ -48,6 +61,7 @@ class RegisterForm extends React.Component {
 
 
                 <form>
+
                     <div className="form-group">
                         <label htmlFor="exampleInputText1">Full Name</label>
                         <input type="text" className="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="Full Name" name="fullName" value={this.state.fullName} onChange={this.handleInputChange}/>
@@ -67,8 +81,6 @@ class RegisterForm extends React.Component {
                     <button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
 
                 </form>
-
-
 
             </main>
         );
