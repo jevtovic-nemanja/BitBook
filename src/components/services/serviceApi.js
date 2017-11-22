@@ -5,23 +5,25 @@ import { SESSION_ID, API_KEY } from "../../constants";
 class ServiceAPI {
     constructor() { }
 
-    getFromAPI(url, dataObject, callback) {
+    getFromAPI(url, dataObject, callback, errorCallback) {
         const requestData = {
             url: url,
             method: "GET",
             body: dataObject,
-            callback: callback
+            callback: callback,
+            errorCallback: errorCallback
         };
 
         this.createRequest(requestData);
     }
 
-    postToAPI(url, dataObject, callback) {
+    postToAPI(url, dataObject, callback, errorCallback) {
         const requestData = {
             url: url,
             method: "POST",
             body: dataObject,
-            callback: callback
+            callback: callback,
+            errorCallback: errorCallback
         };
 
         this.createRequest(requestData);
@@ -30,20 +32,14 @@ class ServiceAPI {
     createRequest(requestData) {
         const sessionId = sessionStorage.getItem(SESSION_ID);
 
-        let headers = null;
+        let headers = {
+            "Content-Type": "application/json",
+            "Key": API_KEY,
+            "Allow": "application/json"
+        };
+        
         if (sessionId) {
-            headers = {
-                "Content-Type": "application/json",
-                "Key": API_KEY,
-                "SessionId": sessionId,
-                "Allow": "application/json"
-            };
-        } else {
-            headers = {
-                "Content-Type": "application/json",
-                "Key": API_KEY,
-                "Allow": "application/json"
-            };
+            headers.SessionId = sessionId;
         }
 
         axios({
@@ -53,7 +49,8 @@ class ServiceAPI {
             data: JSON.stringify(requestData.body),
             JSON: true
         })
-            .then(response => requestData.callback(response.data));
+            .then(response => requestData.callback(response.data))
+            .catch(error => requestData.errorCallback(error));
     }
 }
 

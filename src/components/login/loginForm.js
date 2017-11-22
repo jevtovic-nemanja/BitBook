@@ -18,7 +18,8 @@ class LoginForm extends React.Component {
     initState() {
         return {
             email: "",
-            password: ""
+            password: "",
+            error: false
         };
 
     }
@@ -45,7 +46,13 @@ class LoginForm extends React.Component {
             password: this.state.password
         };
 
-        this.authService.logIn(data);
+        this.authService.logIn(data, error => {
+            if (error.response) {
+                this.setState({ error: error.response.data.error.message });
+            } else if (error.request) {
+                this.setState({ error: "There is no response from server." });
+            }
+        });
     }
 
     render() {
@@ -65,6 +72,12 @@ class LoginForm extends React.Component {
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                    </div>
+                    <div className="error">
+                        {this.state.error
+                            ? <p>{this.state.error}</p>
+                            : <p></p>
+                        }
                     </div>
                 
                     <button type="submit" className="btn btn-primary" onClick={this.logIn}>Login</button>

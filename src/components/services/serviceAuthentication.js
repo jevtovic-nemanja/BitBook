@@ -17,13 +17,13 @@ class ServiceAuthentication {
         }
     }
 
-    logIn(data) {
+    logIn(data, errorCallback) {
         const url = `${BASE_URL}/login`;
 
         this.apiService.postToAPI(url, data, responseData => {
             sessionStorage.setItem(SESSION_ID, responseData.sessionId);
             redirect("/");
-        });
+        }, error => errorCallback(error));
     }
 
     logOut() {
@@ -31,12 +31,12 @@ class ServiceAuthentication {
         redirect("/");
     }
 
-    register(data) {
+    register(data, errorCallback) {
         const url = `${BASE_URL}/register`;
 
         this.apiService.postToAPI(url, data, responseData => {
             redirect("/");
-        });
+        }, error => errorCallback(error));
     }
 }
 

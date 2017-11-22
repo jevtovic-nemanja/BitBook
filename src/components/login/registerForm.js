@@ -15,11 +15,12 @@ class RegisterForm extends React.Component {
 
     }
 
-    initState(){
-        return{
+    initState() {
+        return {
             name: "",
             email: "",
-            password: ""
+            password: "",
+            error: false
         };
 
     }
@@ -40,7 +41,7 @@ class RegisterForm extends React.Component {
 
     register(event) {
         event.preventDefault();
-        
+
         const data = {
             username: this.state.email,
             password: this.state.password,
@@ -48,7 +49,13 @@ class RegisterForm extends React.Component {
             email: this.state.email
         };
 
-        this.authService.register(data);
+        this.authService.register(data, error => {
+            if (error.response) {
+                this.setState({ error: error.response.data.error.message });
+            } else if (error.request) {
+                this.setState({ error: "There is no response from server." });
+            }
+        });
     }
 
     render() {
@@ -64,7 +71,7 @@ class RegisterForm extends React.Component {
 
                     <div className="form-group">
                         <label htmlFor="exampleInputText1">Full Name</label>
-                        <input type="text" className="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="Full Name" name="fullName" value={this.state.fullName} onChange={this.handleInputChange}/>
+                        <input type="text" className="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
                     </div>
 
                     <div className="form-group">
@@ -77,7 +84,13 @@ class RegisterForm extends React.Component {
                         <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Min 6 characters" name="password" value={this.state.password} onChange={this.handleInputChange} />
                     </div>
-                
+                    <div className="error">
+                        {this.state.error
+                            ? <p>{this.state.error}</p>
+                            : <p></p>
+                        }
+                    </div>
+
                     <button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
 
                 </form>
