@@ -1,8 +1,14 @@
 import React from "react";
 
+import {authenticationService} from "../services/serviceAuthentication";
+ 
 class Header extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    logOut() {
+        authenticationService.logOut();
     }
 
     render() {
@@ -24,10 +30,7 @@ class Header extends React.Component {
                             <a className="nav-link" href="#">Contact</a>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-outline-success my-2 my-sm-0 " >Logout</button>
-                        </li>
-                        <li className="nav-item">
-                            <button className="btn btn-outline-success my-2 my-sm-0" >Post</button>
+                            <button className="btn btn-outline-success my-2 my-sm-0 " onClick={this.logOut} >Logout</button>
                         </li>
                     </ul>
                 </div>
