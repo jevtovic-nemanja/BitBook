@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import { authenticationService } from "./services/serviceAuthentication";
 
 import LoginPage from "./login/loginPage";
-import Main from "./common/main";
+import MainPage from "./common/mainPage";
 
 class App extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class App extends React.Component {
         const isAuthenticated = authenticationService.isAuthenticated();
 
         if (isAuthenticated) {
-            return <Main />;
+            return <MainPage />;
         } else {
             return <LoginPage />;
         }
