@@ -2,18 +2,15 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import {authenticationService} from "../services/serviceAuthentication";
+import { authenticationService } from "../services/serviceAuthentication";
 
 class LoginForm extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
-       
-
+        
         this.bindEventHandlers();
     }
-
 
     initState() {
         return {
@@ -109,16 +106,9 @@ class LoginForm extends React.Component {
 
                 </form>
 
-
             </main>
-
-
         );
     }
-
-
-
-
 }
 
 export default LoginForm;

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { SESSION_ID, API_KEY, BASE_URL } from "../../constants";
-import {storageService} from "./serviceStorage";
+import { storageService } from "./serviceStorage";
 
 class ServiceAPI {
     constructor() { }
@@ -38,7 +38,7 @@ class ServiceAPI {
             "Key": API_KEY,
             "Allow": "application/json"
         };
-        
+
         if (sessionId) {
             headers.SessionId = sessionId;
         }

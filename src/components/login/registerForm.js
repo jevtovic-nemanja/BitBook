@@ -2,17 +2,14 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import {authenticationService} from "../services/serviceAuthentication";
+import { authenticationService } from "../services/serviceAuthentication";
 
 class RegisterForm extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
-   
 
         this.bindEventHandlers();
-
     }
 
     initState() {
@@ -20,9 +17,9 @@ class RegisterForm extends React.Component {
             name: "",
             email: "",
             password: "",
+            confirmPassword: "",
             error: false
         };
-
     }
 
     bindEventHandlers() {
@@ -67,7 +64,7 @@ class RegisterForm extends React.Component {
     }
 
     validateInput() {
-        const { name, email, password } = this.state;
+        const { name, email, password, confirmPassword } = this.state;
 
         if (!name) {
             this.setState({ error: "Please enter your name." });
@@ -84,7 +81,11 @@ class RegisterForm extends React.Component {
         } else if (password.length < 6) {
             this.setState({ error: "Your password must contain at least 6 characters." });
             return false;
-        } else {
+        } else if (password !== confirmPassword) {
+            this.setState({ error: "Passwords don't match!" });
+            return false;
+        }
+        else {
             return true;
         }
     }
@@ -96,7 +97,6 @@ class RegisterForm extends React.Component {
                     <Link to="/login"><button className="btn btn-light">Login</button></Link>
                     <Link to="/register"><button className="btn btn-light">Register</button></Link>
                 </div>
-
 
                 <form>
 
@@ -115,6 +115,12 @@ class RegisterForm extends React.Component {
                         <label htmlFor="exampleInputPassword1">Password</label>
                         <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Min 6 characters" name="password" value={this.state.password} onChange={this.handleInputChange} />
                     </div>
+
+                    <div className="form-group">
+                        <label htmlFor="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" className="form-control" id="exampleConfirmPassword1" placeholder="Confirm password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.handleInputChange} />
+                    </div>
+
                     <div className="error">
                         {this.state.error
                             ? <p>{this.state.error}</p>
@@ -128,12 +134,7 @@ class RegisterForm extends React.Component {
 
             </main>
         );
-
-
     }
-
-
-
 }
 
 export default RegisterForm;

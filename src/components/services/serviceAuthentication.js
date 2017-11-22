@@ -2,13 +2,14 @@ import { APIService } from "./serviceApi";
 import { redirect } from "./serviceRedirect";
 
 import { BASE_URL, SESSION_ID } from "../../constants";
-import {storageService} from "./serviceStorage";
+import { storageService } from "./serviceStorage";
 
 class ServiceAuthentication {
-    constructor() {}
+    constructor() { }
 
     isAuthenticated() {
         const sessionId = storageService.getStorageItem(SESSION_ID);
+        
         if (sessionId) {
             return true;
         } else {
@@ -39,4 +40,4 @@ class ServiceAuthentication {
     }
 }
 
-export const  authenticationService = new ServiceAuthentication();
+export const authenticationService = new ServiceAuthentication();

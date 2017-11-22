@@ -5,7 +5,6 @@ class ServiceStorage {
 
     getStorageItem(key) {
         return this.storage.getItem(key);
-
     }
 
     setStorageItem(key, data) {
@@ -14,9 +13,7 @@ class ServiceStorage {
 
     clearStorage() {
         return this.storage.clear();
-
     }
-
 }
 
 export const storageService = new ServiceStorage();
