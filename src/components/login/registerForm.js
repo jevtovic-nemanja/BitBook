@@ -39,6 +39,14 @@ class RegisterForm extends React.Component {
         });
     }
 
+    handleNetworkRequestError(error) {
+        if (error.response) {
+            this.setState({ error: error.response.data.error.message });
+        } else if (error.request) {
+            this.setState({ error: "There is no response from server." });
+        }
+    }
+
     register(event) {
         event.preventDefault();
 
@@ -54,14 +62,7 @@ class RegisterForm extends React.Component {
                 email: email
             };
 
-
-            this.authService.register(data, error => {
-                if (error.response) {
-                    this.setState({ error: error.response.data.error.message });
-                } else if (error.request) {
-                    this.setState({ error: "There is no response from server." });
-                }
-            });
+            this.authService.register(data, error => this.handleNetworkRequestError(error));
         }
     }
 

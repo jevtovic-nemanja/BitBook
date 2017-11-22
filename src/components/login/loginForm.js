@@ -38,6 +38,14 @@ class LoginForm extends React.Component {
         });
     }
 
+    handleNetworkRequestError(error) {
+        if (error.response) {
+            this.setState({ error: error.response.data.error.message });
+        } else if (error.request) {
+            this.setState({ error: "There is no response from server." });
+        }
+    }
+
     logIn(event) {
         event.preventDefault();
 
@@ -51,13 +59,7 @@ class LoginForm extends React.Component {
                 password: password
             };
 
-            this.authService.logIn(data, error => {
-                if (error.response) {
-                    this.setState({ error: error.response.data.error.message });
-                } else if (error.request) {
-                    this.setState({ error: "There is no response from server." });
-                }
-            });
+            this.authService.logIn(data, error => this.handleNetworkRequestError(error));
         }
     }
 
