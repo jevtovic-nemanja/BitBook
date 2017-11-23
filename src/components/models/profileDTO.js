@@ -1,51 +1,51 @@
 class ProfileDTO {
     constructor(name, bio, about, picture, noOfPosts, noOfComments) {
-        this.name = name;
-        this.bio = bio;
-        this.about = about;
-        this.picture = picture;
-        this.noOfPosts = noOfPosts;
-        this.noOfComments = noOfComments;
+        this._name = name;
+        this._bio = bio;
+        this._about = about;
+        this._picture = picture;
+        this._noOfPosts = noOfPosts;
+        this._noOfComments = noOfComments;
     }
 
     get name() {
-        return this.name;
+        return this._name;
     }
 
     set name(value) {
-        this.name = value;
+        this._name = value;
     }
 
     get bio() {
-        return this.bio;
+        return this._bio;
     }
 
     set bio(value) {
-        this.bio = value;
+        this._bio = value;
     }
 
     get about() {
-        return this.about;
+        return this._about;
     }
 
     set about(value) {
-        this.about = value;
+        this._about = value;
     }
 
     get picture() {
-        return this.picture;
+        return this._picture;
     }
 
     set picture(value) {
-        this.picture = value;
+        this._picture = value;
     }
 
     get noOfPosts() {
-        return this.noOfPosts;
+        return this._noOfPosts;
     }
 
     get noOfComments() {
-        return this.noOfComments;
+        return this._noOfComments;
     }
 }
 

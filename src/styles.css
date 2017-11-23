@@ -56,7 +56,9 @@ footer{
     -moz-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
     box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
     margin-bottom: 2%;
+    max-width: 250px;
 }
+
 .profilename{
     font-family: 'PT Serif', serif;
     margin-bottom: 1%;
