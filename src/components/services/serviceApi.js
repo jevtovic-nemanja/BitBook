@@ -29,6 +29,18 @@ class ServiceAPI {
         this.createRequest(requestData);
     }
 
+    putToAPI(url, dataObject, callback, errorCallback){
+        const requestData = {
+            url: url,
+            method: "PUT",
+            body: dataObject,
+            callback: callback,
+            errorCallback: errorCallback
+        };
+
+        this.createRequest(requestData);
+    }
+
     createRequest(requestData) {
         const sessionId = storageService.getStorageItem(SESSION_ID);
 
