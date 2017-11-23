@@ -44,16 +44,8 @@ class ProfileDTO {
         return this.noOfPosts;
     }
 
-    set noOfPosts(value) {
-        this.noOfPosts = value;
-    }
-
     get noOfComments() {
         return this.noOfComments;
-    }
-
-    set noOfComments(value) {
-        this.noOfComments = value;
     }
 }
 
