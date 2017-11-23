@@ -1,5 +1,7 @@
 import React from "react";
 import Header from "./header";
+import ProfilePage from "../profile/profilePage";
+import Footer from "./footer";
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -8,7 +10,11 @@ class MainPage extends React.Component {
 
     render() {
         return (
-            <Header />
+            <div>
+                <Header />
+                <ProfilePage />
+                <Footer />
+            </div>
         );
     }
 }
