@@ -1,7 +1,7 @@
 import React from "react";
 
-import {authenticationService} from "../services/serviceAuthentication";
- 
+import { authenticationService } from "../services/serviceAuthentication";
+
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -29,10 +29,10 @@ class Header extends React.Component {
                         <li className="nav-item">
                             <a className="nav-link" href="#">Contact</a>
                         </li>
-                        <li className="nav-item">
-                            <button className="btn btn-outline-success my-2 my-sm-0 logout" onClick={this.logOut} >Logout</button>
-                        </li>
                     </ul>
+                    <div className="ml-auto">
+                        <button className="btn btn-outline-success my-2 my-sm-0 logout" onClick={this.logOut} >Logout</button>
+                    </div>
                 </div>
             </nav>
         );
