@@ -6,11 +6,10 @@ import { storageService } from "./serviceStorage";
 class ServiceAPI {
     constructor() { }
 
-    getFromAPI(url, dataObject, callback, errorCallback) {
+    getFromAPI(url, callback, errorCallback) {
         const requestData = {
             url: url,
             method: "GET",
-            body: dataObject,
             callback: callback,
             errorCallback: errorCallback
         };
@@ -43,14 +42,19 @@ class ServiceAPI {
             headers.SessionId = sessionId;
         }
 
-        axios({
+        let axiosConfig = {
             baseURL: BASE_URL,
             method: requestData.method,
             url: requestData.url,
             headers: headers,
-            data: JSON.stringify(requestData.body),
             JSON: true
-        })
+        };
+
+        if (requestData.body) {
+            axiosConfig.data = JSON.stringify(requestData.body);
+        }
+
+        axios(axiosConfig)
             .then(response => requestData.callback(response.data))
             .catch(error => requestData.errorCallback(error));
     }
