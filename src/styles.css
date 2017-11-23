@@ -33,3 +33,39 @@
 .error {
     color: red;
 }
+
+footer{
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    
+}
+
+.footertext{
+    color: black;
+}
+
+.profilecontent{
+    text-align: center;
+    margin: 4% auto 0;
+    width: 50%;
+}
+.profileimage{
+    border-radius: 15%;
+    -webkit-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
+    -moz-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
+    box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
+    margin-bottom: 2%;
+}
+.profilename{
+    font-family: 'PT Serif', serif;
+    margin-bottom: 1%;
+}
+
+.profileabout {
+    border: 1px solid green;
+    width: 50%;
+    margin: 0 auto 2%;
+}
+
+
