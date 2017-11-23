@@ -12,6 +12,12 @@ class ServiceData {
             callback(profile);
         }, errorCallback);
     }
+
+    updateProfile(dataObject, callback, errorCallback) {
+        APIService.putToAPI("/Profiles", dataObject,
+            response => this.getProfile(callback, errorCallback),
+            errorCallback);
+    }
 }
 
 export const dataService = new ServiceData();
