@@ -21,7 +21,15 @@ class ProfilePage extends React.Component {
                 noOfPosts: 0,
                 noOfComments: 0
             },
-            show: "hide"
+            edit: {
+                editName: "",
+                editEmail: "",
+                editBio: "",
+                editAbout: "",
+                editPicture: "",
+            },
+            show: "hide",
+            error: ""
         };
     }
 
@@ -39,7 +47,9 @@ class ProfilePage extends React.Component {
         const value = event.target.value;
 
         this.setState({
-            [name]: value
+            edit: {
+                [name]: value
+            }
         });
     }
 
@@ -50,8 +60,29 @@ class ProfilePage extends React.Component {
     }
 
     loadProfile() {
-        dataService.getProfile(profileDTO => this.setState({ profile: profileDTO }),
-            error => this.handleNetworkRequestError(error));
+        dataService.getProfile(profileDTO => {
+            const { _name, _email, _bio, _about, _picture, _noOfPosts, _noOfComments } = profileDTO;
+
+            this.setState({
+                profile: {
+                    name: _name,
+                    email: _email,
+                    bio: _bio,
+                    about: _about,
+                    picture: _picture,
+                    noOfPosts: _noOfPosts,
+                    noOfComments: _noOfComments
+                },
+                edit: {
+                    editName: _name,
+                    editEmail: _email,
+                    editBio: _bio,
+                    editAbout: _about,
+                    editPicture: _picture
+                }
+            });
+        }),
+        error => this.handleNetworkRequestError(error);
     }
 
     toggleModalShow(event) {
@@ -64,16 +95,41 @@ class ProfilePage extends React.Component {
         }
     }
 
+    validateInput() {
+        const { editName, editEmail, editBio, editAbout, editPicture } = this.state.edit;
+
+        if (!editName) {
+            this.setState({ error: "Please enter a name." });
+            return false;
+        } else if (!editEmail) {
+            this.setState({ error: "Please enter an email address." });
+            return false;
+        } else if (!editEmail.includes("@")) {
+            this.setState({ error: "A valid email address contains \"@\"." });
+            return false;
+        } else if (!editBio) {
+            this.setState({ error: "Please enter a short bio." });
+            return false;
+        } else if (!editAbout) {
+            this.setState({ error: "Please enter something about yourself." });
+            return false;
+        } else if (!editPicture) {
+            this.setState({ error: "Please set your profile picture." });
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     updateProfile() {
 
     }
 
     render() {
         const { name, email, bio, about, picture, noOfPosts, noOfComments } = this.state.profile;
-        const { show } = this.state;
-
-
-        console.log(this.state);
+        const { editName, editEmail, editBio, editAbout, editPicture } = this.state.edit;
+        const { show, error } = this.state;
 
         return (
             <div>
@@ -97,17 +153,23 @@ class ProfilePage extends React.Component {
                             <div className="editForm">
                                 <form>
                                     <label htmlFor="exampleInputText1">Name</label>
-                                    <input type="text" className="form-control modalInput" id="exampleInputText1" placeholder="Name" name="name" value={name} onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control modalInput" id="exampleInputText1" placeholder="Name" name="editName" value={editName} onChange={this.handleInputChange} />
                                     <label htmlFor="exampleInputEmail1">Contact Email</label>
-                                    <input type="email" className="form-control modalInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value={email} onChange={this.handleInputChange} />
+                                    <input type="email" className="form-control modalInput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="editEmail" value={editEmail} onChange={this.handleInputChange} />
                                     <small id="emailHelp" className="form-text text-muted modalInput">We will never share your email with anyone else.</small>
                                     <label htmlFor="exampleInputText2">Bio</label>
-                                    <textarea className="form-control modalInput" id="exampleInputText2" placeholder="Short Bio" name="bio" value={bio} onChange={this.handleInputChange} />
+                                    <textarea className="form-control modalInput" id="exampleInputText2" placeholder="Short Bio" name="editBio" value={editBio} onChange={this.handleInputChange} />
                                     <label htmlFor="exampleInputText3">About</label>
-                                    <textarea className="form-control modalInput" id="exampleInputText3" placeholder="About" name="about" rows="10" value={about} onChange={this.handleInputChange} />
+                                    <textarea className="form-control modalInput" id="exampleInputText3" placeholder="About" name="editAbout" rows="10" value={editAbout} onChange={this.handleInputChange} />
                                     <label htmlFor="exampleInputText4">Picture</label>
-                                    <input type="text" className="form-control modalInput" id="exampleInputText4" placeholder="Picture URL" name="picture" value={picture} onChange={this.handleInputChange} />
+                                    <input type="text" className="form-control modalInput" id="exampleInputText4" placeholder="Picture URL" name="editPicture" value={editPicture} onChange={this.handleInputChange} />
                                 </form>
+                            </div>
+                            <div className="error">
+                                {error
+                                    ? <p>{error}</p>
+                                    : <p></p>
+                                }
                             </div>
                             <div>
                                 <button className="btn btn-outline-success my-2 my-sm-0 saveButtonStyle" onClick={this.modalSave}>
