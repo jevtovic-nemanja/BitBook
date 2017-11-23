@@ -18,7 +18,8 @@ class ProfilePage extends React.Component {
                 picture: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
                 noOfPosts: 0,
                 noOfComments: 0
-            }
+            },
+            error: ""
         };
     }
 
@@ -27,9 +28,7 @@ class ProfilePage extends React.Component {
     }
 
     handleNetworkRequestError(error) {
-        if (error.response) {
-            alert(error.response.data.error.message);
-        } else if (error.request) {
+        if (error.request) {
             alert("There is no response from server.");
         }
     }
