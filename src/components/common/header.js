@@ -30,7 +30,7 @@ class Header extends React.Component {
                             <a className="nav-link" href="#">Contact</a>
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-outline-success my-2 my-sm-0 " onClick={this.logOut} >Logout</button>
+                            <button className="btn btn-outline-success my-2 my-sm-0 logout" onClick={this.logOut} >Logout</button>
                         </li>
                     </ul>
                 </div>

@@ -7,8 +7,8 @@ class ServiceData {
 
     getProfile(callback, errorCallback) {
         APIService.getFromAPI("/profile", responseData => {
-            const { name, aboutShort, about, avatarUrl, postsCount, commentsCount } = responseData;
-            const profile = new ProfileDTO(name, aboutShort, about, avatarUrl, postsCount, commentsCount);
+            const { name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = responseData;
+            const profile = new ProfileDTO(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
             callback(profile);
         }, errorCallback);
     }
