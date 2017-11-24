@@ -33,8 +33,8 @@ class ServiceData {
     }
 
     packProfile(responseData) {
-        const { name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = responseData;
-        const profile = new Profile(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
+        const { userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = responseData;
+        const profile = new Profile(userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
         return profile;
     }
 
