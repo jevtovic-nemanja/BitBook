@@ -8,7 +8,6 @@ class UserProfilePage extends React.Component {
         super(props);
 
         this.state = this.initState();
-        this.bindEventHandlers();
     }
 
     initState() {
@@ -16,18 +15,22 @@ class UserProfilePage extends React.Component {
             profile: {
                 _name: "",
                 _email: "",
-                _bio: "",
+                _aboutShort: "",
                 _about: "",
-                _picture: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
-                _noOfPosts: 0,
-                _noOfComments: 0
+                _avatarUrl: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
+                _postsCount: 0,
+                _commentsCount: 0
             },
             error: ""
         };
     }
 
     componentDidMount() {
-        this.getProfile();
+        this.getProfile(this.props.match.params.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.getProfile(nextProps.match.params.id);
     }
 
     handleNetworkRequestError(error) {
@@ -36,8 +39,8 @@ class UserProfilePage extends React.Component {
         }
     }
 
-    getProfile() {
-        dataService.getProfile(profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
+    getProfile(id) {
+        dataService.getUserProfile(id, profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
     }
 
     loadProfile(profile) {
@@ -46,19 +49,19 @@ class UserProfilePage extends React.Component {
 
     render() {
 
-        let { _name, _email, _bio, _about, _picture, _noOfPosts, _noOfComments } = this.state.profile;
+        let { _name, _email, _aboutShort, _about, _avatarUrl, _postsCount, _commentsCount } = this.state.profile;
         let { error } = this.state;
 
         return (
             <div>
 
                 <div className="profilecontent">
-                    <img src={_picture} className="profileimage" />
+                    <img src={_avatarUrl} className="profileimage" />
                     <h1 className="profilename">{_name}</h1>
-                    <p className="profileabout">{_bio}</p>
+                    <p className="profileabout">{_aboutShort}</p>
                     <p className="profileabout">{_about}</p>
-                    <div className="profilecounter">{_noOfPosts}</div>
-                    <div className="profilecounter">{_noOfComments}</div>
+                    <div className="profilecounter">{_postsCount}</div>
+                    <div className="profilecounter">{_commentsCount}</div>
                 </div>
             </div>
         );

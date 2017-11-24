@@ -7,6 +7,7 @@ import { Footer } from "./footer";
 import ProfilePage from "../profile/profilePage";
 import FeedPage from "../feed/feedPage";
 import PeoplePage from "../people/peoplePage";
+import UserProfilePage from "../people/userProfilePage";
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -21,7 +22,8 @@ class MainPage extends React.Component {
                     <Route exact path="/" component={FeedPage} />
                     <Route path="/feed" component={FeedPage} />
                     <Route path="/profile" component={ProfilePage} />
-                    <Route path="/people" component={PeoplePage} />
+                    <Route exact path="/people" component={PeoplePage} />
+                    <Route path="/people/:id" component={UserProfilePage} />
                 </Switch>
                 <Footer />
             </div>

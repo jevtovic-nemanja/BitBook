@@ -35,7 +35,7 @@ class PeoplePage extends React.Component {
         return (
             <main>
                 {this.state.users.map(user => {
-                    return <UserDescription userData={user} key={user._id} />;
+                    return <UserDescription userData={user} key={user._id} id={user._id} />;
                 })}
             </main>
         );
