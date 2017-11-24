@@ -7,8 +7,8 @@ export const UserDescription = (props) => {
 
     return (
         <Link to={`/people/${_id}`} >
-            <div>
-                <div>
+            <div className="userDescription float-left">
+                <div className="userImage">
                     <img src={_avatarUrl} />
                 </div>
                 <div>
