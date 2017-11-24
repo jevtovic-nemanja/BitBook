@@ -114,6 +114,12 @@ class ProfilePage extends React.Component {
 
     updateProfile(event) {
         event.preventDefault();
+        const isValid = this.validateInput();
+
+        if (isValid) {
+            
+
+        }
 
     }
 

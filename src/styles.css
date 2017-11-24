@@ -29,6 +29,8 @@
 
 .error {
     color: red;
+    text-align: center;
+    font-size: 14px;
 }
 
 footer{
@@ -98,7 +100,7 @@ footer{
     background-color: #fff;
     border-radius: 5%;
     max-width: 500px;
-    min-height: 800px;
+    min-height: 820px;
     margin: 0 auto;
     padding: 30px;
     position: relative;
