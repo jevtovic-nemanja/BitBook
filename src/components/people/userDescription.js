@@ -1,20 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { BASE_URL } from "../../constants";
 
 export const UserDescription = (props) => {
-    const { _name, _aboutShort, _lastPostDate, _avatarUrl } = props.userData;
-    console.log(props.userData);
+    const { _id, _name, _aboutShort, _lastPostDate, _avatarUrl } = props.userData;
+
     return (
-        <div>
+        <Link to={`/people/${_id}`} >
             <div>
-                <img src={_avatarUrl} />
+                <div>
+                    <img src={_avatarUrl} />
+                </div>
+                <div>
+                    <h3>{_name}</h3>
+                    <p>{_aboutShort}</p>
+                </div>
+                <div>
+                    <p>{_lastPostDate}</p>
+                </div>
             </div>
-            <div>
-                <h3>{_name}</h3>
-                <p>{_aboutShort}</p>
-            </div>
-            <div>
-                <p>{_lastPostDate}</p>
-            </div>
-        </div>
+        </Link>
     );
 };

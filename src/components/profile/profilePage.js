@@ -16,11 +16,11 @@ class ProfilePage extends React.Component {
             profile: {
                 _name: "",
                 _email: "",
-                _bio: "",
+                _aboutShort: "",
                 _about: "",
-                _picture: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
-                _noOfPosts: 0,
-                _noOfComments: 0
+                _avatarUrl: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
+                _postsCount: 0,
+                _commentsCount: 0
             },
             edit: {
                 name: "",
@@ -70,9 +70,9 @@ class ProfilePage extends React.Component {
             edit: {
                 name: profile._name,
                 email: profile._email,
-                aboutShort: profile._bio,
+                aboutShort: profile._aboutShort,
                 about: profile._about,
-                avatarUrl: profile._picture
+                avatarUrl: profile._avatarUrl
             }
         });
     }
@@ -128,7 +128,7 @@ class ProfilePage extends React.Component {
 
     render() {
 
-        let { _name, _email, _bio, _about, _picture, _noOfPosts, _noOfComments } = this.state.profile;
+        let { _name, _email, _aboutShort, _about, _avatarUrl, _postsCount, _commentsCount } = this.state.profile;
         var { name, email, aboutShort, about, avatarUrl } = this.state.edit;
         let { show, error } = this.state;
 
@@ -140,12 +140,12 @@ class ProfilePage extends React.Component {
                     </div>
 
                     <div className="profilecontent">
-                        <img src={_picture} className="profileimage" />
+                        <img src={_avatarUrl} className="profileimage" />
                         <h1 className="profilename">{_name}</h1>
-                        <p className="profileabout">{_bio}</p>
+                        <p className="profileabout">{_aboutShort}</p>
                         <p className="profileabout">{_about}</p>
-                        <div className="profilecounter">{_noOfPosts}</div>
-                        <div className="profilecounter">{_noOfComments}</div>
+                        <div className="profilecounter">{_postsCount}</div>
+                        <div className="profilecounter">{_commentsCount}</div>
                     </div>
                 </div>
 
