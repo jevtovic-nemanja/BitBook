@@ -1,4 +1,4 @@
-class ProfileDTO {
+class Profile {
     constructor(name, email, bio, about, picture, noOfPosts, noOfComments) {
         this._name = name;
         this._email = email;
@@ -58,4 +58,4 @@ class ProfileDTO {
     }
 }
 
-export default ProfileDTO;
+export default Profile;

@@ -1,8 +1,10 @@
 import React from "react";
-import Header from "./header";
-import ProfilePage from "../profile/profilePage";
-import Footer from "./footer";
 import { Switch, Route } from "react-router-dom";
+
+import { Header } from "./header";
+import { Footer } from "./footer";
+
+import ProfilePage from "../profile/profilePage";
 import FeedPage from "../feed/feedPage";
 import PeoplePage from "../people/peoplePage";
 

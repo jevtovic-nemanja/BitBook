@@ -1,6 +1,6 @@
 import { BASE_URL } from "../../constants";
 import { APIService } from "./serviceApi";
-import ProfileDTO from "../models/profileDTO";
+import Profile from "../models/profile";
 
 class ServiceData {
     constructor() { }
@@ -8,7 +8,7 @@ class ServiceData {
     getProfile(callback, errorCallback) {
         APIService.getFromAPI("/profile", responseData => {
             const { name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = responseData;
-            const profile = new ProfileDTO(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
+            const profile = new Profile(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
             callback(profile);
         }, errorCallback);
     }
