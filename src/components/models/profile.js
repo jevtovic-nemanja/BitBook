@@ -1,12 +1,12 @@
 class Profile {
-    constructor(name, email, bio, about, picture, noOfPosts, noOfComments) {
+    constructor(name, email, aboutShort, about, avatarUrl, postsCount, commentsCount) {
         this._name = name;
         this._email = email;
-        this._bio = bio;
+        this._aboutShort = aboutShort;
         this._about = about;
-        this._picture = picture;
-        this._noOfPosts = noOfPosts;
-        this._noOfComments = noOfComments;
+        this._avatarUrl = avatarUrl;
+        this._postsCount = postsCount;
+        this._commentsCount = commentsCount;
     }
 
     get name() {
@@ -25,12 +25,12 @@ class Profile {
         this._email = value;
     }
 
-    get bio() {
-        return this._bio;
+    get aboutShort() {
+        return this._aboutShort;
     }
 
-    set bio(value) {
-        this._bio = value;
+    set aboutShort(value) {
+        this._aboutShort = value;
     }
 
     get about() {
@@ -41,20 +41,20 @@ class Profile {
         this._about = value;
     }
 
-    get picture() {
-        return this._picture;
+    get avatarUrl() {
+        return this._avatarUrl;
     }
 
-    set picture(value) {
-        this._picture = value;
+    set avatarUrl(value) {
+        this._avatarUrl = value;
     }
 
-    get noOfPosts() {
-        return this._noOfPosts;
+    get postsCount() {
+        return this._postsCount;
     }
 
-    get noOfComments() {
-        return this._noOfComments;
+    get commentsCount() {
+        return this._commentsCount;
     }
 }
 

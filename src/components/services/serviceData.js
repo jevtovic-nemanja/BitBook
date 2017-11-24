@@ -1,6 +1,7 @@
 import { BASE_URL } from "../../constants";
 import { APIService } from "./serviceApi";
 import Profile from "../models/profile";
+import User from "../models/user";
 
 class ServiceData {
     constructor() { }
@@ -18,6 +19,20 @@ class ServiceData {
             response => this.getProfile(callback, errorCallback),
             errorCallback);
     }
+
+    getUsers(callback, errorCallback) {
+        APIService.getFromAPI("/users", responseData => {
+            console.log(responseData);
+            let users = responseData.map(item => {
+                let {id, name, aboutShort, lastPostDate, avatarUrl} = item;
+                return new User(id, name, aboutShort, lastPostDate, avatarUrl);
+            });
+            callback(users);
+        }, errorCallback);
+    }
+
 }
+
+
 
 export const dataService = new ServiceData();
