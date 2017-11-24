@@ -102,7 +102,7 @@ class RegisterForm extends React.Component {
 
                     <div className="form-group">
                         <label htmlFor="exampleInputText1">Full Name</label>
-                        <input type="text" className="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
+                        <input type="text" className="form-control" id="exampleInputText1" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
                     </div>
 
                     <div className="form-group">
