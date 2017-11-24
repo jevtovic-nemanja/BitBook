@@ -15,8 +15,7 @@ class PeoplePage extends React.Component{
 
     render(){
         return(
-
-            <p> Peoples </p>
+            <p> People </p>
         );
     }
 }

@@ -21,7 +21,7 @@ class Header extends React.Component {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                        <Link to={`profile/${this.props.myUserName}`} > <li className="nav-item active">
+                        <Link to="/profile" > <li className="nav-item active">
                             <p className="nav-link" href="#">Profile <span className="sr-only">(current)</span></p>
                         </li></Link>
                         <Link to="/feed" ><li className="nav-item">

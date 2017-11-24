@@ -5,9 +5,6 @@ import Footer from "./footer";
 import { Switch, Route } from "react-router-dom";
 import FeedPage from "../feed/feedPage";
 import PeoplePage from "../people/peoplePage";
-import { storageService } from "../services/serviceStorage";
-import { USERNAME } from "../../constants";
-
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -17,11 +14,11 @@ class MainPage extends React.Component {
     render() {
         return (
             <div>
-                <Header myUserName={storageService.getStorageItem(USERNAME)} />
+                <Header />
                 <Switch>
                     <Route exact path="/" component={FeedPage} />
                     <Route path="/feed" component={FeedPage} />
-                    <Route path="/profile/:id" component={ProfilePage} />
+                    <Route path="/profile" component={ProfilePage} />
                     <Route path="/people" component={PeoplePage} />
                 </Switch>
                 <Footer />
