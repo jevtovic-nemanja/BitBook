@@ -29,10 +29,6 @@ class UserProfilePage extends React.Component {
         this.getProfile(this.props.match.params.id);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.getProfile(nextProps.match.params.id);
-    }
-
     handleNetworkRequestError(error) {
         if (error.request) {
             this.setState({ error: "There is no response from server." });
