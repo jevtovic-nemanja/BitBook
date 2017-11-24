@@ -61,8 +61,7 @@ class ProfilePage extends React.Component {
     }
 
     getProfile() {
-        dataService.getProfile(profile => this.loadProfile(profile)),
-        error => this.handleNetworkRequestError(error);
+        dataService.getProfile(profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
     }
 
     loadProfile(profile) {
@@ -136,9 +135,10 @@ class ProfilePage extends React.Component {
         return (
             <div>
                 <div>
-                    <div>
-                        <button className="btn btn-outline-success my-2 my-sm-0 edit" onClick={this.toggleModalShow} >Edit Profile</button>
+                    <div className="text-right editButton">
+                        <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
                     </div>
+
                     <div className="profilecontent">
                         <img src={_picture} className="profileimage" />
                         <h1 className="profilename">{_name}</h1>

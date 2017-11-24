@@ -69,12 +69,6 @@ footer{
     margin: 0 auto 2%;
 }
 
-.edit{
-    position: absolute;
-    top: 80px;
-    right:40px;
-}
-
 .editForm {
     margin: 0 auto;
     border: 1px solid yellowgreen;
@@ -122,4 +116,9 @@ footer{
 
 .hide {
     display: none;
+}
+
+.editButton {
+    margin-top: 20px;
+    margin-right: 50px;
 }
