@@ -56,7 +56,7 @@ class ProfilePage extends React.Component {
 
     handleNetworkRequestError(error) {
         if (error.request) {
-            alert("There is no response from server.");
+            this.setState({ error: "There is no response from server." });
         }
     }
 
@@ -78,8 +78,7 @@ class ProfilePage extends React.Component {
         });
     }
 
-
-    toggleModalShow(event) {
+    toggleModalShow() {
         event.preventDefault();
 
         if (this.state.show === "hide") {
@@ -110,8 +109,7 @@ class ProfilePage extends React.Component {
         } else if (!avatarUrl) {
             this.setState({ error: "Please set your profile picture." });
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -125,7 +123,7 @@ class ProfilePage extends React.Component {
         if (isValid) {
             dataService.updateProfile(dataObject, profile => this.loadProfile(profile),
                 error => this.handleNetworkRequestError(error));
-            redirect("/");
+            this.toggleModalShow();
         }
     }
 
