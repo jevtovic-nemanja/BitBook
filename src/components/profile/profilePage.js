@@ -1,6 +1,7 @@
 import React from "react";
 
 import { dataService } from "../services/serviceData";
+import { redirect } from "../services/serviceRedirect";
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -22,11 +23,11 @@ class ProfilePage extends React.Component {
                 _noOfComments: 0
             },
             edit: {
-                editName: "",
-                editEmail: "",
-                editBio: "",
-                editAbout: "",
-                editPicture: "",
+                name: "",
+                email: "",
+                aboutShort: "",
+                about: "",
+                avatarUrl: "",
             },
             show: "hide",
             error: ""
@@ -40,7 +41,7 @@ class ProfilePage extends React.Component {
     }
 
     componentDidMount() {
-        this.loadProfile();
+        this.getProfile();
     }
 
     handleInputChange(event) {
@@ -55,27 +56,29 @@ class ProfilePage extends React.Component {
 
     handleNetworkRequestError(error) {
         if (error.request) {
-            alert("There is no response from server.");
+            this.setState({ error: "There is no response from server." });
         }
     }
 
-    loadProfile() {
-        dataService.getProfile(profile => {
-            this.setState({
-                profile: profile,
-                edit: {
-                    editName: profile._name,
-                    editEmail: profile._email,
-                    editBio: profile._bio,
-                    editAbout: profile._about,
-                    editPicture: profile._picture
-                }
-            });
-        }),
+    getProfile() {
+        dataService.getProfile(profile => this.loadProfile(profile)),
         error => this.handleNetworkRequestError(error);
     }
 
-    toggleModalShow(event) {
+    loadProfile(profile) {
+        this.setState({
+            profile: profile,
+            edit: {
+                name: profile._name,
+                email: profile._email,
+                aboutShort: profile._bio,
+                about: profile._about,
+                avatarUrl: profile._picture
+            }
+        });
+    }
+
+    toggleModalShow() {
         event.preventDefault();
 
         if (this.state.show === "hide") {
@@ -86,28 +89,27 @@ class ProfilePage extends React.Component {
     }
 
     validateInput() {
-        const { editName, editEmail, editBio, editAbout, editPicture } = this.state.edit;
+        const { name, email, aboutShort, about, avatarUrl } = this.state.edit;
 
-        if (!editName) {
+        if (!name) {
             this.setState({ error: "Please enter a name." });
             return false;
-        } else if (!editEmail) {
+        } else if (!email) {
             this.setState({ error: "Please enter an email address." });
             return false;
-        } else if (!editEmail.includes("@")) {
+        } else if (!email.includes("@")) {
             this.setState({ error: "A valid email address contains \"@\"." });
             return false;
-        } else if (!editBio) {
+        } else if (!aboutShort) {
             this.setState({ error: "Please enter a short bio." });
             return false;
-        } else if (!editAbout) {
+        } else if (!about) {
             this.setState({ error: "Please enter something about yourself." });
             return false;
-        } else if (!editPicture) {
+        } else if (!avatarUrl) {
             this.setState({ error: "Please set your profile picture." });
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -116,20 +118,20 @@ class ProfilePage extends React.Component {
         event.preventDefault();
         const isValid = this.validateInput();
 
+        const dataObject = this.state.edit;
+
         if (isValid) {
-            
-
+            dataService.updateProfile(dataObject, profile => this.loadProfile(profile),
+                error => this.handleNetworkRequestError(error));
+            this.toggleModalShow();
         }
-
     }
 
     render() {
 
         let { _name, _email, _bio, _about, _picture, _noOfPosts, _noOfComments } = this.state.profile;
-        var { editName, editEmail, editBio, editAbout, editPicture } = this.state.edit;
+        var { name, email, aboutShort, about, avatarUrl } = this.state.edit;
         let { show, error } = this.state;
-
-        console.log(this.state);
 
         return (
             <div>
@@ -158,8 +160,8 @@ class ProfilePage extends React.Component {
                                         className="form-control modalInput"
                                         id="exampleInputText1"
                                         placeholder="Name"
-                                        name="editName"
-                                        value={editName}
+                                        name="name"
+                                        value={name}
                                         onChange={this.handleInputChange}
                                     />
 
@@ -170,8 +172,8 @@ class ProfilePage extends React.Component {
                                         id="exampleInputEmail1"
                                         aria-describedby="emailHelp"
                                         placeholder="Enter email"
-                                        name="editEmail"
-                                        value={editEmail}
+                                        name="email"
+                                        value={email}
                                         onChange={this.handleInputChange}
                                     />
                                     <small id="emailHelp" className="form-text text-muted modalInput">We will never share your email with anyone else.</small>
@@ -181,8 +183,8 @@ class ProfilePage extends React.Component {
                                         className="form-control modalInput"
                                         id="exampleInputText2"
                                         placeholder="Short Bio"
-                                        name="editBio"
-                                        value={editBio}
+                                        name="aboutShort"
+                                        value={aboutShort}
                                         onChange={this.handleInputChange}
                                     />
 
@@ -191,9 +193,9 @@ class ProfilePage extends React.Component {
                                         className="form-control modalInput"
                                         id="exampleInputText3"
                                         placeholder="About"
-                                        name="editAbout"
+                                        name="about"
                                         rows="10"
-                                        value={editAbout}
+                                        value={about}
                                         onChange={this.handleInputChange}
                                     />
 
@@ -203,8 +205,8 @@ class ProfilePage extends React.Component {
                                         className="form-control modalInput"
                                         id="exampleInputText4"
                                         placeholder="Picture URL"
-                                        name="editPicture"
-                                        value={editPicture}
+                                        name="avatarUrl"
+                                        value={avatarUrl}
                                         onChange={this.handleInputChange}
                                     />
 
