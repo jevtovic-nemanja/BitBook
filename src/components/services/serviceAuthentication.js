@@ -1,7 +1,7 @@
 import { APIService } from "./serviceApi";
 import { redirect } from "./serviceRedirect";
 
-import { BASE_URL, SESSION_ID } from "../../constants";
+import { BASE_URL, SESSION_ID, USERNAME } from "../../constants";
 import { storageService } from "./serviceStorage";
 
 class ServiceAuthentication {
@@ -22,8 +22,10 @@ class ServiceAuthentication {
 
         APIService.postToAPI(url, data, responseData => {
             storageService.setStorageItem(SESSION_ID, responseData.sessionId);
+            storageService.setStorageItem(USERNAME, responseData.username);
             redirect("/");
         }, error => errorCallback(error));
+
     }
 
     logOut() {
