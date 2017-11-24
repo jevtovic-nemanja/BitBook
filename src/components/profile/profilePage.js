@@ -1,6 +1,7 @@
 import React from "react";
 
 import { dataService } from "../services/serviceData";
+import { redirect } from "../services/serviceRedirect";
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -122,8 +123,9 @@ class ProfilePage extends React.Component {
         const dataObject = this.state.edit;
 
         if (isValid) {
-            dataService.updateProfile(dataObject, profile => this.loadProfile(profile)),
-            error => this.handleNetworkRequestError(error);
+            dataService.updateProfile(dataObject, profile => this.loadProfile(profile),
+                error => this.handleNetworkRequestError(error));
+            redirect("/");
         }
     }
 
