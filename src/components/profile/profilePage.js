@@ -128,9 +128,9 @@ class ProfilePage extends React.Component {
 
     render() {
 
-        let { _name, _email, _aboutShort, _about, _avatarUrl, _postsCount, _commentsCount } = this.state.profile;
-        var { name, email, aboutShort, about, avatarUrl } = this.state.edit;
-        let { show, error } = this.state;
+        const { _name, _email, _aboutShort, _about, _avatarUrl, _postsCount, _commentsCount } = this.state.profile;
+        const { name, email, aboutShort, about, avatarUrl } = this.state.edit;
+        const { show, error } = this.state;
 
         return (
             <div>
