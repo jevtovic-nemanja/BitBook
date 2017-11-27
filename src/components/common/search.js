@@ -17,7 +17,7 @@ class Search extends React.Component {
 
     bindEventHandlers() {
         this.handleInput = this.handleInput.bind(this);
-  
+
     }
 
     handleInput(event) {
@@ -33,9 +33,15 @@ class Search extends React.Component {
         const inputString = this.state.inputString;
 
         return (
-            <form className="search">
-                <input type="text" value={inputString} onChange={this.handleInput} placeholder="Search..." />
+            <form>
+                <div className="input-group search">
+                    <input className="form-control"
+                        type="text" value={inputString}
+                        onChange={this.handleInput}
+                        placeholder="Search..." />
+                </div>
             </form>
+
         );
     }
 }

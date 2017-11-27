@@ -54,7 +54,7 @@ class PeoplePage extends React.Component {
 
     render() {
         return (
-            <main>
+            <main className="container">
                 <Search onSearch={this.filterUsers} />
                 {this.state.users.map(user => {
                     return (
