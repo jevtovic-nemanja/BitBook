@@ -194,7 +194,7 @@ class ProfilePage extends React.Component {
                                         id="exampleInputText3"
                                         placeholder="About"
                                         name="about"
-                                        rows="10"
+                                        rows="5"
                                         value={about}
                                         onChange={this.handleInputChange}
                                     />
