@@ -10,8 +10,8 @@ class Search extends React.Component {
 
     initState() {
         return {
-            searchString: "",
-        
+            inputString: "",
+            searchString: ""
         };
     }
 
@@ -21,19 +21,20 @@ class Search extends React.Component {
     }
 
     handleInput(event) {
-        const searchString = event.target.value;
+        const inputString = event.target.value;
+        const searchString = inputString.toLowerCase();
 
-        this.setState({ searchString: searchString });
+        this.setState({ inputString: inputString, searchString: searchString });
 
         this.props.onSearch(searchString);
     }
 
     render() {
-        const searchString = this.state.searchString;
+        const inputString = this.state.inputString;
 
         return (
-            <form >
-                <input type="text" value={searchString} onChange={this.handleInput} placeholder="Search..." />
+            <form className="search">
+                <input type="text" value={inputString} onChange={this.handleInput} placeholder="Search..." />
             </form>
         );
     }

@@ -39,7 +39,10 @@ class PeoplePage extends React.Component {
             return;
         }
 
-        const searchMatches = usersOriginal.filter(user => user.name.includes(searchItem));
+        const searchMatches = usersOriginal.filter(user => {
+            const searchUserName = user.name.toLowerCase();
+            return searchUserName.includes(searchItem);
+        });
         this.setState({ users: searchMatches });
     }
 
@@ -55,9 +58,7 @@ class PeoplePage extends React.Component {
                 <Search onSearch={this.filterUsers} />
                 {this.state.users.map(user => {
                     return (
-
                         <UserDescription userData={user} key={user._id} id={user._id} />
-
                     );
                 })}
             </main>
