@@ -140,3 +140,12 @@ main::after {
     display: block;
     clear: both; 
 }
+
+.search {
+    margin-top: 25px;
+}
+
+input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(154,205,50,.5) !important;
+    border: none;
+}
