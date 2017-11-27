@@ -33,11 +33,11 @@ class PeoplePage extends React.Component {
 
     render() {
         return (
-            <div>
+            <main>
                 {this.state.users.map(user => {
                     return <UserDescription userData={user} key={user._id} id={user._id} />;
                 })}
-            </div>
+            </main>
         );
     }
 }

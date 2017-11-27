@@ -49,14 +49,16 @@ class UserProfilePage extends React.Component {
         let { error } = this.state;
 
         return (
-            <div className="profilecontent">
-                <img src={_avatarUrl} className="profileimage" />
-                <h1 className="profilename">{_name}</h1>
-                <p className="profileabout">{_aboutShort}</p>
-                <p className="profileabout">{_about}</p>
-                <div className="profilecounter">{_postsCount}</div>
-                <div className="profilecounter">{_commentsCount}</div>
-            </div>
+            <main>
+                <div className="profilecontent">
+                    <img src={_avatarUrl} className="profileimage" />
+                    <h1 className="profilename">{_name}</h1>
+                    <p className="profileabout">{_aboutShort}</p>
+                    <p className="profileabout">{_about}</p>
+                    <div className="profilecounter">{_postsCount}</div>
+                    <div className="profilecounter">{_commentsCount}</div>
+                </div>
+            </main>
         );
     }
 }

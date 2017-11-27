@@ -133,7 +133,7 @@ class ProfilePage extends React.Component {
         const { show, error } = this.state;
 
         return (
-            <div>
+            <main>
                 <div>
                     <div className="text-right editButton">
                         <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
@@ -229,7 +229,7 @@ class ProfilePage extends React.Component {
                         </div >
                     </div >
                 </div >
-            </div>
+            </main>
         );
     }
 }
