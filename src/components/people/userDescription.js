@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BASE_URL } from "../../constants";
-
-const moment = require("moment");
+import moment from "moment";
 
 export const UserDescription = (props) => {
     const { _id, _name, _aboutShort, _lastPostDate, _avatarUrl } = props.userData;
