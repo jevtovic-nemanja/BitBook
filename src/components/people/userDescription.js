@@ -11,11 +11,11 @@ export const UserDescription = (props) => {
                 <div className="userImage">
                     <img src={_avatarUrl} />
                 </div>
-                <div>
+                <div className="userInfo">
                     <h3>{_name}</h3>
                     <p>{_aboutShort}</p>
                 </div>
-                <div>
+                <div className="userLastPost">
                     <p>{_lastPostDate}</p>
                 </div>
             </div>
