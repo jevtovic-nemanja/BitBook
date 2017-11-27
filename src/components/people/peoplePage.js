@@ -1,5 +1,6 @@
 import React from "react";
 import { dataService } from "../services/serviceData";
+import Search from "../common/search";
 
 import { UserDescription } from "./userDescription";
 
@@ -8,10 +9,12 @@ class PeoplePage extends React.Component {
         super(props);
 
         this.state = this.initState();
+        this.bindEventHandlers();
     }
 
     initState() {
         return {
+            usersOriginal: [],
             users: []
         };
     }
@@ -20,9 +23,24 @@ class PeoplePage extends React.Component {
         this.getPeople();
     }
 
-    getPeople() {
-        dataService.getUsers(users => this.setState({ users: users }), error => this.handleNetworkRequestError(error));
+    bindEventHandlers() {
+        this.filterUsers = this.filterUsers.bind(this);
+    }
 
+    getPeople() {
+        dataService.getUsers(users => this.setState({ usersOriginal: users, users: users }), error => this.handleNetworkRequestError(error));
+    }
+
+    filterUsers(searchItem) {
+        const usersOriginal = this.state.usersOriginal;
+
+        if (!searchItem) {
+            this.setState({ users: usersOriginal });
+            return;
+        }
+
+        const searchMatches = usersOriginal.filter(user => user.name.includes(searchItem));
+        this.setState({ users: searchMatches });
     }
 
     handleNetworkRequestError(error) {
@@ -34,8 +52,13 @@ class PeoplePage extends React.Component {
     render() {
         return (
             <main>
+                <Search onSearch={this.filterUsers} />
                 {this.state.users.map(user => {
-                    return <UserDescription userData={user} key={user._id} id={user._id} />;
+                    return (
+
+                        <UserDescription userData={user} key={user._id} id={user._id} />
+
+                    );
                 })}
             </main>
         );
