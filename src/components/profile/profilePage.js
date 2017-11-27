@@ -133,19 +133,22 @@ class ProfilePage extends React.Component {
         const { show, error } = this.state;
 
         return (
-            <main>
+            <main className="container">
                 <div>
-                    <div className="text-right editButton">
-                        <button className="btn btn-outline-success my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
-                    </div>
 
                     <div className="profilecontent">
-                        <img src={_avatarUrl} className="profileimage" />
+                        <img src={_avatarUrl
+                            ? _avatarUrl
+                            : "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"
+                        } className="profileimage" />
                         <h1 className="profilename">{_name}</h1>
-                        <p className="profileabout">{_aboutShort}</p>
+                        <em>{_aboutShort}</em>
                         <p className="profileabout">{_about}</p>
-                        <div className="profilecounter">{_postsCount}</div>
-                        <div className="profilecounter">{_commentsCount}</div>
+                        <div className="profilecounter">Posts: {_postsCount}</div>
+                        <div className="profilecounter">Comments: {_commentsCount}</div>
+                    </div>
+                    <div className="text-center editButton">
+                        <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
                     </div>
                 </div>
 
@@ -219,7 +222,7 @@ class ProfilePage extends React.Component {
                                 }
                             </div>
                             <div>
-                                <button className="btn btn-outline-success my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
+                                <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
                                     Save
                                 </button>
                                 <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>

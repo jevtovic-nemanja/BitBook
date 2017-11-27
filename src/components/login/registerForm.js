@@ -129,7 +129,7 @@ class RegisterForm extends React.Component {
                         }
                     </div>
 
-                    <button type="submit" className="btn btn-primary" onClick={this.register}>Register</button>
+                    <button type="submit" className="btn buttonDark" onClick={this.register}>Register</button>
 
                 </form>
 

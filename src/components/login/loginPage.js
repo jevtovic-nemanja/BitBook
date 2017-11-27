@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="background">
                 <div className=" container">
                     <div className="row">
                         <div className="welcomeText col-6">

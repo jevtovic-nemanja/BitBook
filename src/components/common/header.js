@@ -12,7 +12,7 @@ export const Header = props => {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    <Link to="/profile" > <li className="nav-item active">
+                    <Link to="/profile" > <li className="nav-item">
                         <p className="nav-link" href="#">Profile <span className="sr-only">(current)</span></p>
                     </li></Link>
                     <Link to="/feed" ><li className="nav-item">
@@ -23,7 +23,7 @@ export const Header = props => {
                     </li></Link>
                 </ul>
                 <div className="ml-auto">
-                    <button className="btn btn-outline-success my-2 my-sm-0 logout" onClick={authenticationService.logOut} >Logout</button>
+                    <button className="btn my-2 my-sm-0 buttonLight" onClick={authenticationService.logOut} >Logout</button>
                 </div>
             </div>
         </nav>

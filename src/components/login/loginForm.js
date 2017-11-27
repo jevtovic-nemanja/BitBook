@@ -82,15 +82,15 @@ class LoginForm extends React.Component {
         return (
             <div className="form">
                 <div>
-                    <Link to="/login"><button className="btn btn-light">Login</button></Link>
-                    <Link to="/register"><button className="btn btn-light">Register</button></Link>
+                    <Link to="/login"><button className="btn btn-dark">Login</button></Link>
+                    <Link to="/register"><button className="btn btn-dark">Register</button></Link>
                 </div>
 
                 <form>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email address</label>
                         <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value={this.state.email} onChange={this.handleInputChange} />
-                        <small id="emailHelp" className="form-text text-muted">We will never share your email with anyone else.</small>
+                        <small id="emailHelp" className="form-text">We will never share your email with anyone else.</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">Password</label>
@@ -103,7 +103,7 @@ class LoginForm extends React.Component {
                         }
                     </div>
 
-                    <button type="submit" className="btn btn-primary" onClick={this.logIn}>Login</button>
+                    <button type="submit" className="btn buttonDark" onClick={this.logIn}>Login</button>
 
                 </form>
 

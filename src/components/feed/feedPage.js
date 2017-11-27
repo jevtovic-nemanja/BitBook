@@ -35,7 +35,7 @@ class FeedPage extends React.Component {
 
     render() {
         return (
-            <main>
+            <main className="container">
                 <p> Feed </p>
             </main>
         );
