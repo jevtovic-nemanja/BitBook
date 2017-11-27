@@ -80,7 +80,7 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <main className="form">
+            <div className="form">
                 <div>
                     <Link to="/login"><button className="btn btn-light">Login</button></Link>
                     <Link to="/register"><button className="btn btn-light">Register</button></Link>
@@ -107,7 +107,7 @@ class LoginForm extends React.Component {
 
                 </form>
 
-            </main>
+            </div>
         );
     }
 }

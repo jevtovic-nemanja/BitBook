@@ -26,9 +26,9 @@ class LoginPage extends React.Component {
 
                         <div className="col-6 welcomeText">
                             <Switch>
+                                <Route exact path="/login" component={LoginForm} />
+                                <Route exact path="/register" component={RegisterForm} />
                                 <Route path="/" component={LoginForm} />
-                                <Route path="/login" component={LoginForm} />
-                                <Route path="/register" component={RegisterForm} />
                             </Switch>
                         </div>
                     </div>
