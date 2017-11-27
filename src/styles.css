@@ -1,3 +1,33 @@
+/* Sticky footer */
+
+main {
+    min-height: calc(100vh - 138px);
+}
+
+main::after {
+    content: "";
+    display: block;
+    clear: both; 
+}
+
+.footer{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding-top: 10px;
+
+}
+
+/* All inputs */
+
+input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(154,205,50,.5) !important;
+    border: none;
+}
+
+/* Login/register pages */
+
 .welcomeText{
     width: 80%;
     margin: 15% auto 0;
@@ -24,19 +54,15 @@
     border-radius: 5%;
 }
 
+/* All errors */
+
 .error {
     color: red;
     text-align: center;
     font-size: 14px;
 }
 
-footer{
-    width: 100%;
-}
-
-.footertext{
-    color: black;
-}
+/* Profile and user profile pages */
 
 .profilecontent{
     text-align: center;
@@ -63,16 +89,12 @@ footer{
     margin: 0 auto 2%;
 }
 
-.editForm {
-    margin: 0 auto;
-    border: 1px solid yellowgreen;
-    padding: 20px;
-    border-radius: 5%;
+.editButton {
+    margin-top: 20px;
+    margin-right: 50px;
 }
 
-.modalInput {
-    margin-bottom: 10px;
-}
+/*Modal dialog */
 
 .backdropStyle {
     position: fixed;
@@ -109,14 +131,22 @@ footer{
     min-width: 100px;
 }
 
+.editForm {
+    margin: 0 auto;
+    border: 1px solid yellowgreen;
+    padding: 20px;
+    border-radius: 5%;
+}
+
+.modalInput {
+    margin-bottom: 10px;
+}
+
 .hide {
     display: none;
 }
 
-.editButton {
-    margin-top: 20px;
-    margin-right: 50px;
-}
+/*People page */
 
 .userDescription {
     height: 300px;
@@ -135,17 +165,11 @@ footer{
     height: 100px;
 }
 
-main::after {
-    content: "";
-    display: block;
-    clear: both; 
-}
-
+/* Search */
 .search {
     margin-top: 25px;
 }
 
-input:focus {
-    box-shadow: 0 0 0 0.2rem rgba(154,205,50,.5) !important;
-    border: none;
-}
+  
+
+ 
