@@ -14,7 +14,7 @@ class ProfilePage extends React.Component {
     initState() {
         return {
             profile: {
-                _name: "",
+                _name: "Loading...",
                 _email: "",
                 _aboutShort: "",
                 _about: "",

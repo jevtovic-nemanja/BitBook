@@ -53,6 +53,15 @@ class PeoplePage extends React.Component {
     }
 
     render() {
+        if (this.state.usersOriginal.length < 1) {
+            return (
+                <main className="container">
+                    <Search onSearch={this.filterUsers} />
+                    <h1 className="text-center">Loading users...</h1>
+                </main>
+            );
+        }
+
         return (
             <main className="container">
                 <Search onSearch={this.filterUsers} />
