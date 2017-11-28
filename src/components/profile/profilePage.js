@@ -50,6 +50,7 @@ class ProfilePage extends React.Component {
 
         this.setState(prevState => {
             prevState.edit[name] = value;
+            prevState.error = "";
             return prevState;
         });
     }

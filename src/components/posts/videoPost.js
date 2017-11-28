@@ -35,9 +35,7 @@ class VideoPost extends React.Component {
         return (
             <div>
                 <p className="error">{this.state.error}</p>
-                <video controls width="320" height="240">
-                    <source src={_videoUrl} />
-                </video>
+                <iframe width="560" height="315" src={_videoUrl} frameBorder="0" allowFullScreen></iframe>
                 <small>{_type}</small>
                 <small>{_commentsNum} Comments</small>
             </div>

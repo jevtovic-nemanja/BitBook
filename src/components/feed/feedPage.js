@@ -19,13 +19,29 @@ class FeedPage extends React.Component {
     initState() {
         return {
             posts: [],
+            networkError: "",
             error: "",
-            show: "hide"
+            modal: "hide",
+            show: {
+                text: "",
+                image: "hide",
+                video: "hide"
+            },
+            new: {
+                textPostContent: "",
+                imagePostContent: "",
+                videoPostContent: ""
+            }
         };
     }
 
     bindEventHandlers() {
         this.toggleModalShow = this.toggleModalShow.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.selectPostType = this.selectPostType.bind(this);
+        this.sendTextPost = this.sendTextPost.bind(this);
+        this.sendImagePost = this.sendImagePost.bind(this);
+        this.sendVideoPost = this.sendVideoPost.bind(this);
     }
 
     componentDidMount() {
@@ -42,10 +58,27 @@ class FeedPage extends React.Component {
             error => this.handleNetworkRequestError(error));
     }
 
+    handleInputChange(event) {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState(prevState => {
+            prevState.new[name] = value;
+            prevState.error = "";
+            return prevState;
+        });
+    }
+
     handleNetworkRequestError(error) {
         if (error.request) {
-            this.setState({ error: "There is no response from server." });
+            this.setState({ networkError: "There is no response from server." });
         }
+    }
+
+    jumpToTop() {
+        this.setState({ error: "" });
+        this.toggleModalShow();
+        scrollTo(0, 0);
     }
 
     renderPosts(post) {
@@ -58,18 +91,122 @@ class FeedPage extends React.Component {
         }
     }
 
+    selectPostType(event) {
+        event.preventDefault();
+
+        const type = event.target.value;
+
+        const showText = type === "text" ? "" : "hide";
+        const showImage = type === "image" ? "" : "hide";
+        const showVideo = type === "video" ? "" : "hide";
+
+        if (this.state.show[type] === "hide") {
+            this.setState({
+                show: {
+                    text: showText,
+                    image: showImage,
+                    video: showVideo
+                }
+            });
+        }
+    }
+
+    sendTextPost(event) {
+        event.preventDefault();
+
+        const isValid = this.validateTextInput();
+
+        if (isValid) {
+            const postData = { text: this.state.new.textPostContent };
+
+            dataService.postTextPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+
+            this.jumpToTop();
+        }
+    }
+
+    sendImagePost(event) {
+        event.preventDefault();
+
+        const isValid = this.validateImageInput();
+
+        if (isValid) {
+            const postData = { imageUrl: this.state.new.imagePostContent };
+
+            dataService.postImagePost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+
+            this.jumpToTop();
+        }
+    }
+
+    sendVideoPost(event) {
+        event.preventDefault();
+
+        const isValid = this.validateVideoInput();
+
+        if (isValid) {
+            const videoUrl = this.state.new.videoPostContent.replace("watch?v=", "embed/");
+
+            const postData = { videoUrl: videoUrl };
+
+            dataService.postVideoPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+
+            this.jumpToTop();
+        }
+    }
+
     toggleModalShow() {
         event.preventDefault();
 
-        if (this.state.show === "hide") {
-            this.setState({ show: "" });
+        if (this.state.modal === "hide") {
+            this.setState({ modal: "" });
         } else {
-            this.setState({ show: "hide" });
+            this.setState({ modal: "hide" });
+        }
+    }
+
+    validateTextInput() {
+        const text = this.state.new.textPostContent;
+
+        if (!text) {
+            this.setState({ error: "Please enter some text." });
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    validateImageInput() {
+        const imageUrl = this.state.new.imagePostContent;
+
+        if (!imageUrl) {
+            this.setState({ error: "Please enter image URL." });
+            return false;
+        } else if (!imageUrl.includes("http://") || !imageUrl.includes("https://")) {
+            this.setState({ error: "Image URL is invalid!" });
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    validateVideoInput() {
+        const videoUrl = this.state.new.videoPostContent;
+
+        if (!videoUrl) {
+            this.setState({ error: "Please enter video URL." });
+            return false;
+        } else if (!videoUrl.includes("http://www.youtube.com/") || !videoUrl.includes("https://www.youtube.com/")) {
+            this.setState({ error: "Input must be YouTube video URL!" });
+            return false;
+        } else {
+            return true;
         }
     }
 
     render() {
-        const { show, error } = this.state;
+        const { show, error, modal } = this.state;
+        const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
 
         if (this.state.posts.length < 1) {
             return (
@@ -81,90 +218,100 @@ class FeedPage extends React.Component {
 
         return (
             <main className="container">
-                <p className="error">{this.state.error}</p>
+                <p className="error">{this.state.networkError}</p>
                 {this.state.posts.map(post => this.renderPosts(post))}
 
                 <button className="buttonDark round" onClick={this.toggleModalShow}><p>+</p></button>
 
-                <div className={show}>
+                <div className={modal}>
                     <div className="backdropStyle" >
                         <div className="modalStyle">
-                            <div className="editForm">
+                            <div className={show.text}>
+                                <h2>New Post</h2>
                                 <form>
-                                    <label htmlFor="exampleInputText1">Name</label>
+                                    <label htmlFor="exampleInputText1"><small>Post content</small></label>
                                     <input
                                         type="text"
                                         className="form-control modalInput"
                                         id="exampleInputText1"
                                         placeholder="Name"
-                                        name="name"
-                                        // value={name}
-                                        // onChange={this.handleInputChange}
+                                        name="textPostContent"
+                                        value={textPostContent}
+                                        onChange={this.handleInputChange}
                                     />
+                                </form>
+                                <div>
+                                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendTextPost}>
+                                        Post
+                                    </button>
+                                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
 
-                                    <label htmlFor="exampleInputEmail1">Contact Email</label>
-                                    <input
-                                        type="email"
-                                        className="form-control modalInput"
-                                        id="exampleInputEmail1"
-                                        aria-describedby="emailHelp"
-                                        placeholder="Enter email"
-                                        name="email"
-                                        // value={email}
-                                        // onChange={this.handleInputChange}
-                                    />
-                                    <small id="emailHelp" className="form-text text-muted modalInput">We will never share your email with anyone else.</small>
-
-                                    <label htmlFor="exampleInputText2">Bio</label>
-                                    <textarea
-                                        className="form-control modalInput"
-                                        id="exampleInputText2"
-                                        placeholder="Short Bio"
-                                        name="aboutShort"
-                                        // value={aboutShort}
-                                        // onChange={this.handleInputChange}
-                                    />
-
-                                    <label htmlFor="exampleInputText3">About</label>
-                                    <textarea
-                                        className="form-control modalInput"
-                                        id="exampleInputText3"
-                                        placeholder="About"
-                                        name="about"
-                                        rows="5"
-                                        // value={about}
-                                        // onChange={this.handleInputChange}
-                                    />
-
-                                    <label htmlFor="exampleInputText4">Picture</label>
+                            <div className={show.image}>
+                                <h2>New Image Post</h2>
+                                <form>
+                                    <label htmlFor="exampleInputText1"><small>Image Link</small></label>
                                     <input
                                         type="text"
                                         className="form-control modalInput"
-                                        id="exampleInputText4"
-                                        placeholder="Picture URL"
-                                        name="avatarUrl"
-                                        // value={avatarUrl}
-                                        // onChange={this.handleInputChange}
+                                        id="exampleInputText1"
+                                        placeholder="Name"
+                                        name="imagePostContent"
+                                        value={imagePostContent}
+                                        onChange={this.handleInputChange}
                                     />
-
                                 </form>
+                                <div>
+                                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendImagePost}>
+                                        Post
+                                    </button>
+                                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                                        Close
+                                    </button>
+                                </div>
                             </div>
+
+                            <div className={show.video}>
+                                <h2>New Video Post</h2>
+                                <form>
+                                    <label htmlFor="exampleInputText1"><small>YouTube Video Link</small></label>
+                                    <input
+                                        type="text"
+                                        className="form-control modalInput"
+                                        id="exampleInputText1"
+                                        placeholder="Name"
+                                        name="videoPostContent"
+                                        value={videoPostContent}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </form>
+                                <div>
+                                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendVideoPost}>
+                                        Post
+                                    </button>
+                                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+
                             <div className="error">
                                 {error
                                     ? <p>{error}</p>
                                     : <p></p>
                                 }
                             </div>
-                            <div>
-                                <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
-                                    Save
-                                </button>
-                                <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                                    Close
-                                </button>
-                            </div>
+
                         </div >
+                        <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
+                        <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
+                        <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
+
                     </div >
+
                 </div >
             </main>
         );
