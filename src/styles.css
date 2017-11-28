@@ -127,7 +127,7 @@ small {
 
 .profilecontent{
     text-align: center;
-    margin: 10% auto 0;
+    margin: 8% auto 0;
     width: 50%;
 }
 .profileimage{
@@ -286,4 +286,8 @@ main.container::after {
     content: "";
     clear: both;
     display: block;
+}
+
+.footer {
+    text-align: center;
 }

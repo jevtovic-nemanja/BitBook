@@ -151,6 +151,7 @@ class ProfilePage extends React.Component {
                         <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
                     </div>
                 </div>
+                <p className="footer fixed-bottom">©2017 BlueTeam, Inc.</p>
 
                 <div className={show}>
                     <div className="backdropStyle" >
