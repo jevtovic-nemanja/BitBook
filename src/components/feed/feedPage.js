@@ -65,6 +65,8 @@ class FeedPage extends React.Component {
             <main className="container">
                 <p className="error">{this.state.error}</p>
                 {this.state.posts.map(post => this.renderPosts(post))}
+
+                <button className="buttonDark round">+</button>
             </main>
         );
     }
