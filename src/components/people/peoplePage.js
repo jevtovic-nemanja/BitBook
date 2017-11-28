@@ -15,7 +15,8 @@ class PeoplePage extends React.Component {
     initState() {
         return {
             usersOriginal: [],
-            users: []
+            users: [],
+            error: ""
         };
     }
 
@@ -65,6 +66,7 @@ class PeoplePage extends React.Component {
         return (
             <main className="container">
                 <Search onSearch={this.filterUsers} />
+                <p className="error">{this.state.error}</p>
                 {this.state.users.map(user => {
                     return (
                         <UserDescription userData={user} key={user._id} id={user._id} />

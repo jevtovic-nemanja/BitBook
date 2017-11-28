@@ -4,6 +4,10 @@ import { dataService } from "../services/serviceData";
 import { storageService } from "../services/serviceStorage";
 import { USER_ID } from "../../constants";
 
+import TextPost from "../posts/textPost";
+import ImagePost from "../posts/imagePost";
+import VideoPost from "../posts/videoPost";
+
 class FeedPage extends React.Component {
     constructor(props) {
         super(props);
@@ -13,12 +17,18 @@ class FeedPage extends React.Component {
 
     initState() {
         return {
+            posts: [],
             error: ""
         };
     }
 
     componentDidMount() {
         this.getUserId();
+        this.getPosts();
+    }
+
+    getPosts() {
+        dataService.getPosts(posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
     }
 
     getUserId() {
@@ -32,11 +42,29 @@ class FeedPage extends React.Component {
         }
     }
 
+    renderPosts(post) {
+        if (post._type === "text") {
+            return <TextPost post={post._id} key={post._id} />;
+        } else if (post._type === "image") {
+            return <ImagePost post={post._id} key={post._id} />;
+        } else if (post._type === "video") {
+            return <VideoPost post={post._id} key={post._id} />;
+        }
+    }
 
     render() {
+        if (this.state.posts.length < 1) {
+            return (
+                <main className="container">
+                    <h1 className="text-center">Loading posts...</h1>
+                </main>
+            );
+        }
+
         return (
             <main className="container">
-                <p> Feed </p>
+                <p className="error">{this.state.error}</p>
+                {this.state.posts.map(post => this.renderPosts(post))}
             </main>
         );
     }
