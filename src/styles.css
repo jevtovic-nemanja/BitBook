@@ -311,3 +311,9 @@ button:focus {
     margin-top: 25px;
     margin-bottom: 40px;
 }
+
+/* Dropdown */
+
+.options:hover {
+    background-color: white;
+}

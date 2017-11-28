@@ -31,6 +31,12 @@ class FeedPage extends React.Component {
                 textPostContent: "",
                 imagePostContent: "",
                 videoPostContent: ""
+            },
+            filterTitle: "All Posts",
+            filter: {
+                text: "",
+                image: "",
+                video: ""
             }
         };
     }
@@ -42,6 +48,7 @@ class FeedPage extends React.Component {
         this.sendTextPost = this.sendTextPost.bind(this);
         this.sendImagePost = this.sendImagePost.bind(this);
         this.sendVideoPost = this.sendVideoPost.bind(this);
+        this.filterPosts = this.filterPosts.bind(this);
     }
 
     componentDidMount() {
@@ -56,6 +63,24 @@ class FeedPage extends React.Component {
     getUserId() {
         dataService.getProfile(profile => storageService.setStorageItem(USER_ID, profile.userId),
             error => this.handleNetworkRequestError(error));
+    }
+
+    filterPosts(event) {
+        event.preventDefault();
+        const type = event.target.value;
+
+        const showTextPosts = type === "Text" || type === "All Posts" ? "" : "hide";
+        const showImagePosts = type === "Images" || type === "All Posts" ? "" : "hide";
+        const showVideoPosts = type === "Videos" || type === "All Posts" ? "" : "hide";
+
+        this.setState({
+            filterTitle: type,
+            filter: {
+                text: showTextPosts,
+                image: showImagePosts,
+                video: showVideoPosts
+            }
+        });
     }
 
     handleInputChange(event) {
@@ -82,12 +107,14 @@ class FeedPage extends React.Component {
     }
 
     renderPosts(post) {
+        const { text, image, video } = this.state.filter;
+
         if (post._type === "text") {
-            return <TextPost post={post._id} key={post._id} />;
+            return <TextPost post={post._id} key={post._id} show={text} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post._id} key={post._id} />;
+            return <ImagePost post={post._id} key={post._id} show={image} />;
         } else if (post._type === "video") {
-            return <VideoPost post={post._id} key={post._id} />;
+            return <VideoPost post={post._id} key={post._id} show={video} />;
         }
     }
 
@@ -205,7 +232,7 @@ class FeedPage extends React.Component {
     }
 
     render() {
-        const { show, error, modal } = this.state;
+        const { show, error, modal, filterTitle } = this.state;
         const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
 
         if (this.state.posts.length < 1) {
@@ -219,6 +246,20 @@ class FeedPage extends React.Component {
         return (
             <main className="container">
                 <p className="error">{this.state.networkError}</p>
+
+                <div className="btn-group">
+                    <button type="button" className="btn buttonDark">{filterTitle}</button>
+                    <button type="button" className="btn buttonDark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    <div className="dropdown-menu">
+                        <button className="dropdown-item" value="All Posts" onClick={this.filterPosts}>All Posts</button>
+                        <div className="dropdown-divider"></div>
+                        <button className="dropdown-item" value="Videos" onClick={this.filterPosts}>Videos</button>
+                        <button className="dropdown-item" value="Images" onClick={this.filterPosts}>Images</button>
+                        <button className="dropdown-item" value="Text" onClick={this.filterPosts}>Text</button>
+                    </div>
+                </div>
+
                 {this.state.posts.map(post => this.renderPosts(post))}
 
                 <button className="buttonDark round" onClick={this.toggleModalShow}><p>+</p></button>

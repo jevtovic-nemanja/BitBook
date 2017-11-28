@@ -35,7 +35,7 @@ class ImagePost extends React.Component {
         const postDate = moment(_dateCreated).fromNow();
 
         return (
-            <div>
+            <div className={this.props.show}>
                 <p className="error">{this.state.error}</p>
                 <h5>{_userDisplayName}</h5>
                 <img src={_imageUrl} />

@@ -35,7 +35,7 @@ class VideoPost extends React.Component {
         const postDate = moment(_dateCreated).fromNow();
 
         return (
-            <div>
+            <div className={this.props.show}>
                 <p className="error">{this.state.error}</p>
                 <h5>{_userDisplayName}</h5>
                 <iframe width="560" height="315" src={_videoUrl} frameBorder="0" allowFullScreen></iframe>
