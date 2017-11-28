@@ -5,7 +5,6 @@ import { storageService } from "../services/serviceStorage";
 import { USER_ID } from "../../constants";
 
 import { Header } from "./header";
-import { Footer } from "./footer";
 
 import ProfilePage from "../profile/profilePage";
 import FeedPage from "../feed/feedPage";
@@ -31,7 +30,6 @@ class MainPage extends React.Component {
                     <Route exact path={`/people/${userId}`} component={ProfilePage} />
                     <Route path="/people/:id" component={UserProfilePage} />
                 </Switch>
-                <Footer />
             </div>
         );
     }
