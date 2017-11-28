@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import { dataService } from "../services/serviceData";
 
@@ -30,14 +31,17 @@ class VideoPost extends React.Component {
     }
 
     render() {
-        const { _id, _videoUrl, _type, _commentsNum } = this.state.post;
+        const { _id, _videoUrl, _dateCreated, _userDisplayName, _type, _commentsNum } = this.state.post;
+        const postDate = moment(_dateCreated).fromNow();
 
         return (
             <div>
                 <p className="error">{this.state.error}</p>
+                <h5>{_userDisplayName}</h5>
                 <iframe width="560" height="315" src={_videoUrl} frameBorder="0" allowFullScreen></iframe>
-                <small>{_type}</small>
+                <small>{_type} post</small>
                 <small>{_commentsNum} Comments</small>
+                <small>{postDate}</small>
             </div>
         );
     }
