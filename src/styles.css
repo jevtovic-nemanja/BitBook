@@ -34,56 +34,6 @@ p.navbar-brand {
     color: #17252a;
 }
 
-/* Sticky footer */
-
-html {
-    height: 100%;
-    box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-.app {
-    height: 100%;
-}
-
-body {
-    position: relative;
-    margin: 0;
-    padding-bottom: 6rem;
-    min-height: 100%;
-}
-
-main {
-    margin: 0 auto;
-    max-width: 640px;
-    width: 94%;
-}
-
-main::after {
-    content: "";
-    display: block;
-    clear: both; 
-}
-
-.footer{
-    width: 100%;
-    height: 50px;
-    text-align: center;
-    background-color: #3aafa9;
-    color: #def2f1;
-    margin-top: 20px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-}
-
 /* All inputs */
 
 input:focus, textarea:focus {
@@ -126,11 +76,6 @@ small {
 }
 
 /* Login/register pages */
-
-.background {
-    height: 100%;
-    background-image: url("images/background.jpg");
-}
 
 .welcomeText{
     width: 80%;
@@ -182,7 +127,7 @@ small {
 
 .profilecontent{
     text-align: center;
-    margin: 10% auto 0;
+    margin: 8% auto 0;
     width: 50%;
 }
 .profileimage{
@@ -278,7 +223,7 @@ small {
 .userDescription {
   height: 200px;
   width: 100%;
-  margin-top: 40px;
+  margin-bottom: 40px;
   box-sizing: border-box;
   padding: 10px;
 }
@@ -316,4 +261,33 @@ small {
 /* Search */
 .search {
     margin-top: 25px;
+    margin-bottom: 40px;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.app {
+    height: 100%;
+    margin: 0;
+}
+
+.background {
+    min-height: 100%;
+    background-image: url("images/background.jpg");
+}
+
+main.container::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.footer {
+    text-align: center;
 }
