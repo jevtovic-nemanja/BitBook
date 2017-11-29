@@ -32,13 +32,25 @@ class ImagePost extends React.Component {
 
     render() {
         const { _id, _imageUrl, _dateCreated, _userDisplayName, _type, _commentsNum } = this.state.post;
+        const { error } = this.state;
         const postDate = moment(_dateCreated).fromNow();
+
+        if (error) {
+            return (
+                <div className={this.props.show}>
+                    <div className="card" style={{ width: 100 + "%" }} >
+                        <div className="card-body">
+                            <p>{error}</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className={this.props.show}>
-                <p className="error">{this.state.error}</p>
-                <div className="card" style={{ width: 50 + "rem", height: 37 + "rem" }} >
-                    <img style={{ width: 50 + "rem", height: 30 + "rem" }} src={_imageUrl} className="card-img-top" />
+                <div className="card mb-4" style={{ width: 100 + "%", height: 100 + "%" }} >
+                    <img style={{ width: 100 + "%", height: 100 + "%" }} src={_imageUrl} className="card-img-top" />
                     <div className="card-body">
                         <h5>{_userDisplayName}</h5>
                         <small>{postDate}</small>

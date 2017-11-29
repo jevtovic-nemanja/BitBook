@@ -22,14 +22,16 @@ class MainPage extends React.Component {
         return (
             <div className="wrapper">
                 <Header />
-                <Switch>
-                    <Route exact path="/" component={FeedPage} />
-                    <Route path="/feed" component={FeedPage} />
-                    <Route path="/profile" component={ProfilePage} />
-                    <Route exact path="/people" component={PeoplePage} />
-                    <Route exact path={`/people/${userId}`} component={ProfilePage} />
-                    <Route path="/people/:id" component={UserProfilePage} />
-                </Switch>
+                <div className="container">
+                    <Switch>
+                        <Route exact path="/" component={FeedPage} />
+                        <Route path="/feed" component={FeedPage} />
+                        <Route path="/profile" component={ProfilePage} />
+                        <Route exact path="/people" component={PeoplePage} />
+                        <Route exact path={`/people/${userId}`} component={ProfilePage} />
+                        <Route path="/people/:id" component={UserProfilePage} />
+                    </Switch>
+                </div>
             </div>
         );
     }

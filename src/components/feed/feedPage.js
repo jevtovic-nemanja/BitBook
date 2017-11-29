@@ -339,18 +339,17 @@ class FeedPage extends React.Component {
 
         if (this.state.posts.length < 1) {
             return (
-                <main className="container">
+                <main className="row">
                     <h1 className="text-center">Loading posts...</h1>
                 </main>
             );
         }
 
         return (
-            <main className="container mt-5">
-                <p className="error">{this.state.networkError}</p>
-
-                <div className="positionDropbar">
-                    <div className="btn-group">
+            <main className="row mt-2">
+                <div className="col-12 col-lg-9 offset-lg-1">
+                    
+                    <div className="btn-group mt-3">
 
                         <button type="button" className="btn buttonDark">{filterTitle}</button>
                         <button type="button" className="btn buttonDark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -363,29 +362,39 @@ class FeedPage extends React.Component {
                             <button className="dropdown-item" value="Text" onClick={this.filterPosts}>Text</button>
                         </div>
                     </div>
+
+
+
+                    <p className="error">{this.state.networkError}</p>
+
+                    {this.state.posts.map(post => this.renderPosts(post))}
+
+                    <Modal isOpen={modal} style={modalStyle} >
+
+                        {this.togglePostType(show)}
+
+                        <div className="error">
+                            {error
+                                ? <p>{error}</p>
+                                : <p></p>
+                            }
+                        </div>
+
+                        <div className="text-center">
+                            <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
+                            <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
+                            <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
+                        </div>
+                    </Modal >
                 </div>
 
-                {this.state.posts.map(post => this.renderPosts(post))}
+                <div className="col-lg-2"></div>
 
-                <button className="buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
 
-                <Modal isOpen={modal} style={modalStyle} >
 
-                    {this.togglePostType(show)}
+                <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
 
-                    <div className="error">
-                        {error
-                            ? <p>{error}</p>
-                            : <p></p>
-                        }
-                    </div>
 
-                    <div className="postTypeButtons">
-                        <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
-                        <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
-                        <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
-                    </div>
-                </Modal >
             </main>
         );
     }

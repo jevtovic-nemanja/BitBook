@@ -9,6 +9,7 @@ body {
 
 .app {
     height: 100%;
+    width: 100%;
     margin: 0;
 }
 
@@ -90,7 +91,6 @@ small {
     height: 60px;
     width: 60px;
     font-size: 40px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .round:hover {
@@ -106,8 +106,9 @@ button:focus {
 
 .postButton {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    right: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .postTypeButtons{
@@ -117,7 +118,6 @@ button:focus {
     right: 30px;
     color: #2b7a78;
     font-weight: 600;
-
 }
 
 /* Login/register pages */
@@ -284,8 +284,6 @@ button:focus {
     background-color: white;
 }
 
-.positionDropbar {
-    position: absolute;
-    top: 120px;
-    right: 30px;
+.hide {
+    display: none;
 }

@@ -32,13 +32,25 @@ class VideoPost extends React.Component {
 
     render() {
         const { _id, _videoUrl, _dateCreated, _userDisplayName, _type, _commentsNum } = this.state.post;
+        const { error } = this.state;
         const postDate = moment(_dateCreated).fromNow();
+
+        if (error) {
+            return (
+                <div className={this.props.show}>
+                    <div className="card" style={{ width: 100 + "%" }} >
+                        <div className="card-body">
+                            <p>{error}</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className={this.props.show}>
-                <p className="error">{this.state.error}</p>
-                <div className="card" style={{width: 50 + "rem", height: 35 + "rem"}} >
-                    <iframe style={{width: 50 + "rem", height: 28 + "rem"}} src={_videoUrl} frameBorder="0" allowFullScreen className="card-img-top"></iframe>
+                <div className="card mb-4" >
+                    <iframe src={_videoUrl} frameBorder="0" allowFullScreen className="card-img-top"></iframe>
                     <div className="card-body">
                         <h5>{_userDisplayName}</h5>
                         <small>{postDate}</small>
