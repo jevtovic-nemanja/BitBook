@@ -248,22 +248,25 @@ class FeedPage extends React.Component {
             <main className="container">
                 <p className="error">{this.state.networkError}</p>
 
-                <div className="btn-group">
-                    <button type="button" className="btn buttonDark">{filterTitle}</button>
-                    <button type="button" className="btn buttonDark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    </button>
-                    <div className="dropdown-menu">
-                        <button className="dropdown-item" value="All Posts" onClick={this.filterPosts}>All Posts</button>
-                        <div className="dropdown-divider"></div>
-                        <button className="dropdown-item" value="Videos" onClick={this.filterPosts}>Videos</button>
-                        <button className="dropdown-item" value="Images" onClick={this.filterPosts}>Images</button>
-                        <button className="dropdown-item" value="Text" onClick={this.filterPosts}>Text</button>
+                <div className="positionDropbar">
+                    <div className="btn-group">
+
+                        <button type="button" className="btn buttonDark">{filterTitle}</button>
+                        <button type="button" className="btn buttonDark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div className="dropdown-menu dropdown-menu-right">
+                            <button className="dropdown-item" value="All Posts" onClick={this.filterPosts}>All Posts</button>
+                            <div className="dropdown-divider"></div>
+                            <button className="dropdown-item" value="Videos" onClick={this.filterPosts}>Videos</button>
+                            <button className="dropdown-item" value="Images" onClick={this.filterPosts}>Images</button>
+                            <button className="dropdown-item" value="Text" onClick={this.filterPosts}>Text</button>
+                        </div>
                     </div>
                 </div>
 
                 {this.state.posts.map(post => this.renderPosts(post))}
 
-                <button className="buttonDark round" onClick={this.toggleModalShow}><p>+</p></button>
+                <button className="buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
 
                 <div className={modal}>
                     <div className="backdropStyle" >
@@ -348,9 +351,11 @@ class FeedPage extends React.Component {
                             </div>
 
                         </div >
-                        <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
-                        <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
-                        <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
+                        <div className="postTypeButtons">
+                            <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
+                            <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
+                            <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
+                        </div>
 
                     </div >
 

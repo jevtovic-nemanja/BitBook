@@ -123,6 +123,22 @@ button:focus {
     outline: none;
 }
 
+.postButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+
+.postTypeButtons{
+    text-align: center;
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    color: #2b7a78;
+    font-weight: 600;
+
+}
+
 /* Login/register pages */
 
 .welcomeText{
@@ -266,6 +282,11 @@ button:focus {
     display: none;
 }
 
+.newPost {
+    min-height: 250px;
+    margin-top: 10%;
+}
+
 /*People page */
 
 .userDescription {
@@ -318,7 +339,8 @@ button:focus {
     background-color: white;
 }
 
-.newPost {
-    min-height: 300px;
-
+.positionDropbar {
+    position: absolute;
+    top: 120px;
+    right: 30px;
 }
