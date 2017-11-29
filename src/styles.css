@@ -253,12 +253,6 @@ button:focus {
     background-color: #feffff;
 }
 
-.userImage img {
-    height: 100%;
-    width: 100%;
-    border-radius: 100%;
-}
-
 .userInfo {
     padding-left: 50px; 
 }
@@ -272,12 +266,6 @@ button:focus {
     color: #17252a;
 }
 
-/* Search */
-.search {
-    margin-top: 25px;
-    margin-bottom: 40px;
-}
-
 /* Dropdown */
 
 .options:hover {
@@ -286,4 +274,10 @@ button:focus {
 
 .hide {
     display: none;
+}
+
+.card:hover {
+    -webkit-box-shadow: rgba(43, 122, 120, 0.5) 0px 0 20px;
+    -moz-box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
+    box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
 }

@@ -33,7 +33,7 @@ class Search extends React.Component {
         const inputString = this.state.inputString;
 
         return (
-            <form>
+            <form className="mt-3 mb-3">
                 <div className="input-group search">
                     <input className="form-control"
                         type="text" value={inputString}
