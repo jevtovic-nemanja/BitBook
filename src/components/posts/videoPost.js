@@ -30,6 +30,10 @@ class VideoPost extends React.Component {
         dataService.getVideoPost(id, videoPost => this.setState({ post: videoPost }), error => this.handleNetworkRequestError(error));
     }
 
+    calculateHeight(width) {
+        
+    }
+
     render() {
         const { _id, _videoUrl, _dateCreated, _userDisplayName, _type, _commentsNum } = this.state.post;
         const { error } = this.state;
@@ -50,8 +54,8 @@ class VideoPost extends React.Component {
         return (
             <div className={this.props.show}>
                 <div className="card mb-4" >
-                    <iframe src={_videoUrl} frameBorder="0" allowFullScreen className="card-img-top"></iframe>
-                    <div className="card-body">
+                    <div className="card-body" >
+                        <iframe src={_videoUrl} style={{width: 100 + "%"}} frameBorder="0" allowFullScreen className="card-img-top"></iframe>
                         <h5>{_userDisplayName}</h5>
                         <small>{postDate}</small>
                         <small className="float-right">{_commentsNum} Comments</small>

@@ -50,7 +50,7 @@ class ImagePost extends React.Component {
         return (
             <div className={this.props.show}>
                 <div className="card mb-4" style={{ width: 100 + "%", height: 100 + "%" }} >
-                    <img style={{ width: 100 + "%", height: 100 + "%" }} src={_imageUrl} className="card-img-top" />
+                    <img src={_imageUrl} className="card-img-top" />
                     <div className="card-body">
                         <h5>{_userDisplayName}</h5>
                         <small>{postDate}</small>
