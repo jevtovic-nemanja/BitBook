@@ -156,6 +156,7 @@ class FeedPage extends React.Component {
         event.preventDefault();
 
         const isValid = this.validateImageInput();
+        console.log(isValid);
 
         if (isValid) {
             const postData = { imageUrl: this.state.new.imagePostContent };
@@ -209,7 +210,7 @@ class FeedPage extends React.Component {
         if (!imageUrl) {
             this.setState({ error: "Please enter image URL." });
             return false;
-        } else if (!imageUrl.includes("http://") || !imageUrl.includes("https://")) {
+        } else if (!imageUrl.includes("http://") && !imageUrl.includes("https://")) {
             this.setState({ error: "Image URL is invalid!" });
             return false;
         } else {
@@ -223,7 +224,7 @@ class FeedPage extends React.Component {
         if (!videoUrl) {
             this.setState({ error: "Please enter video URL." });
             return false;
-        } else if (!videoUrl.includes("http://www.youtube.com/") || !videoUrl.includes("https://www.youtube.com/")) {
+        } else if (!videoUrl.includes("http://www.youtube.com/") && !videoUrl.includes("https://www.youtube.com/")) {
             this.setState({ error: "Input must be YouTube video URL!" });
             return false;
         } else {
