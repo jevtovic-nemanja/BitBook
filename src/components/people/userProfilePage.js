@@ -61,7 +61,7 @@ class UserProfilePage extends React.Component {
                     <div className="profilecounter">Posts: {_postsCount}</div>
                     <div className="profilecounter">Comments: {_commentsCount}</div>
                 </div>
-                <p className="footer fixed-bottom">©2017 BlueTeam, Inc.</p>
+                <p className="fixed-bottom text-center">©2017 BlueTeam, Inc.</p>
             </main>
         );
     }
