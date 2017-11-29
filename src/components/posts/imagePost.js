@@ -37,14 +37,24 @@ class ImagePost extends React.Component {
         return (
             <div className={this.props.show}>
                 <p className="error">{this.state.error}</p>
-                <h5>{_userDisplayName}</h5>
-                <img src={_imageUrl} />
-                <small>{_type} post</small>
-                <small>{_commentsNum} Comments</small>
-                <small>{postDate}</small>
+                <div className="card" style={{ width: 50 + "rem", height: 35 + "rem" }} >
+                    <img style={{ width: 50 + "rem", height: 33 + "rem" }} src={_imageUrl} className="card-img-top" />
+                    <div className="card-body">
+                        <h5>{_userDisplayName}</h5>
+                        <small>{postDate}</small>
+                        <small className="float-right">{_commentsNum} Comments</small>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
 export default ImagePost;
+
+
+
+
+
+
+
