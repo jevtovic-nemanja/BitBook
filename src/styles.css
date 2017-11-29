@@ -232,7 +232,7 @@ button:focus {
     border-radius: 5%;
     max-width: 500px;
     min-height: 680px;
-    margin: 0 auto;
+    margin: 7% auto;
     padding: 30px;
     position: relative;
 }
@@ -316,4 +316,9 @@ button:focus {
 
 .options:hover {
     background-color: white;
+}
+
+.newPost {
+    min-height: 300px;
+
 }

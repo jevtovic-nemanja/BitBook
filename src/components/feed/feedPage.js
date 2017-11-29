@@ -267,7 +267,7 @@ class FeedPage extends React.Component {
 
                 <div className={modal}>
                     <div className="backdropStyle" >
-                        <div className="modalStyle">
+                        <div className="modalStyle newPost">
                             <div className={show.text}>
                                 <h2>New Post</h2>
                                 <form>
