@@ -135,6 +135,31 @@ class ProfilePage extends React.Component {
         const { name, email, aboutShort, about, avatarUrl } = this.state.edit;
         const { show, error } = this.state;
 
+        const modalStyle = {
+            overlay: {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "rgba(43, 122, 120, 0.25)"
+            },
+            content: {
+                position: "absolute",
+                top: "15%",
+                left: "30%",
+                right: "30%",
+                bottom: "15%",
+                border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                background: "#feffff",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "4px",
+                outline: "none",
+                padding: "30px"
+            }
+        };
+
         return (
             <main className="container">
                 <div>
@@ -155,13 +180,13 @@ class ProfilePage extends React.Component {
                 </div>
                 <p className="footer fixed-bottom">©2017 BlueTeam, Inc.</p>
 
-                <Modal isOpen={show} >
+                <Modal isOpen={show} style={modalStyle} >
                     <div className="editForm">
                         <form>
                             <label htmlFor="exampleInputText1">Name</label>
                             <input
                                 type="text"
-                                className="form-control modalInput"
+                                className="form-control mb-3"
                                 id="exampleInputText1"
                                 placeholder="Name"
                                 name="name"
@@ -172,7 +197,7 @@ class ProfilePage extends React.Component {
                             <label htmlFor="exampleInputEmail1">Contact Email</label>
                             <input
                                 type="email"
-                                className="form-control modalInput"
+                                className="form-control mb-3"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="Enter email"
@@ -180,11 +205,11 @@ class ProfilePage extends React.Component {
                                 value={email}
                                 onChange={this.handleInputChange}
                             />
-                            <small id="emailHelp" className="form-text text-muted modalInput">We will never share your email with anyone else.</small>
+                            <small id="emailHelp" className="form-text text-muted mb-3">We will never share your email with anyone else.</small>
 
                             <label htmlFor="exampleInputText2">Bio</label>
                             <textarea
-                                className="form-control modalInput"
+                                className="form-control mb-3"
                                 id="exampleInputText2"
                                 placeholder="Short Bio"
                                 name="aboutShort"
@@ -194,7 +219,7 @@ class ProfilePage extends React.Component {
 
                             <label htmlFor="exampleInputText3">About</label>
                             <textarea
-                                className="form-control modalInput"
+                                className="form-control mb-3"
                                 id="exampleInputText3"
                                 placeholder="About"
                                 name="about"
@@ -206,7 +231,7 @@ class ProfilePage extends React.Component {
                             <label htmlFor="exampleInputText4">Picture</label>
                             <input
                                 type="text"
-                                className="form-control modalInput"
+                                className="form-control mb-3"
                                 id="exampleInputText4"
                                 placeholder="Picture URL"
                                 name="avatarUrl"

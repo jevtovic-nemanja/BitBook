@@ -267,21 +267,6 @@ button:focus {
     min-width: 100px;
 }
 
-.editForm {
-    margin: 0 auto;
-    border: 1px solid #2b7a78;
-    padding: 20px;
-    border-radius: 5%;
-}
-
-.modalInput {
-    margin-bottom: 10px;
-}
-
-.hide {
-    display: none;
-}
-
 .newPost {
     min-height: 250px;
     margin-top: 10%;
@@ -319,7 +304,7 @@ button:focus {
 }
 
 .userInfo h3 {
-    color: rgb(43, 122, 120);
+    color: #2b7a78;
 }
 
 .userInfo, .userLastPost {

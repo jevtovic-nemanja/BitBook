@@ -121,7 +121,7 @@ class FeedPage extends React.Component {
 
         const type = event.target.value;
 
-        this.setState({show: type});
+        this.setState({ show: type });
     }
 
     sendTextPost(event) {
@@ -249,7 +249,7 @@ class FeedPage extends React.Component {
                         <label htmlFor="exampleInputText1"><small>YouTube Video Link</small></label>
                         <input
                             type="text"
-                            className="form-control modalInput"
+                            className="form-control mb-2"
                             id="exampleInputText1"
                             name="videoPostContent"
                             value={videoPostContent}
@@ -312,6 +312,31 @@ class FeedPage extends React.Component {
         const { show, error, modal, filterTitle } = this.state;
         const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
 
+        const modalStyle = {
+            overlay: {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "rgba(255, 255, 255, 0.75)"
+            },
+            content: {
+                position: "absolute",
+                top: "25%",
+                left: "30%",
+                right: "30%",
+                bottom: "50%",
+                border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                background: "#feffff",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "4px",
+                outline: "none",
+                padding: "20px"
+            }
+        };
+
         if (this.state.posts.length < 1) {
             return (
                 <main className="container">
@@ -344,7 +369,7 @@ class FeedPage extends React.Component {
 
                 <button className="buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
 
-                <Modal isOpen={modal} >
+                <Modal isOpen={modal} style={modalStyle} >
 
                     {this.togglePostType(show)}
 
