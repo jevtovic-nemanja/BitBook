@@ -37,8 +37,8 @@ class ImagePost extends React.Component {
         return (
             <div className={this.props.show}>
                 <p className="error">{this.state.error}</p>
-                <div className="card" style={{ width: 50 + "rem", height: 35 + "rem" }} >
-                    <img style={{ width: 50 + "rem", height: 33 + "rem" }} src={_imageUrl} className="card-img-top" />
+                <div className="card" style={{ width: 50 + "rem", height: 37 + "rem" }} >
+                    <img style={{ width: 50 + "rem", height: 30 + "rem" }} src={_imageUrl} className="card-img-top" />
                     <div className="card-body">
                         <h5>{_userDisplayName}</h5>
                         <small>{postDate}</small>

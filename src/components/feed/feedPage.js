@@ -187,9 +187,23 @@ class FeedPage extends React.Component {
         event.preventDefault();
 
         if (this.state.modal === "hide") {
-            this.setState({ modal: "" });
+            this.setState({
+                modal: "",
+                new: {
+                    textPostContent: "",
+                    imagePostContent: "",
+                    videoPostContent: ""
+                }
+            });
         } else {
-            this.setState({ modal: "hide" });
+            this.setState({
+                modal: "hide",
+                new: {
+                    textPostContent: "",
+                    imagePostContent: "",
+                    videoPostContent: ""
+                }
+            });
         }
     }
 
@@ -245,7 +259,7 @@ class FeedPage extends React.Component {
         }
 
         return (
-            <main className="container">
+            <main className="container mt-5">
                 <p className="error">{this.state.networkError}</p>
 
                 <div className="positionDropbar">
@@ -279,7 +293,6 @@ class FeedPage extends React.Component {
                                         type="text"
                                         className="form-control modalInput"
                                         id="exampleInputText1"
-                                        placeholder="Name"
                                         name="textPostContent"
                                         value={textPostContent}
                                         onChange={this.handleInputChange}
@@ -303,7 +316,6 @@ class FeedPage extends React.Component {
                                         type="text"
                                         className="form-control modalInput"
                                         id="exampleInputText1"
-                                        placeholder="Name"
                                         name="imagePostContent"
                                         value={imagePostContent}
                                         onChange={this.handleInputChange}
@@ -327,7 +339,6 @@ class FeedPage extends React.Component {
                                         type="text"
                                         className="form-control modalInput"
                                         id="exampleInputText1"
-                                        placeholder="Name"
                                         name="videoPostContent"
                                         value={videoPostContent}
                                         onChange={this.handleInputChange}

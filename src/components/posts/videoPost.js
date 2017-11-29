@@ -37,7 +37,7 @@ class VideoPost extends React.Component {
         return (
             <div className={this.props.show}>
                 <p className="error">{this.state.error}</p>
-                <div className="card" style={{width: 50 + "rem", height: 30 + "rem"}} >
+                <div className="card" style={{width: 50 + "rem", height: 35 + "rem"}} >
                     <iframe style={{width: 50 + "rem", height: 28 + "rem"}} src={_videoUrl} frameBorder="0" allowFullScreen className="card-img-top"></iframe>
                     <div className="card-body">
                         <h5>{_userDisplayName}</h5>

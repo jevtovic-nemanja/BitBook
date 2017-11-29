@@ -35,13 +35,18 @@ class TextPost extends React.Component {
         const postDate = moment(_dateCreated).fromNow();
 
         return (
-            <div className={this.props.show}>
-                <p className="error">{this.state.error}</p>
-                <h5>{_userDisplayName}</h5>
-                <p>{_text}</p>
-                <small>{_type} post</small>
-                <small>{_commentsNum} Comments</small>
-                <small>{postDate}</small>
+            <div>
+                <div className={this.props.show}>
+                    <p className="error">{this.state.error}</p>
+                    <div className="card" style={{ width: 50 + "rem" }} >
+                        <div className="card-body">
+                            <h5>{_userDisplayName}</h5>
+                            <p> {_text}</p>
+                            <small>{postDate}</small>
+                            <small className="float-right">{_commentsNum} Comments</small>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
