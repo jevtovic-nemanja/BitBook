@@ -3,6 +3,8 @@ import React from "react";
 import { dataService } from "../services/serviceData";
 import { redirect } from "../services/serviceRedirect";
 
+import Modal from "react-modal";
+
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
@@ -29,7 +31,7 @@ class ProfilePage extends React.Component {
                 about: "",
                 avatarUrl: "",
             },
-            show: "hide",
+            show: false,
             error: ""
         };
     }
@@ -81,10 +83,10 @@ class ProfilePage extends React.Component {
     toggleModalShow() {
         event.preventDefault();
 
-        if (this.state.show === "hide") {
-            this.setState({ show: "" });
+        if (this.state.show === false) {
+            this.setState({ show: true });
         } else {
-            this.setState({ show: "hide" });
+            this.setState({ show: false });
         }
     }
 
@@ -136,7 +138,6 @@ class ProfilePage extends React.Component {
         return (
             <main className="container">
                 <div>
-
                     <div className="profilecontent">
                         <img src={_avatarUrl
                             ? _avatarUrl
@@ -154,86 +155,82 @@ class ProfilePage extends React.Component {
                 </div>
                 <p className="footer fixed-bottom">©2017 BlueTeam, Inc.</p>
 
-                <div className={show}>
-                    <div className="backdropStyle" >
-                        <div className="modalStyle">
-                            <div className="editForm">
-                                <form>
-                                    <label htmlFor="exampleInputText1">Name</label>
-                                    <input
-                                        type="text"
-                                        className="form-control modalInput"
-                                        id="exampleInputText1"
-                                        placeholder="Name"
-                                        name="name"
-                                        value={name}
-                                        onChange={this.handleInputChange}
-                                    />
+                <Modal isOpen={show} >
+                    <div className="editForm">
+                        <form>
+                            <label htmlFor="exampleInputText1">Name</label>
+                            <input
+                                type="text"
+                                className="form-control modalInput"
+                                id="exampleInputText1"
+                                placeholder="Name"
+                                name="name"
+                                value={name}
+                                onChange={this.handleInputChange}
+                            />
 
-                                    <label htmlFor="exampleInputEmail1">Contact Email</label>
-                                    <input
-                                        type="email"
-                                        className="form-control modalInput"
-                                        id="exampleInputEmail1"
-                                        aria-describedby="emailHelp"
-                                        placeholder="Enter email"
-                                        name="email"
-                                        value={email}
-                                        onChange={this.handleInputChange}
-                                    />
-                                    <small id="emailHelp" className="form-text text-muted modalInput">We will never share your email with anyone else.</small>
+                            <label htmlFor="exampleInputEmail1">Contact Email</label>
+                            <input
+                                type="email"
+                                className="form-control modalInput"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                placeholder="Enter email"
+                                name="email"
+                                value={email}
+                                onChange={this.handleInputChange}
+                            />
+                            <small id="emailHelp" className="form-text text-muted modalInput">We will never share your email with anyone else.</small>
 
-                                    <label htmlFor="exampleInputText2">Bio</label>
-                                    <textarea
-                                        className="form-control modalInput"
-                                        id="exampleInputText2"
-                                        placeholder="Short Bio"
-                                        name="aboutShort"
-                                        value={aboutShort}
-                                        onChange={this.handleInputChange}
-                                    />
+                            <label htmlFor="exampleInputText2">Bio</label>
+                            <textarea
+                                className="form-control modalInput"
+                                id="exampleInputText2"
+                                placeholder="Short Bio"
+                                name="aboutShort"
+                                value={aboutShort}
+                                onChange={this.handleInputChange}
+                            />
 
-                                    <label htmlFor="exampleInputText3">About</label>
-                                    <textarea
-                                        className="form-control modalInput"
-                                        id="exampleInputText3"
-                                        placeholder="About"
-                                        name="about"
-                                        rows="5"
-                                        value={about}
-                                        onChange={this.handleInputChange}
-                                    />
+                            <label htmlFor="exampleInputText3">About</label>
+                            <textarea
+                                className="form-control modalInput"
+                                id="exampleInputText3"
+                                placeholder="About"
+                                name="about"
+                                rows="5"
+                                value={about}
+                                onChange={this.handleInputChange}
+                            />
 
-                                    <label htmlFor="exampleInputText4">Picture</label>
-                                    <input
-                                        type="text"
-                                        className="form-control modalInput"
-                                        id="exampleInputText4"
-                                        placeholder="Picture URL"
-                                        name="avatarUrl"
-                                        value={avatarUrl}
-                                        onChange={this.handleInputChange}
-                                    />
+                            <label htmlFor="exampleInputText4">Picture</label>
+                            <input
+                                type="text"
+                                className="form-control modalInput"
+                                id="exampleInputText4"
+                                placeholder="Picture URL"
+                                name="avatarUrl"
+                                value={avatarUrl}
+                                onChange={this.handleInputChange}
+                            />
 
-                                </form>
-                            </div>
-                            <div className="error">
-                                {error
-                                    ? <p>{error}</p>
-                                    : <p></p>
-                                }
-                            </div>
-                            <div>
-                                <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
-                                    Save
-                                </button>
-                                <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                                    Close
-                                </button>
-                            </div>
-                        </div >
-                    </div >
-                </div >
+                        </form>
+                    </div>
+                    <div className="error">
+                        {error
+                            ? <p>{error}</p>
+                            : <p></p>
+                        }
+                    </div>
+                    <div>
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
+                            Save
+                        </button>
+                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                            Close
+                        </button>
+                    </div>
+                </Modal>
             </main>
         );
     }

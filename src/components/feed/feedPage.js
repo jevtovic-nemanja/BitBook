@@ -8,6 +8,8 @@ import TextPost from "../posts/textPost";
 import ImagePost from "../posts/imagePost";
 import VideoPost from "../posts/videoPost";
 
+import Modal from "react-modal";
+
 class FeedPage extends React.Component {
     constructor(props) {
         super(props);
@@ -21,12 +23,8 @@ class FeedPage extends React.Component {
             posts: [],
             networkError: "",
             error: "",
-            modal: "hide",
-            show: {
-                text: "",
-                image: "hide",
-                video: "hide"
-            },
+            modal: false,
+            show: "text",
             new: {
                 textPostContent: "",
                 imagePostContent: "",
@@ -123,19 +121,7 @@ class FeedPage extends React.Component {
 
         const type = event.target.value;
 
-        const showText = type === "text" ? "" : "hide";
-        const showImage = type === "image" ? "" : "hide";
-        const showVideo = type === "video" ? "" : "hide";
-
-        if (this.state.show[type] === "hide") {
-            this.setState({
-                show: {
-                    text: showText,
-                    image: showImage,
-                    video: showVideo
-                }
-            });
-        }
+        this.setState({show: type});
     }
 
     sendTextPost(event) {
@@ -156,7 +142,6 @@ class FeedPage extends React.Component {
         event.preventDefault();
 
         const isValid = this.validateImageInput();
-        console.log(isValid);
 
         if (isValid) {
             const postData = { imageUrl: this.state.new.imagePostContent };
@@ -186,9 +171,9 @@ class FeedPage extends React.Component {
     toggleModalShow() {
         event.preventDefault();
 
-        if (this.state.modal === "hide") {
+        if (this.state.modal === false) {
             this.setState({
-                modal: "",
+                modal: true,
                 new: {
                     textPostContent: "",
                     imagePostContent: "",
@@ -197,13 +182,90 @@ class FeedPage extends React.Component {
             });
         } else {
             this.setState({
-                modal: "hide",
-                new: {
-                    textPostContent: "",
-                    imagePostContent: "",
-                    videoPostContent: ""
-                }
+                modal: false,
             });
+        }
+    }
+
+    togglePostType(type) {
+        const { show, error, modal, filterTitle } = this.state;
+        const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
+
+        if (type === "text") {
+            return (
+                <div>
+                    <h2>New Post</h2>
+                    <form>
+                        <label htmlFor="exampleInputText1"><small>Post content</small></label>
+                        <input
+                            type="text"
+                            className="form-control modalInput"
+                            id="exampleInputText1"
+                            name="textPostContent"
+                            value={textPostContent}
+                            onChange={this.handleInputChange}
+                        />
+                    </form>
+                    <div>
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendTextPost}>
+                            Post
+                        </button>
+                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            );
+        } else if (type === "image") {
+            return (
+                <div>
+                    <h2>New Image Post</h2>
+                    <form>
+                        <label htmlFor="exampleInputText1"><small>Image Link</small></label>
+                        <input
+                            type="text"
+                            className="form-control modalInput"
+                            id="exampleInputText1"
+                            name="imagePostContent"
+                            value={imagePostContent}
+                            onChange={this.handleInputChange}
+                        />
+                    </form>
+                    <div>
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendImagePost}>
+                            Post
+                        </button>
+                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            );
+        } else if (type === "video") {
+            return (
+                <div>
+                    <h2>New Video Post</h2>
+                    <form>
+                        <label htmlFor="exampleInputText1"><small>YouTube Video Link</small></label>
+                        <input
+                            type="text"
+                            className="form-control modalInput"
+                            id="exampleInputText1"
+                            name="videoPostContent"
+                            value={videoPostContent}
+                            onChange={this.handleInputChange}
+                        />
+                    </form>
+                    <div>
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendVideoPost}>
+                            Post
+                        </button>
+                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            );
         }
     }
 
@@ -282,95 +344,23 @@ class FeedPage extends React.Component {
 
                 <button className="buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
 
-                <div className={modal}>
-                    <div className="backdropStyle" >
-                        <div className="modalStyle newPost">
-                            <div className={show.text}>
-                                <h2>New Post</h2>
-                                <form>
-                                    <label htmlFor="exampleInputText1"><small>Post content</small></label>
-                                    <input
-                                        type="text"
-                                        className="form-control modalInput"
-                                        id="exampleInputText1"
-                                        name="textPostContent"
-                                        value={textPostContent}
-                                        onChange={this.handleInputChange}
-                                    />
-                                </form>
-                                <div>
-                                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendTextPost}>
-                                        Post
-                                    </button>
-                                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
+                <Modal isOpen={modal} >
 
-                            <div className={show.image}>
-                                <h2>New Image Post</h2>
-                                <form>
-                                    <label htmlFor="exampleInputText1"><small>Image Link</small></label>
-                                    <input
-                                        type="text"
-                                        className="form-control modalInput"
-                                        id="exampleInputText1"
-                                        name="imagePostContent"
-                                        value={imagePostContent}
-                                        onChange={this.handleInputChange}
-                                    />
-                                </form>
-                                <div>
-                                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendImagePost}>
-                                        Post
-                                    </button>
-                                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
+                    {this.togglePostType(show)}
 
-                            <div className={show.video}>
-                                <h2>New Video Post</h2>
-                                <form>
-                                    <label htmlFor="exampleInputText1"><small>YouTube Video Link</small></label>
-                                    <input
-                                        type="text"
-                                        className="form-control modalInput"
-                                        id="exampleInputText1"
-                                        name="videoPostContent"
-                                        value={videoPostContent}
-                                        onChange={this.handleInputChange}
-                                    />
-                                </form>
-                                <div>
-                                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendVideoPost}>
-                                        Post
-                                    </button>
-                                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
+                    <div className="error">
+                        {error
+                            ? <p>{error}</p>
+                            : <p></p>
+                        }
+                    </div>
 
-                            <div className="error">
-                                {error
-                                    ? <p>{error}</p>
-                                    : <p></p>
-                                }
-                            </div>
-
-                        </div >
-                        <div className="postTypeButtons">
-                            <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
-                            <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
-                            <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
-                        </div>
-
-                    </div >
-
-                </div >
+                    <div className="postTypeButtons">
+                        <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
+                        <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
+                        <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
+                    </div>
+                </Modal >
             </main>
         );
     }
