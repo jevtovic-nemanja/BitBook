@@ -182,7 +182,7 @@ class FeedPage extends React.Component {
             });
         } else {
             this.setState({
-                modal: false,
+                modal: false
             });
         }
     }
@@ -348,7 +348,7 @@ class FeedPage extends React.Component {
         return (
             <main className="row mt-2">
                 <div className="col-12 col-lg-9 offset-lg-1">
-                    
+
                     <div className="btn-group mt-3">
 
                         <button type="button" className="btn buttonDark">{filterTitle}</button>
@@ -380,19 +380,21 @@ class FeedPage extends React.Component {
                             }
                         </div>
 
-                        <div className="text-center">
+
+                        <div className="text-center modalButtons">
                             <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
                             <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
                             <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
                         </div>
+
                     </Modal >
                 </div>
 
                 <div className="col-lg-2"></div>
 
-
-
                 <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
+
+
 
 
             </main>

@@ -321,3 +321,10 @@ button:focus {
     -moz-box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
     box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
 }
+
+.modalButtons {
+    width: 100px;
+    position: fixed;
+    bottom: 100px;
+    right: 0;
+}
