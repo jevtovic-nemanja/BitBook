@@ -152,6 +152,7 @@ button:focus {
     color: #17252a;
 }
 
+
 .loginTitle{
     font-size: 47px;
     font-family: Arial, Helvetica, sans-serif;
@@ -169,6 +170,7 @@ button:focus {
 .form {
     margin: 9% auto 0;
     margin-left: 30px;
+    margin-bottom: 30px;
     padding: 20px;
     border-radius: 5%;
     background-color: rgba(254, 255, 255, 0.9);
@@ -176,6 +178,34 @@ button:focus {
     -moz-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
     box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
 }
+
+@media only screen and (max-width: 578px){
+    .welcomeText{
+        width:100%;
+        margin-left: 0px;
+        padding: 0px;
+        margin-top: 0;
+    }
+    .form{
+        margin-right: 20px;
+        margin-left: 25px;
+    }
+
+    .loginParagraph {
+        display: none;
+    }
+
+    .loginTitle {
+        font-size: 33px;
+        text-align: center;
+        margin-top: 35px;
+    }
+
+}
+
+
+
+
 
 .btn-dark {
     margin-bottom: 10px;
@@ -246,21 +276,33 @@ button:focus {
 /*Modal dialog */
 
 .saveButtonStyle {
-    position: absolute;
-    right: 45px;
-    bottom: 10px;
-    min-width: 100px;
+    /* position: absolute;
+    right: 1%;
+    bottom: 10px;   
+    min-width: 10%; */
 }
 
 .closeButtonStyle {
-    position: absolute;
-    right: 155px;
+    margin-left: 10px;
+
+    /* position: absolute;
+    right: 20%;
     bottom: 10px;
-    min-width: 100px;
+    min-width: 10%; */
+   
+} 
+.modalWrapper{
+   
+   
+}
+
+.buttonWrapper {
+    float: right;
+    margin-top: 15%;
 }
 
 .newPost {
-    min-height: 250px;
+    min-height: 270px;
     margin-top: 10%;
 }
 

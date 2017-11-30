@@ -13,7 +13,7 @@ class LoginPage extends React.Component {
             <div className="background">
                 <div className=" container">
                     <div className="row">
-                        <div className="welcomeText col-6">
+                        <div className="welcomeText col-sm-12 col-md-12 col-lg-6">
                             <h1 className="loginTitle">Welcome to BitBook </h1>
                             <p className="loginParagraph"> Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from
                  45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up
@@ -24,7 +24,7 @@ class LoginPage extends React.Component {
                         </div>
 
 
-                        <div className="col-6 welcomeText">
+                        <div className="col-sm-12 col-md-12 col-lg-6  welcomeText">
                             <Switch>
                                 <Route exact path="/login" component={LoginForm} />
                                 <Route exact path="/register" component={RegisterForm} />

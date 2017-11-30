@@ -206,7 +206,7 @@ class FeedPage extends React.Component {
                             onChange={this.handleInputChange}
                         />
                     </form>
-                    <div>
+                    <div className="buttonWrapper">
                         <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendTextPost}>
                             Post
                         </button>
@@ -231,7 +231,7 @@ class FeedPage extends React.Component {
                             onChange={this.handleInputChange}
                         />
                     </form>
-                    <div>
+                    <div className="buttonWrapper">
                         <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendImagePost}>
                             Post
                         </button>
@@ -256,7 +256,7 @@ class FeedPage extends React.Component {
                             onChange={this.handleInputChange}
                         />
                     </form>
-                    <div>
+                    <div className="buttonWrapper">
                         <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendVideoPost}>
                             Post
                         </button>
@@ -323,9 +323,9 @@ class FeedPage extends React.Component {
             },
             content: {
                 position: "absolute",
-                top: "25%",
-                left: "30%",
-                right: "30%",
+                top: "10%",
+                left: "15%",
+                right: "15%",
                 bottom: "50%",
                 border: "0.5px solid rgba(43, 122, 120, 0.5)",
                 background: "#feffff",
@@ -369,25 +369,27 @@ class FeedPage extends React.Component {
 
                     {this.state.posts.map(post => this.renderPosts(post))}
 
-                    <Modal isOpen={modal} style={modalStyle} >
+                    <div className="row modalWrapper">
+                        <Modal isOpen={modal} style={modalStyle} >
 
-                        {this.togglePostType(show)}
+                            {this.togglePostType(show)}
 
-                        <div className="error">
-                            {error
-                                ? <p>{error}</p>
-                                : <p></p>
-                            }
-                        </div>
+                            <div className="error">
+                                {error
+                                    ? <p>{error}</p>
+                                    : <p></p>
+                                }
+                            </div>
 
 
-                        <div className="text-center modalButtons">
-                            <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
-                            <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
-                            <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
-                        </div>
+                            <div className="text-center modalButtons">
+                                <button className="buttonLight round" value="text" onClick={this.selectPostType}>T</button><p>Text</p>
+                                <button className="buttonLight round" value="image" onClick={this.selectPostType}>I</button><p>Image</p>
+                                <button className="buttonLight round" value="video" onClick={this.selectPostType}>V</button><p>Video</p>
+                            </div>
 
-                    </Modal >
+                        </Modal >
+                    </div>
                 </div>
 
                 <div className="col-lg-2"></div>
