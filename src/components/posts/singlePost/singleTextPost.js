@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 import { dataService } from "../../services/serviceData";
+import Comment from "../singlePost/comment";
 
 class SingleTextPost extends React.Component {
     constructor(props) {
@@ -13,7 +14,9 @@ class SingleTextPost extends React.Component {
     initState() {
         return {
             post: "",
-            error: ""
+            comments: [],
+            error: "",
+            commentsError: ""
         };
     }
 
@@ -22,7 +25,14 @@ class SingleTextPost extends React.Component {
     }
 
     getPost(id) {
-        dataService.getTextPost(id, textPost => this.setState({ post: textPost }), error => this.handleNetworkRequestError(error));
+        dataService.getTextPost(id, textPost => {
+            this.setState({ post: textPost });
+            this.getComments(textPost._id);
+        }, error => this.handleNetworkRequestError(error));
+    }
+
+    getComments(id) {
+        dataService.getComments(id, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
     }
 
     handleNetworkRequestError(error) {
@@ -31,14 +41,20 @@ class SingleTextPost extends React.Component {
         }
     }
 
+    handleCommentsNetworkRequestError(error) {
+        if (error.request) {
+            this.setState({ commentsError: "Cannot load comments." });
+        }
+    }
+
     render() {
-        const { error } = this.state;
-        const { _text, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
+        const { error, commentsError } = this.state;
+        const { _text, _id, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
         const postDate = moment(_dateCreated).fromNow();
 
         return (
             <div className="row">
-                <p>{error}</p>
+                <p className="error">{error}</p>
                 <div className="card mb-4" style={{ width: 100 + "%" }} >
                     <div className="card-body">
                         <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
@@ -47,6 +63,10 @@ class SingleTextPost extends React.Component {
                         <h6 className="float-right">{_commentsNum} Comments</h6>
                     </div>
                 </div>
+                <p className="error">{commentsError}</p>
+                {this.state.comments.map(comment => {
+                    return <Comment comment={comment} key={comment._id} />;
+                })}
             </div>
         );
     }

@@ -56,7 +56,7 @@ class ServiceData {
 
     getTextPost(id, callback, errorCallback) {
         APIService.getFromAPI(`/TextPosts/${id}`, responseData => {
-            const {text, id, dateCreated, userId, userDisplayName, type, commentsNum} = responseData;
+            const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = responseData;
             const textPost = new TextPostModel(text, id, dateCreated, userId, userDisplayName, type, commentsNum);
             callback(textPost);
         }, errorCallback);
@@ -64,7 +64,7 @@ class ServiceData {
 
     getImagePost(id, callback, errorCallback) {
         APIService.getFromAPI(`/ImagePosts/${id}`, responseData => {
-            const {imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum} = responseData;
+            const { imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = responseData;
             const imagePost = new ImagePostModel(imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
             callback(imagePost);
         }, errorCallback);
@@ -72,7 +72,7 @@ class ServiceData {
 
     getVideoPost(id, callback, errorCallback) {
         APIService.getFromAPI(`/VideoPosts/${id}`, responseData => {
-            const {videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum} = responseData;
+            const { videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = responseData;
             const videoPost = new VideoPostModel(videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
             callback(videoPost);
         }, errorCallback);
@@ -92,12 +92,11 @@ class ServiceData {
             errorCallback);
     }
 
-
-    getComments(callback, errorCallback) {
-        APIService.getFromAPI("/Comments", responseData => {
+    getComments(id, callback, errorCallback) {
+        APIService.getFromAPI(`/Comments/?postId=${id}`, responseData => {
             let comments = responseData.map(item => {
-                let { id, dateCreated, body, postId, authorId } = item;
-                return new Comment(id, dateCreated, body, postId, authorId);
+                let { id, dateCreated, body, postId, authorId, authorName } = item;
+                return new Comment(id, dateCreated, body, postId, authorId, authorName);
             });
             callback(comments);
         }, errorCallback);

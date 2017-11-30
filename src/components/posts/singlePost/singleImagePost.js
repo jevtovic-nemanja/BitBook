@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 import { dataService } from "../../services/serviceData";
+import Comment from "../singlePost/comment";
 
 class SingleImagePost extends React.Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class SingleImagePost extends React.Component {
     initState() {
         return {
             post: "",
-            error: ""
+            error: "",
+            comments: []
         };
     }
 
@@ -22,7 +24,14 @@ class SingleImagePost extends React.Component {
     }
 
     getPost(id) {
-        dataService.getImagePost(id, imagePost => this.setState({ post: imagePost }), error => this.handleNetworkRequestError(error));
+        dataService.getImagePost(id, imagePost => {
+            this.setState({ post: imagePost });
+            this.getComments(imagePost._id);
+        }, error => this.handleNetworkRequestError(error));
+    }
+
+    getComments(id) {
+        dataService.getComments(id, comments => this.setState({ comments: comments }), error => this.handleNetworkRequestError(error));
     }
 
     handleNetworkRequestError(error) {
@@ -33,7 +42,7 @@ class SingleImagePost extends React.Component {
 
     render() {
         const { error } = this.state;
-        const { _imageUrl, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
+        const { _imageUrl, _id, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
         const postDate = moment(_dateCreated).fromNow();
 
         return (
@@ -44,6 +53,9 @@ class SingleImagePost extends React.Component {
                     <small>{postDate}</small>
                     <h6 className="float-right">{_commentsNum} Comments</h6>
                 </div>
+                {this.state.comments.map(comment => {
+                    return <Comment comment={comment} key={comment._id} />;
+                })}
             </div>
         );
     }
