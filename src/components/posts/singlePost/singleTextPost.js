@@ -18,7 +18,8 @@ class SingleTextPost extends React.Component {
             comments: [],
             error: "",
             commentsError: "",
-            newComment: ""
+            newComment: "",
+            userPicture: ""
         };
     }
 
@@ -35,11 +36,16 @@ class SingleTextPost extends React.Component {
         dataService.getTextPost(id, textPost => {
             this.setState({ post: textPost });
             this.getComments(textPost._id);
+            this.getUserPicture(textPost._userId);
         }, error => this.handleNetworkRequestError(error));
     }
 
     getComments(id) {
         dataService.getComments(id, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+    }
+
+    getUserPicture(id) {
+        dataService.getUserProfile(id, profile => this.setState({ userPicture: profile._avatarUrl }), error => this.setState({ userPicture: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"}));
     }
 
     handleInputChange(event) {
@@ -61,10 +67,10 @@ class SingleTextPost extends React.Component {
             this.setState({ commentsError: "Cannot load comments." });
         }
     }
-
+    
     postComment(event) {
         event.preventDefault();
-        
+
         const postId = this.state.post._id;
 
         const postData = { postId: postId, body: this.state.newComment };
@@ -72,7 +78,7 @@ class SingleTextPost extends React.Component {
     }
 
     render() {
-        const { error, commentsError } = this.state;
+        const { error, commentsError, userPicture } = this.state;
         const { _text, _id, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
         const postDate = moment(_dateCreated).fromNow();
 
@@ -94,7 +100,7 @@ class SingleTextPost extends React.Component {
 
                 <p className="error">{commentsError}</p>
                 {this.state.comments.map(comment => {
-                    return <Comment key={comment._id} author={comment._authorName} body={comment._body} />;
+                    return <Comment key={comment._id} author={comment._authorName} body={comment._body} image={userPicture} />;
                 })}
             </div>
         );
