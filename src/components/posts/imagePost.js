@@ -53,9 +53,9 @@ class ImagePost extends React.Component {
                 <div className="card mb-4" style={{ width: 100 + "%", height: 100 + "%" }} >
                     <img src={_imageUrl} className="card-img-top" />
                     <div className="card-body">
-                        <Link to={`people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
+                        <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                         <small>{postDate}</small>
-                        <small className="float-right">{_commentsNum} Comments</small>
+                        <Link to={`/imagePosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
                     </div>
                 </div>
             </div>

@@ -59,9 +59,9 @@ class VideoPost extends React.Component {
                         <iframe src={_videoUrl} style={{ width: 100 + "%" }} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item"></iframe>
                     </div>
                     <div className="card-body" >
-                        <Link to={`people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
+                        <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                         <small>{postDate}</small>
-                        <small className="float-right">{_commentsNum} Comments</small>
+                        <Link to={`/videoPosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
                     </div>
                 </div>
             </div>

@@ -62,21 +62,6 @@ class ServiceData {
         }, errorCallback);
     }
 
-    postTextPost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(callback, errorCallback),
-            errorCallback);
-    }
-
-    postImagePost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/ImagePosts", dataObject, response => this.getPosts(callback, errorCallback),
-            errorCallback);
-    }
-
-    postVideoPost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/VideoPosts", dataObject, response => this.getPosts(callback, errorCallback),
-            errorCallback);
-    }
-
     getImagePost(id, callback, errorCallback) {
         APIService.getFromAPI(`/ImagePosts/${id}`, responseData => {
             const {imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum} = responseData;
@@ -92,6 +77,21 @@ class ServiceData {
             callback(videoPost);
         }, errorCallback);
     }
+    postTextPost(dataObject, callback, errorCallback) {
+        APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(callback, errorCallback),
+            errorCallback);
+    }
+
+    postImagePost(dataObject, callback, errorCallback) {
+        APIService.postToAPI("/ImagePosts", dataObject, response => this.getPosts(callback, errorCallback),
+            errorCallback);
+    }
+
+    postVideoPost(dataObject, callback, errorCallback) {
+        APIService.postToAPI("/VideoPosts", dataObject, response => this.getPosts(callback, errorCallback),
+            errorCallback);
+    }
+
 
     getComments(callback, errorCallback) {
         APIService.getFromAPI("/Comments", responseData => {
