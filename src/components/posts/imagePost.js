@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 
 import { dataService } from "../services/serviceData";
+import { Link } from "react-router-dom";
 
 class ImagePost extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class ImagePost extends React.Component {
     }
 
     componentDidMount() {
-        this.loadPost(this.props.post);
+        this.loadPost(this.props.post._id);
     }
 
     handleNetworkRequestError(error) {
@@ -31,7 +32,7 @@ class ImagePost extends React.Component {
     }
 
     render() {
-        const { _id, _imageUrl, _dateCreated, _userDisplayName, _type, _commentsNum } = this.state.post;
+        const { _id, _imageUrl, _dateCreated, _userId, _userDisplayName, _type, _commentsNum } = this.state.post;
         const { error } = this.state;
         const postDate = moment(_dateCreated).fromNow();
 
@@ -52,7 +53,7 @@ class ImagePost extends React.Component {
                 <div className="card mb-4" style={{ width: 100 + "%", height: 100 + "%" }} >
                     <img src={_imageUrl} className="card-img-top" />
                     <div className="card-body">
-                        <h5>{_userDisplayName}</h5>
+                        <Link to={`people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                         <small>{postDate}</small>
                         <small className="float-right">{_commentsNum} Comments</small>
                     </div>

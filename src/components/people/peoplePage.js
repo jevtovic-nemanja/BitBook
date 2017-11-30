@@ -56,7 +56,7 @@ class PeoplePage extends React.Component {
     render() {
         if (this.state.usersOriginal.length < 1) {
             return (
-                <main className="container">
+                <main>
                     <Search onSearch={this.filterUsers} />
                     <h1 className="text-center">Loading users...</h1>
                 </main>
@@ -64,14 +64,18 @@ class PeoplePage extends React.Component {
         }
 
         return (
-            <main className="container">
+            <main>
                 <Search onSearch={this.filterUsers} />
                 <p className="error">{this.state.error}</p>
-                {this.state.users.map(user => {
-                    return (
-                        <UserDescription userData={user} key={user._id} id={user._id} />
-                    );
-                })}
+                <div className="row">
+                    {this.state.users.map(user => {
+                        return (
+                            <div className="col-sm-12 col-md-6 col-lg-4 mb-4" key={user._id}>
+                                <UserDescription userData={user} id={user._id} />
+                            </div>
+                        );
+                    })}
+                </div>
             </main>
         );
     }
