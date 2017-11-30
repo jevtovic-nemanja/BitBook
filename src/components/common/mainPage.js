@@ -22,7 +22,7 @@ class MainPage extends React.Component {
         return (
             <div className="wrapper">
                 <Header />
-                <div className="container">
+                <div className="container mainContent">
                     <Switch>
                         <Route exact path="/" component={FeedPage} />
                         <Route path="/feed" component={FeedPage} />

@@ -31,6 +31,28 @@ body {
     background-color: whitesmoke;
 }
 
+.wrapper {
+    height: 100%;
+
+}
+
+
+.mainAndFooter {
+    position: relative;
+    height: 100%;
+    margin-bottom: -121px;
+}
+
+
+.mainContent {
+  height: 90%;
+    position: relative;
+}
+
+profileContainer {
+  height: 100%;
+}
+
 /* Navbar */
 
 .navbar-light .navbar-nav .nav-link {
@@ -44,6 +66,7 @@ body {
 a:-webkit-any-link {
     text-decoration: none;
 }
+
 
 /* All inputs */
 
@@ -172,27 +195,36 @@ button:focus {
 
 .profilecontent{
     text-align: center;
-    margin: 8% auto 0;
-    width: 50%;
+    /* margin-top: 8%; */
+    /* height: 100%; */
 }
+
+
 .profileimage{
     border-radius: 15%;
-    -webkit-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
-    -moz-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
-    box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
     margin-bottom: 2%;
-    width: 250px;
+    max-width: 90%;
     height: 250px;
+    margin: 0 auto;
+    margin-top: 8%;
+}
+
+.profileTextContent {
+    margin: 0 auto;
+    max-width: 70%;
+
+
 }
 
 .profilename{
     font-family: 'PT Serif', serif;
     margin-bottom: 1%;
-    margin-top: 10px;
+    margin-top: 20px;
+    max-width: 100%;
 }
 
 .profileabout {
-    width: 50%;
+    max-width: 60%;
     margin: 20px auto;
     text-align: center;
 }
@@ -202,7 +234,7 @@ button:focus {
     color: #feffff;
     border-radius: 10%;
     border: 1px solid #feffff;
-    width: 50%;
+    max-width: 60%; 
     text-align: center;
     margin: 10px auto 0;
 }
@@ -230,6 +262,14 @@ button:focus {
 .newPost {
     min-height: 250px;
     margin-top: 10%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    
+    
 }
 
 /*People page */

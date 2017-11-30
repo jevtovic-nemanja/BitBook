@@ -161,102 +161,109 @@ class ProfilePage extends React.Component {
         };
 
         return (
-            <main className="container">
-                <div>
+            <div className="row">
+                <main className="col-12">
                     <div className="profilecontent">
-                        <img src={_avatarUrl
-                            ? _avatarUrl
-                            : "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"
-                        } className="profileimage" />
-                        <h1 className="profilename">{_name}</h1>
-                        <em>{_aboutShort}</em>
-                        <p className="profileabout">{_about}</p>
-                        <div className="profilecounter">Posts: {_postsCount}</div>
-                        <div className="profilecounter">Comments: {_commentsCount}</div>
+                        <div className="row">
+                            <img src={_avatarUrl
+                                ? _avatarUrl
+                                : "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"
+                            } className="profileimage" />
+                        </div>
+                        <div className="row">
+                            <div className="profileTextContent">
+                                <h2 className="profilename">{_name}</h2>
+                                <em>{_aboutShort}</em>
+                                <p className="profileabout">{_about}</p>
+                                <div className="profilecounter">Posts: {_postsCount}</div>
+                                <div className="profilecounter">Comments: {_commentsCount}</div>
+
+                                <div className="text-center editButton">
+                                    <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <div className="text-center editButton">
-                        <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
-                    </div>
-                </div>
-                <p className="fixed-bottom text-center">©2017 BlueTeam, Inc.</p>
+                    <Modal isOpen={show} style={modalStyle} >
+                        <div className="editForm">
+                            <form>
+                                <label htmlFor="exampleInputText1">Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control mb-3"
+                                    id="exampleInputText1"
+                                    placeholder="Name"
+                                    name="name"
+                                    value={name}
+                                    onChange={this.handleInputChange}
+                                />
 
-                <Modal isOpen={show} style={modalStyle} >
-                    <div className="editForm">
-                        <form>
-                            <label htmlFor="exampleInputText1">Name</label>
-                            <input
-                                type="text"
-                                className="form-control mb-3"
-                                id="exampleInputText1"
-                                placeholder="Name"
-                                name="name"
-                                value={name}
-                                onChange={this.handleInputChange}
-                            />
+                                <label htmlFor="exampleInputEmail1">Contact Email</label>
+                                <input
+                                    type="email"
+                                    className="form-control mb-3"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Enter email"
+                                    name="email"
+                                    value={email}
+                                    onChange={this.handleInputChange}
+                                />
+                                <small id="emailHelp" className="form-text text-muted mb-3">We will never share your email with anyone else.</small>
 
-                            <label htmlFor="exampleInputEmail1">Contact Email</label>
-                            <input
-                                type="email"
-                                className="form-control mb-3"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                                placeholder="Enter email"
-                                name="email"
-                                value={email}
-                                onChange={this.handleInputChange}
-                            />
-                            <small id="emailHelp" className="form-text text-muted mb-3">We will never share your email with anyone else.</small>
+                                <label htmlFor="exampleInputText2">Bio</label>
+                                <textarea
+                                    className="form-control mb-3"
+                                    id="exampleInputText2"
+                                    placeholder="Short Bio"
+                                    name="aboutShort"
+                                    value={aboutShort}
+                                    onChange={this.handleInputChange}
+                                />
 
-                            <label htmlFor="exampleInputText2">Bio</label>
-                            <textarea
-                                className="form-control mb-3"
-                                id="exampleInputText2"
-                                placeholder="Short Bio"
-                                name="aboutShort"
-                                value={aboutShort}
-                                onChange={this.handleInputChange}
-                            />
+                                <label htmlFor="exampleInputText3">About</label>
+                                <textarea
+                                    className="form-control mb-3"
+                                    id="exampleInputText3"
+                                    placeholder="About"
+                                    name="about"
+                                    rows="5"
+                                    value={about}
+                                    onChange={this.handleInputChange}
+                                />
 
-                            <label htmlFor="exampleInputText3">About</label>
-                            <textarea
-                                className="form-control mb-3"
-                                id="exampleInputText3"
-                                placeholder="About"
-                                name="about"
-                                rows="5"
-                                value={about}
-                                onChange={this.handleInputChange}
-                            />
+                                <label htmlFor="exampleInputText4">Picture</label>
+                                <input
+                                    type="text"
+                                    className="form-control mb-3"
+                                    id="exampleInputText4"
+                                    placeholder="Picture URL"
+                                    name="avatarUrl"
+                                    value={avatarUrl}
+                                    onChange={this.handleInputChange}
+                                />
 
-                            <label htmlFor="exampleInputText4">Picture</label>
-                            <input
-                                type="text"
-                                className="form-control mb-3"
-                                id="exampleInputText4"
-                                placeholder="Picture URL"
-                                name="avatarUrl"
-                                value={avatarUrl}
-                                onChange={this.handleInputChange}
-                            />
-
-                        </form>
-                    </div>
-                    <div className="error">
-                        {error
-                            ? <p>{error}</p>
-                            : <p></p>
-                        }
-                    </div>
-                    <div>
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
-                            Save
-                        </button>
-                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                            Close
-                        </button>
-                    </div>
-                </Modal>
-            </main>
+                            </form>
+                        </div>
+                        <div className="error">
+                            {error
+                                ? <p>{error}</p>
+                                : <p></p>
+                            }
+                        </div>
+                        <div>
+                            <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
+                                Save
+                            </button>
+                            <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
+                                Close
+                            </button>
+                        </div>
+                    </Modal>
+                </main>
+            </div>
         );
     }
 }
