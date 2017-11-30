@@ -4,7 +4,7 @@ import { APIService } from "./serviceApi";
 import Profile from "../models/profile";
 import User from "../models/user";
 import Post from "../models/post";
-import Comment from "../models/comment";
+import CommentModel from "../models/commentModel";
 import TextPostModel from "../models/textPostModel";
 import ImagePostModel from "../models/imagePostModel";
 import VideoPostModel from "../models/videoPostModel";
@@ -96,15 +96,16 @@ class ServiceData {
         APIService.getFromAPI(`/Comments/?postId=${id}`, responseData => {
             let comments = responseData.map(item => {
                 let { id, dateCreated, body, postId, authorId, authorName } = item;
-                return new Comment(id, dateCreated, body, postId, authorId, authorName);
+                return new CommentModel(id, dateCreated, body, postId, authorId, authorName);
             });
             callback(comments);
         }, errorCallback);
     }
 
     postComment(commentData, callback, errorCallback) {
-        console.log(commentData);
-        APIService.postToAPI("/Comments", commentData, response => this.getComments(commentData.postId, callback, errorCallback),
+        const postId = commentData.postId;
+
+        APIService.postToAPI("/Comments", commentData, response => this.getComments(postId, callback, errorCallback),
             errorCallback);
     }
 }

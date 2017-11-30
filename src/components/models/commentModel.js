@@ -1,4 +1,4 @@
-class Comment {
+class CommentModel {
     constructor(id, dateCreated, body, postId, authorId, authorName) {
         this._id = id;
         this._dateCreated = dateCreated;
@@ -46,4 +46,4 @@ class Comment {
 
 }
 
-export default Comment;
+export default CommentModel;
