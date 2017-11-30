@@ -2,7 +2,9 @@ import React from "react";
 
 import { dataService } from "../services/serviceData";
 import { storageService } from "../services/serviceStorage";
+
 import { USER_ID } from "../../constants";
+import { Link } from "react-router-dom";
 
 import TextPost from "../posts/textPost";
 import ImagePost from "../posts/imagePost";
@@ -108,11 +110,11 @@ class FeedPage extends React.Component {
         const { text, image, video } = this.state.filter;
 
         if (post._type === "text") {
-            return <TextPost post={post._id} key={post._id} show={text} />;
+            return <TextPost post={post} key={post._id} show={text} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post._id} key={post._id} show={image} />;
+            return <ImagePost post={post} key={post._id} show={image} />;
         } else if (post._type === "video") {
-            return <VideoPost post={post._id} key={post._id} show={video} />;
+            return <VideoPost post={post} key={post._id} show={video} />;
         }
     }
 
@@ -348,7 +350,7 @@ class FeedPage extends React.Component {
         return (
             <main className="row mt-2">
                 <div className="col-12 col-lg-9 offset-lg-1">
-                    
+
                     <div className="btn-group mt-3">
 
                         <button type="button" className="btn buttonDark">{filterTitle}</button>
