@@ -85,7 +85,7 @@ class SingleTextPost extends React.Component {
         return (
             <div className="row">
                 <p className="error">{error}</p>
-                <div className="card mb-4" style={{ width: 100 + "%" }} >
+                <div className="card mb-4 mt-4" style={{ width: 100 + "%" }} >
                     <div className="card-body">
                         <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                         <p> {_text}</p>
@@ -100,7 +100,7 @@ class SingleTextPost extends React.Component {
 
                 <p className="error">{commentsError}</p>
                 {this.state.comments.map(comment => {
-                    return <Comment key={comment._id} author={comment._authorName} body={comment._body} image={userPicture} />;
+                    return <Comment key={comment._id} author={comment._authorName} body={comment._body} image={userPicture} date={comment._dateCreated} />;
                 })}
             </div>
         );
