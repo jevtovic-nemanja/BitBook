@@ -83,9 +83,9 @@ class SingleTextPost extends React.Component {
         const postDate = moment(_dateCreated).fromNow();
 
         return (
-            <div className="row">
+            <div className="row mb-4">
                 <p className="error">{error}</p>
-                <div className="card mb-4 mt-4" style={{ width: 100 + "%" }} >
+                <div className="card" style={{ width: 100 + "%" }} >
                     <div className="card-body">
                         <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                         <p> {_text}</p>
@@ -96,7 +96,6 @@ class SingleTextPost extends React.Component {
 
                 <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
                 <button onClick={this.postComment} >Send</button>
-
 
                 <p className="error">{commentsError}</p>
                 {this.state.comments.map(comment => {
