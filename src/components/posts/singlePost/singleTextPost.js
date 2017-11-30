@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 import { dataService } from "../../services/serviceData";
-import Comment from "../singlePost/comment";
+import { Comment } from "../singlePost/comment";
 
 class SingleTextPost extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.initState();
+        this.bindEventHandlers();
     }
 
     initState() {
@@ -16,8 +17,14 @@ class SingleTextPost extends React.Component {
             post: "",
             comments: [],
             error: "",
-            commentsError: ""
+            commentsError: "",
+            newComment: ""
         };
+    }
+
+    bindEventHandlers() {
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.postComment = this.postComment.bind(this);
     }
 
     componentDidMount() {
@@ -35,6 +42,14 @@ class SingleTextPost extends React.Component {
         dataService.getComments(id, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
     }
 
+    handleInputChange(event) {
+        event.preventDefault();
+
+        const value = event.target.value;
+
+        this.setState({ newComment: value });
+    }
+
     handleNetworkRequestError(error) {
         if (error.request) {
             this.setState({ error: "There is no response from server." });
@@ -45,6 +60,15 @@ class SingleTextPost extends React.Component {
         if (error.request) {
             this.setState({ commentsError: "Cannot load comments." });
         }
+    }
+
+    postComment(event) {
+        event.preventDefault();
+        
+        const postId = this.state.post._id;
+
+        const postData = { postId: postId, body: this.state.newComment };
+        dataService.postComment(postData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
     }
 
     render() {
@@ -63,9 +87,14 @@ class SingleTextPost extends React.Component {
                         <h6 className="float-right">{_commentsNum} Comments</h6>
                     </div>
                 </div>
+
+                <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
+                <button onClick={this.postComment} >Send</button>
+
+
                 <p className="error">{commentsError}</p>
                 {this.state.comments.map(comment => {
-                    return <Comment comment={comment} key={comment._id} />;
+                    return <Comment key={comment._id} author={comment._authorName} body={comment._body} />;
                 })}
             </div>
         );

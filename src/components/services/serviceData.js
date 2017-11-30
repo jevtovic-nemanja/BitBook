@@ -101,6 +101,12 @@ class ServiceData {
             callback(comments);
         }, errorCallback);
     }
+
+    postComment(commentData, callback, errorCallback) {
+        console.log(commentData);
+        APIService.postToAPI("/Comments", commentData, response => this.getComments(commentData.postId, callback, errorCallback),
+            errorCallback);
+    }
 }
 
 
