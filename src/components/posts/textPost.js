@@ -52,10 +52,10 @@ class TextPost extends React.Component {
             <div className={this.props.show}>
                 <div className="card mb-4" style={{ width: 100 + "%" }} >
                     <div className="card-body">
-                        <Link to={`people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
+                        <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                         <p> {_text}</p>
                         <small>{postDate}</small>
-                        <small className="float-right">{_commentsNum} Comments</small>
+                        <Link to={`/textPosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
                     </div>
                 </div>
             </div>
