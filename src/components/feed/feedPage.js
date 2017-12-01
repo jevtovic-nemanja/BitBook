@@ -6,9 +6,9 @@ import { storageService } from "../services/serviceStorage";
 import { USER_ID } from "../../constants";
 import { Link } from "react-router-dom";
 
-import TextPost from "../posts/textPost";
-import ImagePost from "../posts/imagePost";
-import VideoPost from "../posts/videoPost";
+import { TextPost } from "../posts/textPost";
+import { ImagePost } from "../posts/imagePost";
+import { VideoPost } from "../posts/videoPost";
 
 import Modal from "react-modal";
 
@@ -24,7 +24,8 @@ class FeedPage extends React.Component {
         return {
             posts: [],
             networkError: "",
-            error: "",
+            validationError: "",
+            postError: "",
             modal: false,
             show: "text",
             new: {
@@ -89,7 +90,7 @@ class FeedPage extends React.Component {
 
         this.setState(prevState => {
             prevState.new[name] = value;
-            prevState.error = "";
+            prevState.validationError = "";
             return prevState;
         });
     }
@@ -101,20 +102,29 @@ class FeedPage extends React.Component {
     }
 
     jumpToTop() {
-        this.setState({ error: "" });
+        this.setState({ validationError: "" });
         this.toggleModalShow();
         scrollTo(0, 0);
     }
 
+    cannotLoadPost(error) {
+        if (error.request) {
+            this.setState({ postError: "Unable to load post." });
+        }
+    }
+
     renderPosts(post) {
         const { text, image, video } = this.state.filter;
+        const { postError } = this.state;
+
+        console.log(post);
 
         if (post._type === "text") {
-            return <TextPost post={post} key={post._id} show={text} />;
+            return <TextPost post={post} key={post._id} show={text} error={postError} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post} key={post._id} show={image} />;
+            return <ImagePost post={post} key={post._id} show={image} error={postError} />;
         } else if (post._type === "video") {
-            return <VideoPost post={post} key={post._id} show={video} />;
+            return <VideoPost post={post} key={post._id} show={video} error={postError} />;
         }
     }
 
@@ -275,7 +285,7 @@ class FeedPage extends React.Component {
         const text = this.state.new.textPostContent;
 
         if (!text) {
-            this.setState({ error: "Please enter some text." });
+            this.setState({ validationError: "Please enter some text." });
             return false;
         } else {
             return true;
@@ -286,10 +296,10 @@ class FeedPage extends React.Component {
         const imageUrl = this.state.new.imagePostContent;
 
         if (!imageUrl) {
-            this.setState({ error: "Please enter image URL." });
+            this.setState({ validationError: "Please enter image URL." });
             return false;
         } else if (!imageUrl.includes("http://") && !imageUrl.includes("https://")) {
-            this.setState({ error: "Image URL is invalid!" });
+            this.setState({ validationError: "Image URL is invalid!" });
             return false;
         } else {
             return true;
@@ -300,10 +310,10 @@ class FeedPage extends React.Component {
         const videoUrl = this.state.new.videoPostContent;
 
         if (!videoUrl) {
-            this.setState({ error: "Please enter video URL." });
+            this.setState({ validationError: "Please enter video URL." });
             return false;
         } else if (!videoUrl.includes("http://www.youtube.com/") && !videoUrl.includes("https://www.youtube.com/")) {
-            this.setState({ error: "Input must be YouTube video URL!" });
+            this.setState({ validationError: "Input must be YouTube video URL!" });
             return false;
         } else {
             return true;
@@ -311,7 +321,7 @@ class FeedPage extends React.Component {
     }
 
     render() {
-        const { show, error, modal, filterTitle } = this.state;
+        const { show, validationError, modal, filterTitle } = this.state;
         const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
 
         const modalStyle = {
@@ -376,8 +386,8 @@ class FeedPage extends React.Component {
                         {this.togglePostType(show)}
 
                         <div className="error">
-                            {error
-                                ? <p>{error}</p>
+                            {validationError
+                                ? <p>{validationError}</p>
                                 : <p></p>
                             }
                         </div>
