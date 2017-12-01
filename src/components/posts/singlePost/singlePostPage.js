@@ -37,23 +37,19 @@ class SinglePostPage extends React.Component {
         this.getPost(type, id);
     }
 
-    getPost(type, id) {
+    getPost(type, id, callback) {
         if (type === "text") {
-            dataService.getTextPost(parseInt(id), post => {
-                this.setState({ post: post });
-                this.getComments(post._id);
-            }, error => this.handleNetworkRequestError(error));
+            dataService.getTextPost(parseInt(id), post => this.loadPost(post), error => this.handleNetworkRequestError(error));
         } else if (type === "image") {
-            dataService.getImagePost(parseInt(id), post => {
-                this.setState({ post: post });
-                this.getComments(post._id);
-            }, error => this.handleNetworkRequestError(error));
+            dataService.getImagePost(parseInt(id), post => this.loadPost(post), error => this.handleNetworkRequestError(error));
         } else if (type === "video") {
-            dataService.getVideoPost(parseInt(id), post => {
-                this.setState({ post: post });
-                this.getComments(post._id);
-            }, error => this.handleNetworkRequestError(error));
+            dataService.getVideoPost(parseInt(id), post => this.loadPost(post), error => this.handleNetworkRequestError(error));
         }
+    }
+
+    loadPost(post) {
+        this.setState({ post: post });
+        this.getComments(post._id);
     }
 
     getComments(id) {
