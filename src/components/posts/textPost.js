@@ -27,7 +27,7 @@ export const TextPost = props => {
                     <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                     <p>{_text}</p>
                     <small>{postDate}</small>
-                    <Link to={`/textPosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
+                    <Link to={`/posts/text/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
                 </div>
             </div>
         </div>

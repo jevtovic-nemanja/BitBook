@@ -117,8 +117,6 @@ class FeedPage extends React.Component {
         const { text, image, video } = this.state.filter;
         const { postError } = this.state;
 
-        console.log(post);
-
         if (post._type === "text") {
             return <TextPost post={post} key={post._id} show={text} error={postError} />;
         } else if (post._type === "image") {

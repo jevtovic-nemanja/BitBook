@@ -28,7 +28,7 @@ export const VideoPost = props => {
                 <div className="card-body" >
                     <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                     <small>{postDate}</small>
-                    <Link to={`/videoPosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
+                    <Link to={`/posts/video/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
                 </div>
             </div>
         </div>

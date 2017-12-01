@@ -26,7 +26,7 @@ export const ImagePost = props => {
                 <div className="card-body">
                     <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
                     <small>{postDate}</small>
-                    <Link to={`/imagePosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
+                    <Link to={`/posts/image/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
                 </div>
             </div>
         </div>

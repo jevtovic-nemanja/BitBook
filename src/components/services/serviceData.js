@@ -53,7 +53,7 @@ class ServiceData {
 
     getTextPost(id, callback, errorCallback) {
         APIService.getFromAPI(`/TextPosts/${id}`, responseData => {
-            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = item;
+            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = responseData;
             const textPost = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
             callback(textPost);
         }, errorCallback);
@@ -61,7 +61,7 @@ class ServiceData {
 
     getImagePost(id, callback, errorCallback) {
         APIService.getFromAPI(`/ImagePosts/${id}`, responseData => {
-            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = item;
+            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = responseData;
             const imagePost = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
             callback(imagePost);
         }, errorCallback);
@@ -69,7 +69,7 @@ class ServiceData {
 
     getVideoPost(id, callback, errorCallback) {
         APIService.getFromAPI(`/VideoPosts/${id}`, responseData => {
-            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = item;
+            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = responseData;
             const videoPost = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
             callback(videoPost);
         }, errorCallback);
