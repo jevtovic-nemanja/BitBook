@@ -7,7 +7,7 @@ import { dataService } from "../../services/serviceData";
 import { TextPost } from "../textPost";
 import { ImagePost } from "../imagePost";
 import { VideoPost } from "../videoPost";
-import { Comment } from "../singlePost/comment";
+import Comment from "../singlePost/comment";
 import AddComment from "../singlePost/addComment";
 
 class SinglePostPage extends React.Component {
@@ -59,21 +59,9 @@ class SinglePostPage extends React.Component {
     getComments(id) {
         dataService.getComments(id, comments => {
             this.setState({ comments: comments });
-            this.getUserImages();
         }, error => this.cannotLoadComments(error));
     }
 
-    getUserImages() {
-        this.state.comments.map(comment => {
-            dataService.getUserProfile(comment._authorId, profile => this.setState(oldState => {
-                oldState.userImages.push(profile._avatarUrl);
-                return oldState;
-            }), error => this.setState(oldState => {
-                oldState.userImages.push("http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg");
-                return oldState;
-            }));
-        });
-    }
 
     handleNetworkRequestError(error) {
         if (error.request) {
@@ -101,16 +89,9 @@ class SinglePostPage extends React.Component {
         }
     }
 
-    renderComment(comment) {
-        const id = comment._userId;
-        const userImages = this.state.userImages.map(image => image);
-        const image = userImages[this.state.userImageCounter];
-
-        return <Comment key={comment._id} comment={comment} image={image} />;
-    }
 
     render() {
-        const { validationError, commentsError } = this.state;
+        const { validationError, commentsError, userImages } = this.state;
         const { _text, _id, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
         const postDate = moment(_dateCreated).fromNow();
 
@@ -118,9 +99,9 @@ class SinglePostPage extends React.Component {
             <div className="mb-4 mt-4">
                 {this.renderPost(this.state.post)}
 
-                <AddComment onPostComment={this.postComment} />
+                <AddComment onPostComment={this.postComment} id={_id} />
 
-                {this.state.comments.map(comment => this.renderComment(comment))}
+                {this.state.comments.map(comment => <Comment key={comment._id} comment={comment} />)}
 
             </div>
         );
