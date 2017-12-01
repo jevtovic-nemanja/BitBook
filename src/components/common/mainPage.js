@@ -10,9 +10,7 @@ import ProfilePage from "../profile/profilePage";
 import FeedPage from "../feed/feedPage";
 import PeoplePage from "../people/peoplePage";
 import UserProfilePage from "../people/userProfilePage";
-import SingleTextPost from "../posts/singlePost/singleTextPost";
-import SingleImagePost from "../posts/singlePost/singleImagePost";
-import SingleVideoPost from "../posts/singlePost/singleVideoPost";
+import SinglePostPage from "../posts/singlePost/singlePostPage";
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -33,9 +31,7 @@ class MainPage extends React.Component {
                         <Route exact path="/people" component={PeoplePage} />
                         <Route exact path={`/people/${userId}`} component={ProfilePage} />
                         <Route path="/people/:id" component={UserProfilePage} />
-                        <Route path="/textPosts/:id" component={SingleTextPost} />
-                        <Route path="/imagePosts/:id" component={SingleImagePost} />
-                        <Route path="/videoPosts/:id" component={SingleVideoPost} />
+                        <Route path="/posts/:type/:id" component={SinglePostPage} />
                     </Switch>
                 </div>
             </div>

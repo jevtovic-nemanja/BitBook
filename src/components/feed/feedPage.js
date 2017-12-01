@@ -6,9 +6,9 @@ import { storageService } from "../services/serviceStorage";
 import { USER_ID } from "../../constants";
 import { Link } from "react-router-dom";
 
-import TextPost from "../posts/textPost";
-import ImagePost from "../posts/imagePost";
-import VideoPost from "../posts/videoPost";
+import { TextPost } from "../posts/textPost";
+import { ImagePost } from "../posts/imagePost";
+import { VideoPost } from "../posts/videoPost";
 
 import Modal from "react-modal";
 
@@ -24,7 +24,8 @@ class FeedPage extends React.Component {
         return {
             posts: [],
             networkError: "",
-            error: "",
+            validationError: "",
+            postError: "",
             modal: false,
             show: "text",
             new: {
@@ -45,9 +46,7 @@ class FeedPage extends React.Component {
         this.toggleModalShow = this.toggleModalShow.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.selectPostType = this.selectPostType.bind(this);
-        this.sendTextPost = this.sendTextPost.bind(this);
-        this.sendImagePost = this.sendImagePost.bind(this);
-        this.sendVideoPost = this.sendVideoPost.bind(this);
+        this.sendPost = this.sendPost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
     }
 
@@ -56,13 +55,10 @@ class FeedPage extends React.Component {
         this.getPosts();
     }
 
-    getPosts() {
-        dataService.getPosts(posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
-    }
-
-    getUserId() {
-        dataService.getProfile(profile => storageService.setStorageItem(USER_ID, profile.userId),
-            error => this.handleNetworkRequestError(error));
+    cannotLoadPost(error) {
+        if (error.request) {
+            this.setState({ postError: "Unable to load post." });
+        }
     }
 
     filterPosts(event) {
@@ -83,13 +79,22 @@ class FeedPage extends React.Component {
         });
     }
 
+    getPosts() {
+        dataService.getPosts(posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+    }
+
+    getUserId() {
+        dataService.getProfile(profile => storageService.setStorageItem(USER_ID, profile.userId),
+            error => this.handleNetworkRequestError(error));
+    }
+
     handleInputChange(event) {
         const name = event.target.name;
         const value = event.target.value;
 
         this.setState(prevState => {
             prevState.new[name] = value;
-            prevState.error = "";
+            prevState.validationError = "";
             return prevState;
         });
     }
@@ -101,20 +106,21 @@ class FeedPage extends React.Component {
     }
 
     jumpToTop() {
-        this.setState({ error: "" });
+        this.setState({ validationError: "" });
         this.toggleModalShow();
         scrollTo(0, 0);
     }
 
     renderPosts(post) {
         const { text, image, video } = this.state.filter;
+        const { postError } = this.state;
 
-        if (post._type === "text") {
-            return <TextPost post={post} key={post._id} show={text} />;
+        if (post.type === "text") {
+            return <TextPost post={post} key={post.id} show={text} error={postError} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post} key={post._id} show={image} />;
+            return <ImagePost post={post} key={post.id} show={image} error={postError} />;
         } else if (post._type === "video") {
-            return <VideoPost post={post} key={post._id} show={video} />;
+            return <VideoPost post={post} key={post.id} show={video} error={postError} />;
         }
     }
 
@@ -123,50 +129,40 @@ class FeedPage extends React.Component {
 
         const type = event.target.value;
 
-        this.setState({ show: type });
+        this.setState({
+            show: type,
+            validationError: ""
+        });
     }
 
-    sendTextPost(event) {
+    sendPost(event) {
         event.preventDefault();
 
-        const isValid = this.validateTextInput();
+        const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
+
+        const isValid = this.validateInput();
 
         if (isValid) {
-            const postData = { text: this.state.new.textPostContent };
+            if (textPostContent) {
 
-            dataService.postTextPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+                const postData = { text: this.state.new.textPostContent };
+                dataService.postTextPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+                this.jumpToTop();
 
-            this.jumpToTop();
-        }
-    }
+            } else if (imagePostContent) {
 
-    sendImagePost(event) {
-        event.preventDefault();
+                const postData = { imageUrl: this.state.new.imagePostContent };
+                dataService.postImagePost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+                this.jumpToTop();
 
-        const isValid = this.validateImageInput();
+            } else if (videoPostContent) {
 
-        if (isValid) {
-            const postData = { imageUrl: this.state.new.imagePostContent };
+                const videoUrl = this.state.new.videoPostContent.replace("watch?v=", "embed/");
+                const postData = { videoUrl: videoUrl };
+                dataService.postVideoPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+                this.jumpToTop();
 
-            dataService.postImagePost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
-
-            this.jumpToTop();
-        }
-    }
-
-    sendVideoPost(event) {
-        event.preventDefault();
-
-        const isValid = this.validateVideoInput();
-
-        if (isValid) {
-            const videoUrl = this.state.new.videoPostContent.replace("watch?v=", "embed/");
-
-            const postData = { videoUrl: videoUrl };
-
-            dataService.postVideoPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
-
-            this.jumpToTop();
+            }
         }
     }
 
@@ -184,7 +180,8 @@ class FeedPage extends React.Component {
             });
         } else {
             this.setState({
-                modal: false
+                modal: false,
+                validationError: ""
             });
         }
     }
@@ -209,7 +206,7 @@ class FeedPage extends React.Component {
                         />
                     </form>
                     <div className="buttonWrapper">
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendTextPost}>
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
                             Post
                         </button>
                         <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
@@ -233,8 +230,9 @@ class FeedPage extends React.Component {
                             onChange={this.handleInputChange}
                         />
                     </form>
+
                     <div className="buttonWrapper">
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendImagePost}>
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
                             Post
                         </button>
                         <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
@@ -258,8 +256,9 @@ class FeedPage extends React.Component {
                             onChange={this.handleInputChange}
                         />
                     </form>
+
                     <div className="buttonWrapper">
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendVideoPost}>
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
                             Post
                         </button>
                         <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
@@ -271,47 +270,48 @@ class FeedPage extends React.Component {
         }
     }
 
-    validateTextInput() {
-        const text = this.state.new.textPostContent;
+    validateInput() {
 
-        if (!text) {
-            this.setState({ error: "Please enter some text." });
-            return false;
-        } else {
-            return true;
-        }
-    }
+        if (this.state.show === "text") {
+            const text = this.state.new.textPostContent;
 
-    validateImageInput() {
-        const imageUrl = this.state.new.imagePostContent;
+            if (!text) {
+                this.setState({ validationError: "Please enter some text." });
+                return false;
+            } else {
+                return true;
+            }
 
-        if (!imageUrl) {
-            this.setState({ error: "Please enter image URL." });
-            return false;
-        } else if (!imageUrl.includes("http://") && !imageUrl.includes("https://")) {
-            this.setState({ error: "Image URL is invalid!" });
-            return false;
-        } else {
-            return true;
-        }
-    }
+        } else if (this.state.show === "image") {
+            const imageUrl = this.state.new.imagePostContent;
 
-    validateVideoInput() {
-        const videoUrl = this.state.new.videoPostContent;
+            if (!imageUrl) {
+                this.setState({ validationError: "Please enter image URL." });
+                return false;
+            } else if (!imageUrl.includes("http://") && !imageUrl.includes("https://")) {
+                this.setState({ validationError: "Image URL is invalid!" });
+                return false;
+            } else {
+                return true;
+            }
 
-        if (!videoUrl) {
-            this.setState({ error: "Please enter video URL." });
-            return false;
-        } else if (!videoUrl.includes("http://www.youtube.com/") && !videoUrl.includes("https://www.youtube.com/")) {
-            this.setState({ error: "Input must be YouTube video URL!" });
-            return false;
-        } else {
-            return true;
+        } else if (this.state.show === "video") {
+            const videoUrl = this.state.new.videoPostContent;
+
+            if (!videoUrl) {
+                this.setState({ validationError: "Please enter video URL." });
+                return false;
+            } else if (!videoUrl.includes("http://www.youtube.com/") && !videoUrl.includes("https://www.youtube.com/")) {
+                this.setState({ validationError: "Input must be YouTube video URL!" });
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 
     render() {
-        const { show, error, modal, filterTitle } = this.state;
+        const { show, validationError, modal, filterTitle } = this.state;
         const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
 
         const modalStyle = {
@@ -352,7 +352,6 @@ class FeedPage extends React.Component {
                 <div className="col-12 col-lg-9 offset-lg-1">
 
                     <div className="btn-group mt-3">
-
                         <button type="button" className="btn buttonDark">{filterTitle}</button>
                         <button type="button" className="btn buttonDark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         </button>
@@ -365,8 +364,6 @@ class FeedPage extends React.Component {
                         </div>
                     </div>
 
-
-
                     <p className="error">{this.state.networkError}</p>
 
                     {this.state.posts.map(post => this.renderPosts(post))}
@@ -376,13 +373,13 @@ class FeedPage extends React.Component {
 
                             {this.togglePostType(show)}
 
+
                             <div className="error">
-                                {error
-                                    ? <p>{error}</p>
+                                {validationError
+                                    ? <p>{validationError}</p>
                                     : <p></p>
                                 }
                             </div>
-
 
                             <div className="text-center modalButtons">
                                 <button className="buttonLight round modalRoundButtons" value="text" onClick={this.selectPostType}>T</button><p className="modalButtonsText">Text</p>
@@ -397,9 +394,6 @@ class FeedPage extends React.Component {
                 <div className="col-lg-2"></div>
 
                 <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
-
-
-
 
             </main >
         );

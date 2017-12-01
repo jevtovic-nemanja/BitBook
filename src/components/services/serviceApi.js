@@ -29,7 +29,7 @@ class ServiceAPI {
         this.createRequest(requestData);
     }
 
-    putToAPI(url, dataObject, callback, errorCallback){
+    putToAPI(url, dataObject, callback, errorCallback) {
         const requestData = {
             url: url,
             method: "PUT",
@@ -68,7 +68,13 @@ class ServiceAPI {
 
         axios(axiosConfig)
             .then(response => requestData.callback(response.data))
-            .catch(error => requestData.errorCallback(error));
+            .catch(error => this.triggerErrorHandler(requestData.errorCallback, error));
+    }
+
+    triggerErrorHandler(callback, error) {
+        if (callback && callback instanceof Function) {
+            return callback(error);
+        }
     }
 }
 

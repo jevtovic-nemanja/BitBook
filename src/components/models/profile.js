@@ -13,10 +13,6 @@ class Profile {
     get userId() {
         return this._userId;
     }
-
-    set userId(value) {
-        this._userId = value;
-    }
     
     get name() {
         return this._name;

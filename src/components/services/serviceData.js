@@ -4,10 +4,7 @@ import { APIService } from "./serviceApi";
 import Profile from "../models/profile";
 import User from "../models/user";
 import Post from "../models/post";
-import Comment from "../models/comment";
-import TextPostModel from "../models/textPostModel";
-import ImagePostModel from "../models/imagePostModel";
-import VideoPostModel from "../models/videoPostModel";
+import CommentModel from "../models/commentModel";
 
 class ServiceData {
     constructor() { }
@@ -46,37 +43,29 @@ class ServiceData {
 
     getPosts(callback, errorCallback) {
         APIService.getFromAPI("/Posts", responseData => {
-            let posts = responseData.map(item => {
-                let { id, dateCreated, userId, userDisplayName, type } = item;
-                return new Post(id, dateCreated, userId, userDisplayName, type);
-            });
+            let posts = responseData.map(item => this.packPost(item));
             callback(posts);
         }, errorCallback);
     }
 
     getTextPost(id, callback, errorCallback) {
-        APIService.getFromAPI(`/TextPosts/${id}`, responseData => {
-            const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = responseData;
-            const textPost = new TextPostModel(text, id, dateCreated, userId, userDisplayName, type, commentsNum);
-            callback(textPost);
-        }, errorCallback);
+        APIService.getFromAPI(`/TextPosts/${id}`, responseData => callback(this.packPost(responseData)), errorCallback);
     }
 
     getImagePost(id, callback, errorCallback) {
-        APIService.getFromAPI(`/ImagePosts/${id}`, responseData => {
-            const { imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = responseData;
-            const imagePost = new ImagePostModel(imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
-            callback(imagePost);
-        }, errorCallback);
+        APIService.getFromAPI(`/ImagePosts/${id}`, responseData => callback(this.packPost(responseData)), errorCallback);
     }
 
     getVideoPost(id, callback, errorCallback) {
-        APIService.getFromAPI(`/VideoPosts/${id}`, responseData => {
-            const { videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = responseData;
-            const videoPost = new VideoPostModel(videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
-            callback(videoPost);
-        }, errorCallback);
+        APIService.getFromAPI(`/VideoPosts/${id}`, responseData => callback(this.packPost(responseData)), errorCallback);
     }
+
+    packPost(responseData) {
+        const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = responseData;
+        const post = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
+        return post;
+    }
+
     postTextPost(dataObject, callback, errorCallback) {
         APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(callback, errorCallback),
             errorCallback);
@@ -96,15 +85,16 @@ class ServiceData {
         APIService.getFromAPI(`/Comments/?postId=${id}`, responseData => {
             let comments = responseData.map(item => {
                 let { id, dateCreated, body, postId, authorId, authorName } = item;
-                return new Comment(id, dateCreated, body, postId, authorId, authorName);
+                return new CommentModel(id, dateCreated, body, postId, authorId, authorName);
             });
             callback(comments);
         }, errorCallback);
     }
 
     postComment(commentData, callback, errorCallback) {
-        console.log(commentData);
-        APIService.postToAPI("/Comments", commentData, response => this.getComments(commentData.postId, callback, errorCallback),
+        const postId = commentData.postId;
+
+        APIService.postToAPI("/Comments", commentData, response => this.getComments(postId, callback, errorCallback),
             errorCallback);
     }
 }

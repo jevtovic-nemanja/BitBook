@@ -28,10 +28,6 @@ class PeoplePage extends React.Component {
         this.filterUsers = this.filterUsers.bind(this);
     }
 
-    getPeople() {
-        dataService.getUsers(users => this.setState({ usersOriginal: users, users: users }), error => this.handleNetworkRequestError(error));
-    }
-
     filterUsers(searchItem) {
         const usersOriginal = this.state.usersOriginal;
 
@@ -45,6 +41,10 @@ class PeoplePage extends React.Component {
             return searchUserName.includes(searchItem);
         });
         this.setState({ users: searchMatches });
+    }
+
+    getPeople() {
+        dataService.getUsers(users => this.setState({ usersOriginal: users, users: users }), error => this.handleNetworkRequestError(error));
     }
 
     handleNetworkRequestError(error) {

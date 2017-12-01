@@ -3,6 +3,8 @@ import React from "react";
 import { dataService } from "../services/serviceData";
 import { redirect } from "../services/serviceRedirect";
 
+import { Profile } from "../profile/profile";
+
 class UserProfilePage extends React.Component {
     constructor(props) {
         super(props);
@@ -13,13 +15,13 @@ class UserProfilePage extends React.Component {
     initState() {
         return {
             profile: {
-                _name: "Loading...",
-                _email: "",
-                _aboutShort: "",
-                _about: "",
-                _avatarUrl: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
-                _postsCount: 0,
-                _commentsCount: 0
+                name: "Loading...",
+                email: "",
+                aboutShort: "",
+                about: "",
+                avatarUrl: "http://3.bp.blogspot.com/JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
+                postsCount: 0,
+                commentsCount: 0
             },
             error: ""
         };
@@ -29,14 +31,14 @@ class UserProfilePage extends React.Component {
         this.getProfile(this.props.match.params.id);
     }
 
+    getProfile(id) {
+        dataService.getUserProfile(id, profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
+    }
+
     handleNetworkRequestError(error) {
         if (error.request) {
             this.setState({ error: "There is no response from server." });
         }
-    }
-
-    getProfile(id) {
-        dataService.getUserProfile(id, profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
     }
 
     loadProfile(profile) {
@@ -45,28 +47,12 @@ class UserProfilePage extends React.Component {
 
     render() {
 
-        let { _name, _email, _aboutShort, _about, _avatarUrl, _postsCount, _commentsCount } = this.state.profile;
+        let { name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = this.state.profile;
         let { error } = this.state;
 
         return (
             <main className="container-fluid profileContainer">
-                <div className="profilecontent">
-                    <div className="row">
-                        <img src={_avatarUrl
-                            ? _avatarUrl
-                            : "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"
-                        } className="profileimage" />
-                    </div>
-                    <div className="row">
-                        <div className="profileTextContent">
-                            <h2 className="profilename">{_name}</h2>
-                            <em>{_aboutShort}</em>
-                            <p className="profileabout">{_about}</p>
-                            <div className="profilecounter">Posts: {_postsCount}</div>
-                            <div className="profilecounter">Comments: {_commentsCount}</div>
-                        </div>
-                    </div>
-                </div>
+                <Profile user={this.state.profile} />
             </main>
         );
     }
