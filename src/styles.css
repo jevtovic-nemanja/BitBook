@@ -276,7 +276,7 @@ button:focus {
 
 .buttonWrapper {
     float: left;
-    margin-top: 15%;
+    margin-top: 5%;
 }
 
 .newPost {
@@ -394,6 +394,11 @@ button:focus {
         right: 0px;
     } */
 
+    .editProfileModal {
+        left: 15%;
+        right: 15%;
+    }
+
 }
 
 
@@ -407,11 +412,6 @@ button:focus {
 
 .welcomeText {
     margin: 10% auto 0;
-}
-
-
-.buttonWrapper {
-    margin-top: 5%;
 }
 
 

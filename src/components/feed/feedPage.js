@@ -326,7 +326,7 @@ class FeedPage extends React.Component {
                 top: "10%",
                 left: "15%",
                 right: "15%",
-                bottom: "50%",
+                bottom: "",
                 border: "0.5px solid rgba(43, 122, 120, 0.5)",
                 background: "#feffff",
                 overflow: "auto",

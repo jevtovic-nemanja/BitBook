@@ -129,36 +129,52 @@ class ProfilePage extends React.Component {
         }
     }
 
+    getModalStyle() {
+
+
+        if (screen.width < 579) {
+            return {
+                content: {
+                    position: "absolute",
+                    top: "15%",
+                    left: "8%",
+                    right: "8%",
+                    bottom: "15%",
+                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                    background: "#feffff",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                    borderRadius: "4px",
+                    outline: "none",
+                    padding: "30px"
+
+                } };
+        } else {
+
+            return {
+                content: {
+                    position: "absolute",
+                    top: "15%",
+                    left: "30%",
+                    right: "30%",
+                    bottom: "15%",
+                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                    background: "#feffff",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                    borderRadius: "4px",
+                    outline: "none",
+                    padding: "30px"
+                }
+            };
+        };
+    }
+
     render() {
 
         const { _name, _email, _aboutShort, _about, _avatarUrl, _postsCount, _commentsCount } = this.state.profile;
         const { name, email, aboutShort, about, avatarUrl } = this.state.edit;
         const { show, error } = this.state;
-
-        const modalStyle = {
-            overlay: {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: "rgba(255, 255, 255, 0.75)"
-            },
-            content: {
-                position: "absolute",
-                top: "15%",
-                left: "30%",
-                right: "30%",
-                bottom: "15%",
-                border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                background: "#feffff",
-                overflow: "auto",
-                WebkitOverflowScrolling: "touch",
-                borderRadius: "4px",
-                outline: "none",
-                padding: "30px"
-            }
-        };
 
         return (
             <div className="row">
@@ -186,7 +202,7 @@ class ProfilePage extends React.Component {
 
 
                     </div>
-                    <Modal isOpen={show} style={modalStyle} >
+                    <Modal isOpen={show} style={this.getModalStyle()} className="editProfileModal" >
                         <div className="editForm">
                             <form>
                                 <label htmlFor="exampleInputText1">Name</label>
