@@ -1,0 +1,104 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+
+import { dataService } from "../../services/serviceData";
+import { Comment } from "../singlePost/comment";
+
+class SingleTextPost extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = this.initState();
+        this.bindEventHandlers();
+    }
+
+    initState() {
+        return {
+            post: "",
+            comments: [],
+            error: "",
+            commentsError: "",
+            newComment: ""
+        };
+    }
+
+    bindEventHandlers() {
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.postComment = this.postComment.bind(this);
+    }
+
+    componentDidMount() {
+        this.getPost(this.props.match.params.id);
+    }
+
+    getPost(id) {
+        dataService.getTextPost(id, textPost => {
+            this.setState({ post: textPost });
+            this.getComments(textPost._id);
+        }, error => this.handleNetworkRequestError(error));
+    }
+
+    getComments(id) {
+        dataService.getComments(id, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+    }
+
+    handleInputChange(event) {
+        event.preventDefault();
+
+        const value = event.target.value;
+
+        this.setState({ newComment: value });
+    }
+
+    handleNetworkRequestError(error) {
+        if (error.request) {
+            this.setState({ error: "There is no response from server." });
+        }
+    }
+
+    handleCommentsNetworkRequestError(error) {
+        if (error.request) {
+            this.setState({ commentsError: "Cannot load comments." });
+        }
+    }
+
+    postComment(event) {
+        event.preventDefault();
+        
+        const postId = this.state.post._id;
+
+        const postData = { postId: postId, body: this.state.newComment };
+        dataService.postComment(postData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+    }
+
+    render() {
+        const { error, commentsError } = this.state;
+        const { _text, _id, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
+        const postDate = moment(_dateCreated).fromNow();
+
+        return (
+            <div className="row">
+                <p className="error">{error}</p>
+                <div className="card mb-4" style={{ width: 100 + "%" }} >
+                    <div className="card-body">
+                        <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
+                        <p> {_text}</p>
+                        <small>{postDate}</small>
+                        <h6 className="float-right">{_commentsNum} Comments</h6>
+                    </div>
+                </div>
+
+                <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
+                <button onClick={this.postComment} >Send</button>
+
+
+                <p className="error">{commentsError}</p>
+                {this.state.comments.map(comment => {
+                    return <Comment key={comment._id} author={comment._authorName} body={comment._body} />;
+                })}
+            </div>
+        );
+    }
+}
+
+export default SingleTextPost;
