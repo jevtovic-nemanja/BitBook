@@ -6,7 +6,7 @@ import { storageService } from "../services/serviceStorage";
 import { USER_ID } from "../../constants";
 import { Link } from "react-router-dom";
 
-import TextPost from "../posts/textPost";
+import { TextPost } from "../posts/textPost";
 import ImagePost from "../posts/imagePost";
 import VideoPost from "../posts/videoPost";
 
@@ -23,6 +23,9 @@ class FeedPage extends React.Component {
     initState() {
         return {
             posts: [],
+            textPost: "",
+            imagePost: "",
+            videoPost: "",
             networkError: "",
             error: "",
             modal: false,
@@ -106,11 +109,17 @@ class FeedPage extends React.Component {
         scrollTo(0, 0);
     }
 
+    getTextPost(id) {
+        dataService.getTextPost(id, textPost => this.setState({ textPost: textPost }), error => this.handleNetworkRequestError(error));
+    }
+
+
     renderPosts(post) {
         const { text, image, video } = this.state.filter;
 
         if (post._type === "text") {
-            return <TextPost post={post} key={post._id} show={text} />;
+            this.getTextPost(post._id);
+            return <TextPost key={post._id} show={text} post={this.state.textPost} error={this.state.networkError} />;
         } else if (post._type === "image") {
             return <ImagePost post={post} key={post._id} show={image} />;
         } else if (post._type === "video") {
