@@ -37,6 +37,18 @@ class SinglePostPage extends React.Component {
         this.getPost(type, id);
     }
 
+    cannotLoadComments(error) {
+        if (error.request) {
+            this.setState({ commentsError: "Cannot load comments." });
+        }
+    }
+
+    getComments(id) {
+        dataService.getComments(id, comments => {
+            this.setState({ comments: comments });
+        }, error => this.cannotLoadComments(error));
+    }
+
     getPost(type, id, callback) {
         if (type === "text") {
             dataService.getTextPost(parseInt(id), post => this.loadPost(post), error => this.handleNetworkRequestError(error));
@@ -47,28 +59,15 @@ class SinglePostPage extends React.Component {
         }
     }
 
-    loadPost(post) {
-        this.setState({ post: post });
-        this.getComments(post._id);
-    }
-
-    getComments(id) {
-        dataService.getComments(id, comments => {
-            this.setState({ comments: comments });
-        }, error => this.cannotLoadComments(error));
-    }
-
-
     handleNetworkRequestError(error) {
         if (error.request) {
             this.setState({ error: "There is no response from server." });
         }
     }
 
-    cannotLoadComments(error) {
-        if (error.request) {
-            this.setState({ commentsError: "Cannot load comments." });
-        }
+    loadPost(post) {
+        this.setState({ post: post });
+        this.getComments(post._id);
     }
 
     postComment(commentData) {
@@ -84,7 +83,6 @@ class SinglePostPage extends React.Component {
             return <VideoPost post={post} key={post._id} error={this.state.commentsError} />;
         }
     }
-
 
     render() {
         const { validationError, commentsError, userImages } = this.state;

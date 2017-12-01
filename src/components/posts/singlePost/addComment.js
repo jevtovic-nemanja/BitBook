@@ -49,7 +49,6 @@ class AddComment extends React.Component {
         }
     }
 
-
     render() {
         return (
             <form className="mt-4 mb-4">

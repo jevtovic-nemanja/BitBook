@@ -31,14 +31,14 @@ class UserProfilePage extends React.Component {
         this.getProfile(this.props.match.params.id);
     }
 
+    getProfile(id) {
+        dataService.getUserProfile(id, profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
+    }
+
     handleNetworkRequestError(error) {
         if (error.request) {
             this.setState({ error: "There is no response from server." });
         }
-    }
-
-    getProfile(id) {
-        dataService.getUserProfile(id, profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
     }
 
     loadProfile(profile) {

@@ -47,6 +47,10 @@ class ProfilePage extends React.Component {
         this.getProfile();
     }
 
+    getProfile() {
+        dataService.getProfile(profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
+    }
+
     handleInputChange(event) {
         const name = event.target.name;
         const value = event.target.value;
@@ -62,10 +66,6 @@ class ProfilePage extends React.Component {
         if (error.request) {
             this.setState({ error: "There is no response from server." });
         }
-    }
-
-    getProfile() {
-        dataService.getProfile(profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
     }
 
     loadProfile(profile) {
@@ -88,6 +88,19 @@ class ProfilePage extends React.Component {
             this.setState({ show: true });
         } else {
             this.setState({ show: false });
+        }
+    }
+
+    updateProfile(event) {
+        event.preventDefault();
+        const isValid = this.validateInput();
+
+        const dataObject = this.state.edit;
+
+        if (isValid) {
+            dataService.updateProfile(dataObject, profile => this.loadProfile(profile),
+                error => this.handleNetworkRequestError(error));
+            this.toggleModalShow();
         }
     }
 
@@ -114,19 +127,6 @@ class ProfilePage extends React.Component {
             return false;
         } else {
             return true;
-        }
-    }
-
-    updateProfile(event) {
-        event.preventDefault();
-        const isValid = this.validateInput();
-
-        const dataObject = this.state.edit;
-
-        if (isValid) {
-            dataService.updateProfile(dataObject, profile => this.loadProfile(profile),
-                error => this.handleNetworkRequestError(error));
-            this.toggleModalShow();
         }
     }
 

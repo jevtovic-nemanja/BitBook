@@ -47,8 +47,6 @@ class FeedPage extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.selectPostType = this.selectPostType.bind(this);
         this.sendPost = this.sendPost.bind(this);
-        // this.sendImagePost = this.sendImagePost.bind(this);
-        // this.sendVideoPost = this.sendVideoPost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
     }
 
@@ -57,13 +55,10 @@ class FeedPage extends React.Component {
         this.getPosts();
     }
 
-    getPosts() {
-        dataService.getPosts(posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
-    }
-
-    getUserId() {
-        dataService.getProfile(profile => storageService.setStorageItem(USER_ID, profile.userId),
-            error => this.handleNetworkRequestError(error));
+    cannotLoadPost(error) {
+        if (error.request) {
+            this.setState({ postError: "Unable to load post." });
+        }
     }
 
     filterPosts(event) {
@@ -82,6 +77,15 @@ class FeedPage extends React.Component {
                 video: showVideoPosts
             }
         });
+    }
+
+    getPosts() {
+        dataService.getPosts(posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+    }
+
+    getUserId() {
+        dataService.getProfile(profile => storageService.setStorageItem(USER_ID, profile.userId),
+            error => this.handleNetworkRequestError(error));
     }
 
     handleInputChange(event) {
@@ -105,12 +109,6 @@ class FeedPage extends React.Component {
         this.setState({ validationError: "" });
         this.toggleModalShow();
         scrollTo(0, 0);
-    }
-
-    cannotLoadPost(error) {
-        if (error.request) {
-            this.setState({ postError: "Unable to load post." });
-        }
     }
 
     renderPosts(post) {
@@ -275,8 +273,6 @@ class FeedPage extends React.Component {
         if (this.state.show === "text") {
             const text = this.state.new.textPostContent;
 
-
-
             if (!text) {
                 this.setState({ validationError: "Please enter some text." });
                 console.log("radim");
@@ -355,7 +351,6 @@ class FeedPage extends React.Component {
                 <div className="col-12 col-lg-9 offset-lg-1">
 
                     <div className="btn-group mt-3">
-
                         <button type="button" className="btn buttonDark">{filterTitle}</button>
                         <button type="button" className="btn buttonDark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         </button>
@@ -367,8 +362,6 @@ class FeedPage extends React.Component {
                             <button className="dropdown-item" value="Text" onClick={this.filterPosts}>Text</button>
                         </div>
                     </div>
-
-
 
                     <p className="error">{this.state.networkError}</p>
 
@@ -395,10 +388,7 @@ class FeedPage extends React.Component {
 
                 <div className="col-lg-2"></div>
 
-
-
                 <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
-
 
             </main>
         );
