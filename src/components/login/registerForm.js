@@ -93,7 +93,7 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <div className="form">
+            <div className="form mx-auto" style={{width: 90 + "%"}}>
                 <div>
                     <Link to="/login"><button className="btn btn-light">Login</button></Link>
                     <Link to="/register"><button className="btn btn-light">Register</button></Link>
