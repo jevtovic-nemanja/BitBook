@@ -45,7 +45,7 @@ class SingleTextPost extends React.Component {
     }
 
     getUserPicture(id) {
-        dataService.getUserProfile(id, profile => this.setState({ userPicture: profile._avatarUrl }), error => this.setState({ userPicture: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"}));
+        dataService.getUserProfile(id, profile => this.setState({ userPicture: profile._avatarUrl }), error => this.setState({ userPicture: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg" }));
     }
 
     handleInputChange(event) {
@@ -67,14 +67,27 @@ class SingleTextPost extends React.Component {
             this.setState({ commentsError: "Cannot load comments." });
         }
     }
-    
+
     postComment(event) {
         event.preventDefault();
 
-        const postId = this.state.post._id;
+        const isValid = this.validateInput();
 
-        const postData = { postId: postId, body: this.state.newComment };
-        dataService.postComment(postData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+        if (isValid) {
+            const postId = this.state.post._id;
+
+            const postData = { postId: postId, body: this.state.newComment };
+            dataService.postComment(postData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+        }
+    }
+
+    validateInput() {
+        if (!this.state.newComment) {
+            this.setState({ commentsError: "Please enter some text." });
+            return false;
+        } else {
+            return true;
+        }
     }
 
     render() {
@@ -94,8 +107,10 @@ class SingleTextPost extends React.Component {
                     </div>
                 </div>
 
-                <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
-                <button onClick={this.postComment} >Send</button>
+                <form className="mt-4 mb-4">
+                    <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
+                    <button onClick={this.postComment} >Send</button>
+                </form>
 
                 <p className="error">{commentsError}</p>
                 {this.state.comments.map(comment => {
