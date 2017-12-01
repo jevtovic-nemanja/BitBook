@@ -115,12 +115,12 @@ class FeedPage extends React.Component {
         const { text, image, video } = this.state.filter;
         const { postError } = this.state;
 
-        if (post._type === "text") {
-            return <TextPost post={post} key={post._id} show={text} error={postError} />;
+        if (post.type === "text") {
+            return <TextPost post={post} key={post.id} show={text} error={postError} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post} key={post._id} show={image} error={postError} />;
+            return <ImagePost post={post} key={post.id} show={image} error={postError} />;
         } else if (post._type === "video") {
-            return <VideoPost post={post} key={post._id} show={video} error={postError} />;
+            return <VideoPost post={post} key={post.id} show={video} error={postError} />;
         }
     }
 
@@ -275,7 +275,6 @@ class FeedPage extends React.Component {
 
             if (!text) {
                 this.setState({ validationError: "Please enter some text." });
-                console.log("radim");
                 return false;
             } else {
                 return true;

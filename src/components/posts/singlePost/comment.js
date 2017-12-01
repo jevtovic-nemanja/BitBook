@@ -15,27 +15,27 @@ class Comment extends React.Component {
     }
 
     componentDidMount() {
-        const id = this.props.comment._authorId;
+        const id = this.props.comment.authorId;
         this.getUserImage(id);
     }
 
     getUserImage(id) {
-        dataService.getUserProfile(id, profile => this.setState({userImage: profile._avatarUrl}));
+        dataService.getUserProfile(id, profile => this.setState({userImage: profile.avatarUrl}));
     }
 
     render() {
-        const { _body, _dateCreated, _authorName } = this.props.comment;
-        const postDate = moment(_dateCreated).fromNow();
+        const { body, dateCreated, authorName } = this.props.comment;
+        const postDate = moment(dateCreated).fromNow();
 
         return (
             <div className="card mt-4 w-100" style={{ height: 120 + "px" }} >
                 <div className="card-body row pt-2 pb-2">
                     <div className="col-2 h-100 mt-2 text-center">
                         <img src={this.state.userImage} className="w-50 rounded-circle my-auto" style={{width: 62 + "px", height: 62 + "px"}} />
-                        <p>{_authorName}</p>
+                        <p>{authorName}</p>
                     </div>
                     <div className="col-10 h-100 my-auto pt-3">
-                        <p className="text-justify">{_body}</p>
+                        <p className="text-justify">{body}</p>
                         <small className="float-right">{postDate}</small>
                     </div>
                 </div>

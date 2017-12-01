@@ -67,7 +67,7 @@ class SinglePostPage extends React.Component {
 
     loadPost(post) {
         this.setState({ post: post });
-        this.getComments(post._id);
+        this.getComments(post.id);
     }
 
     postComment(commentData) {
@@ -75,27 +75,27 @@ class SinglePostPage extends React.Component {
     }
 
     renderPost(post) {
-        if (post._type === "text") {
-            return <TextPost post={post} key={post._id} error={this.state.commentsError} />;
-        } else if (post._type === "image") {
-            return <ImagePost post={post} key={post._id} error={this.state.commentsError} />;
-        } else if (post._type === "video") {
-            return <VideoPost post={post} key={post._id} error={this.state.commentsError} />;
+        if (post.type === "text") {
+            return <TextPost post={post} key={post.id} error={this.state.commentsError} />;
+        } else if (post.type === "image") {
+            return <ImagePost post={post} key={post.id} error={this.state.commentsError} />;
+        } else if (post.type === "video") {
+            return <VideoPost post={post} key={post.id} error={this.state.commentsError} />;
         }
     }
 
     render() {
         const { validationError, commentsError, userImages } = this.state;
-        const { _text, _id, _userDisplayName, _userId, _commentsNum, _dateCreated } = this.state.post;
-        const postDate = moment(_dateCreated).fromNow();
+        const { text, id, userDisplayName, userId, commentsNum, dateCreated } = this.state.post;
+        const postDate = moment(dateCreated).fromNow();
 
         return (
             <div className="mb-4 mt-4">
                 {this.renderPost(this.state.post)}
 
-                <AddComment onPostComment={this.postComment} id={_id} />
+                <AddComment onPostComment={this.postComment} id={id} />
 
-                {this.state.comments.map(comment => <Comment key={comment._id} comment={comment} />)}
+                {this.state.comments.map(comment => <Comment key={comment.id} comment={comment} />)}
 
             </div>
         );
