@@ -12,10 +12,6 @@ class CommentModel {
     get id() {
         return this._id;
     }
-
-    set id(value) {
-        this._id = value;
-    }
     
     get dateCreated() {
         return this._dateCreated;
@@ -41,16 +37,8 @@ class CommentModel {
         return this._authorName;
     }
 
-    set authorName(value) {
-        this._authorName = value;
-    }
-
     get authorImage() {
         return this._authorImage;
-    }
-
-    set authorImage(value) {
-        this._authorImage = value;
     }
 
 }

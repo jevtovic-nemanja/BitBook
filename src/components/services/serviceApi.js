@@ -72,10 +72,8 @@ class ServiceAPI {
     }
 
     triggerErrorHandler(callback, error) {
-        if (callback) {
-            if (callback instanceof Function) {
-                return callback(error);
-            }
+        if (callback && callback instanceof Function) {
+            return callback(error);
         }
     }
 }
