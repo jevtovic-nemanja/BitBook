@@ -51,8 +51,10 @@ class UserProfilePage extends React.Component {
         let { error } = this.state;
 
         return (
-            <main className="container-fluid profileContainer">
-                <Profile user={this.state.profile} />
+            <main className="container-fluid">
+                <div className="row w-75 mx-auto">
+                    <Profile user={this.state.profile} />
+                </div>
             </main>
         );
     }

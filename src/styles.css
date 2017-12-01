@@ -204,54 +204,18 @@ button:focus {
 
 /* Profile and user profile pages */
 
-.profilecontent{
-    text-align: center;
-    /* margin-top: 8%; */
-    /* height: 100%; */
-}
-
-
 .profileimage{
     border-radius: 15%;
-    margin-bottom: 2%;
-    max-width: 90%;
-    height: 250px;
-    margin: 0 auto;
-    margin-top: 8%;
-}
-
-.profileTextContent {
-    margin: 0 auto;
-    max-width: 70%;
-
-
 }
 
 .profilename{
     font-family: 'PT Serif', serif;
-    margin-bottom: 1%;
-    margin-top: 20px;
-    max-width: 100%;
-}
-
-.profileabout {
-    max-width: 60%;
-    margin: 20px auto;
-    text-align: center;
 }
 
 .profilecounter {
     background-color: #3aafa9;
     color: #feffff;
-    border-radius: 10%;
-    border: 1px solid #feffff;
-    max-width: 60%; 
-    text-align: center;
-    margin: 10px auto 0;
-}
-
-.editButton {
-    margin: 30px auto 0;
+    border-color: white;
 }
 
 /*Modal dialog */
@@ -380,9 +344,6 @@ button:focus {
 
 }
 
-    .profilecounter {
-        margin: 10px auto;
-    }
 
   
     /* .editForm {

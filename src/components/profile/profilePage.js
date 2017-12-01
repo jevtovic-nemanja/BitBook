@@ -26,11 +26,11 @@ class ProfilePage extends React.Component {
                 commentsCount: 0
             },
             edit: {
-                editName: "",
-                editEmail: "",
-                editAboutShort: "",
-                editAbout: "",
-                editAvatarUrl: "",
+                name: "",
+                email: "",
+                aboutShort: "",
+                about: "",
+                avatarUrl: "",
             },
             show: false,
             error: ""
@@ -163,7 +163,8 @@ class ProfilePage extends React.Component {
                     outline: "none",
                     padding: "30px"
 
-                } };
+                }
+            };
         } else {
 
             return {
@@ -193,13 +194,15 @@ class ProfilePage extends React.Component {
         const { show, error } = this.state;
 
         return (
-            <div className="row">
-                <main className="col-12">
+            <main className="container-fluid">
+                <div className="row w-75 mx-auto">
 
                     <Profile user={this.state.profile} />
 
-                    <div className="text-center editButton">
-                        <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
+                    <div className="col-12">
+                        <div className="text-center ">
+                            <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
+                        </div>
                     </div>
 
                     <Modal isOpen={show} style={this.getModalStyle()} className="editProfileModal" >
@@ -211,8 +214,8 @@ class ProfilePage extends React.Component {
                                     className="form-control mb-3"
                                     id="exampleInputText1"
                                     placeholder="Name"
-                                    name="editName"
-                                    value={editName}
+                                    name="name"
+                                    value={this.state.edit.name}
                                     onChange={this.handleInputChange}
                                 />
 
@@ -223,8 +226,8 @@ class ProfilePage extends React.Component {
                                     id="exampleInputEmail1"
                                     aria-describedby="emailHelp"
                                     placeholder="Enter email"
-                                    name="editEmail"
-                                    value={editEmail}
+                                    name="email"
+                                    value={this.state.edit.email}
                                     onChange={this.handleInputChange}
                                 />
                                 <small id="emailHelp" className="form-text text-muted mb-3">We will never share your email with anyone else.</small>
@@ -234,8 +237,8 @@ class ProfilePage extends React.Component {
                                     className="form-control mb-3"
                                     id="exampleInputText2"
                                     placeholder="Short Bio"
-                                    name="editAboutShort"
-                                    value={editAboutShort}
+                                    name="aboutShort"
+                                    value={this.state.edit.aboutShort}
                                     onChange={this.handleInputChange}
                                 />
 
@@ -244,9 +247,9 @@ class ProfilePage extends React.Component {
                                     className="form-control mb-3"
                                     id="exampleInputText3"
                                     placeholder="About"
-                                    name="editAbout"
+                                    name="about"
                                     rows="5"
-                                    value={editAbout}
+                                    value={this.state.edit.about}
                                     onChange={this.handleInputChange}
                                 />
 
@@ -256,8 +259,8 @@ class ProfilePage extends React.Component {
                                     className="form-control mb-3"
                                     id="exampleInputText4"
                                     placeholder="Picture URL"
-                                    name="editAvatarUrl"
-                                    value={editAvatarUrl}
+                                    name="avatarUrl"
+                                    value={this.state.edit.avatarUrl}
                                     onChange={this.handleInputChange}
                                 />
 
@@ -278,8 +281,8 @@ class ProfilePage extends React.Component {
                             </button>
                         </div>
                     </Modal>
-                </main>
-            </div>
+                </div>
+            </main>
         );
     }
 }
