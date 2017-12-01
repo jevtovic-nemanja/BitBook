@@ -3,6 +3,8 @@ import React from "react";
 import { dataService } from "../services/serviceData";
 import { redirect } from "../services/serviceRedirect";
 
+import { Profile } from "../profile/profile";
+
 class UserProfilePage extends React.Component {
     constructor(props) {
         super(props);
@@ -50,18 +52,7 @@ class UserProfilePage extends React.Component {
 
         return (
             <main className="container">
-                <div className="profilecontent">
-                    <img src={_avatarUrl
-                        ? _avatarUrl
-                        : "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"
-                    } className="profileimage" />
-                    <h1 className="profilename">{_name}</h1>
-                    <em>{_aboutShort}</em>
-                    <p className="profileabout">{_about}</p>
-                    <div className="profilecounter">Posts: {_postsCount}</div>
-                    <div className="profilecounter">Comments: {_commentsCount}</div>
-                </div>
-                <p className="fixed-bottom text-center">©2017 BlueTeam, Inc.</p>
+                <Profile user={this.state.profile} />
             </main>
         );
     }
