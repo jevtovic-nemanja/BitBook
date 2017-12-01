@@ -15,13 +15,13 @@ class UserProfilePage extends React.Component {
     initState() {
         return {
             profile: {
-                _name: "Loading...",
-                _email: "",
-                _aboutShort: "",
-                _about: "",
-                _avatarUrl: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
-                _postsCount: 0,
-                _commentsCount: 0
+                name: "Loading...",
+                email: "",
+                aboutShort: "",
+                about: "",
+                avatarUrl: "http://3.bp.blogspot.com/JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
+                postsCount: 0,
+                commentsCount: 0
             },
             error: ""
         };
@@ -31,14 +31,14 @@ class UserProfilePage extends React.Component {
         this.getProfile(this.props.match.params.id);
     }
 
+    getProfile(id) {
+        dataService.getUserProfile(id, profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
+    }
+
     handleNetworkRequestError(error) {
         if (error.request) {
             this.setState({ error: "There is no response from server." });
         }
-    }
-
-    getProfile(id) {
-        dataService.getUserProfile(id, profile => this.loadProfile(profile), error => this.handleNetworkRequestError(error));
     }
 
     loadProfile(profile) {
@@ -47,7 +47,7 @@ class UserProfilePage extends React.Component {
 
     render() {
 
-        let { _name, _email, _aboutShort, _about, _avatarUrl, _postsCount, _commentsCount } = this.state.profile;
+        let { name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = this.state.profile;
         let { error } = this.state;
 
         return (

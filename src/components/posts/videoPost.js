@@ -3,9 +3,9 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 
 export const VideoPost = props => {
-    const { _id, _videoUrl, _dateCreated, _userId, _userDisplayName, _type, _commentsNum } = props.post;
+    const { id, videoUrl, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const { error } = props.error;
-    const postDate = moment(_dateCreated).fromNow();
+    const postDate = moment(dateCreated).fromNow();
 
     if (error) {
         return (
@@ -23,12 +23,12 @@ export const VideoPost = props => {
         <div className={props.show}>
             <div className="card mb-4" >
                 <div className="embed-responsive embed-responsive-16by9" >
-                    <iframe src={_videoUrl} style={{ width: 100 + "%" }} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item"></iframe>
+                    <iframe src={videoUrl} style={{ width: 100 + "%" }} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item"></iframe>
                 </div>
                 <div className="card-body" >
-                    <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
+                    <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>
                     <small>{postDate}</small>
-                    <Link to={`/videoPosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
+                    <Link to={`/posts/video/${id}`} ><h6 className="float-right">{commentsNum} Comments</h6></Link>
                 </div>
             </div>
         </div>

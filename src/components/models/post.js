@@ -14,10 +14,6 @@ class Post {
     get id() {
         return this._id;
     }
-
-    set id(value) {
-        this._id = value;
-    }
     
     get dateCreated() {
         return this._dateCreated;
@@ -31,16 +27,8 @@ class Post {
         return this._userDisplayName;
     }
 
-    set userDisplayName(value) {
-        this._userDisplayName = value;
-    }
-
     get type() {
         return this._type;
-    }
-
-    set type(value) {
-        this._type = value;
     }
 
     get text() {

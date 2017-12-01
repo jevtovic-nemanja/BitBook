@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 export const TextPost = props => {
 
-    const { _id, _text, _dateCreated, _userId, _userDisplayName, _type, _commentsNum } = props.post;
+    const { id, text, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const { error } = props.error;
-    const postDate = moment(_dateCreated).fromNow();
+    const postDate = moment(dateCreated).fromNow();
 
     if (error) {
         return (
@@ -24,10 +24,10 @@ export const TextPost = props => {
         <div className={props.show}>
             <div className="card mb-4" style={{ width: 100 + "%" }} >
                 <div className="card-body">
-                    <Link to={`/people/${_userId}`} ><h5>{_userDisplayName}</h5></Link>
-                    <p>{_text}</p>
+                    <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>
+                    <p>{text}</p>
                     <small>{postDate}</small>
-                    <Link to={`/textPosts/${_id}`} ><h6 className="float-right">{_commentsNum} Comments</h6></Link>
+                    <Link to={`/posts/text/${id}`} ><h6 className="float-right">{commentsNum} Comments</h6></Link>
                 </div>
             </div>
         </div>

@@ -43,37 +43,29 @@ class ServiceData {
 
     getPosts(callback, errorCallback) {
         APIService.getFromAPI("/Posts", responseData => {
-            let posts = responseData.map(item => {
-                let { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = item;
-                return new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
-            });
+            let posts = responseData.map(item => this.packPost(item));
             callback(posts);
         }, errorCallback);
     }
 
     getTextPost(id, callback, errorCallback) {
-        APIService.getFromAPI(`/TextPosts/${id}`, responseData => {
-            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = item;
-            const textPost = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
-            callback(textPost);
-        }, errorCallback);
+        APIService.getFromAPI(`/TextPosts/${id}`, responseData => callback(this.packPost(responseData)), errorCallback);
     }
 
     getImagePost(id, callback, errorCallback) {
-        APIService.getFromAPI(`/ImagePosts/${id}`, responseData => {
-            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = item;
-            const imagePost = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
-            callback(imagePost);
-        }, errorCallback);
+        APIService.getFromAPI(`/ImagePosts/${id}`, responseData => callback(this.packPost(responseData)), errorCallback);
     }
 
     getVideoPost(id, callback, errorCallback) {
-        APIService.getFromAPI(`/VideoPosts/${id}`, responseData => {
-            const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = item;
-            const videoPost = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
-            callback(videoPost);
-        }, errorCallback);
+        APIService.getFromAPI(`/VideoPosts/${id}`, responseData => callback(this.packPost(responseData)), errorCallback);
     }
+
+    packPost(responseData) {
+        const { id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum } = responseData;
+        const post = new Post(id, dateCreated, userId, userDisplayName, type, text, imageUrl, videoUrl, commentsNum);
+        return post;
+    }
+
     postTextPost(dataObject, callback, errorCallback) {
         APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(callback, errorCallback),
             errorCallback);
