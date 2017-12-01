@@ -71,10 +71,23 @@ class SingleVideoPost extends React.Component {
     postComment(event) {
         event.preventDefault();
 
-        const postId = this.state.post._id;
+        const isValid = this.validateInput();
 
-        const postData = { postId: postId, body: this.state.newComment };
-        dataService.postComment(postData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+        if (isValid) {
+            const postId = this.state.post._id;
+
+            const postData = { postId: postId, body: this.state.newComment };
+            dataService.postComment(postData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+        }
+    }
+
+    validateInput() {
+        if (!this.state.newComment) {
+            this.setState({ commentsError: "Please enter some text." });
+            return false;
+        } else {
+            return true;
+        }
     }
 
     render() {
@@ -96,8 +109,10 @@ class SingleVideoPost extends React.Component {
                     </div>
                 </div>
 
-                <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
-                <button onClick={this.postComment} >Send</button>
+                <form className="mt-4 mb-4">
+                    <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
+                    <button onClick={this.postComment} >Send</button>
+                </form>
 
                 <p className="error">{commentsError}</p>
                 {this.state.comments.map(comment => {
