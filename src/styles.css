@@ -160,6 +160,7 @@ button:focus {
     margin-bottom: 20px;
     font-weight: bold;
     text-shadow: 4px -3px 5px rgba(150, 150, 150, 1);
+    text-align: left;
 }
 
 .loginParagraph{
@@ -179,32 +180,12 @@ button:focus {
     box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
 }
 
-@media only screen and (max-width: 578px){
-    .welcomeText{
-        width:100%;
-        margin-left: 0px;
-        padding: 0px;
-        margin-top: 0;
-    }
-    .form{
-        margin-right: 20px;
-        margin-left: 25px;
-    }
-
-    .loginParagraph {
-        display: none;
-    }
-
-    .loginTitle {
-        font-size: 33px;
-        text-align: center;
-        margin-top: 35px;
-    }
-
+.modalButtons {
+    width: 100px;
+    position: fixed;
+    bottom: 100px;
+    right: 0;
 }
-
-
-
 
 
 .btn-dark {
@@ -291,13 +272,10 @@ button:focus {
     min-width: 10%; */
    
 } 
-.modalWrapper{
-   
-   
-}
+
 
 .buttonWrapper {
-    float: right;
+    float: left;
     margin-top: 15%;
 }
 
@@ -364,9 +342,77 @@ button:focus {
     box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
 }
 
-.modalButtons {
-    width: 100px;
-    position: fixed;
-    bottom: 100px;
-    right: 0;
+/* Adapt for mobile */
+
+@media only screen and (max-width: 578px){
+    .welcomeText{
+        width:100%;
+        margin-left: 0px;
+        padding: 0px;
+        margin-top: 0;
+    }
+    .form{
+        margin-right: 20px;
+        margin-left: 25px;
+    }
+
+    .loginParagraph {
+        display: none;
+    }
+
+    .loginTitle {
+        font-size: 33px;
+        text-align: center;
+        margin-top: 35px;
+    }
+
+    .modalButtons {
+        width: 400px;
+        position: fixed;
+        bottom: 20px;
+        right: 0;
+    }
+
+
+    .modalButtonsText {
+        display: none;
+}
+
+    .modalRoundButtons {
+         margin: 0 12px;
+
+}
+
+    .profilecounter {
+        margin: 10px auto;
+    }
+
+  
+    /* .editForm {
+        width: 300px;
+        position: relative;
+        right: 0px;
+    } */
+
+}
+
+
+/* Adapt for tablet */
+
+@media only screen and (max-width: 1024px){
+
+.form {
+    margin-top: 0px;
+}
+
+.welcomeText {
+    margin: 10% auto 0;
+}
+
+
+.buttonWrapper {
+    margin-top: 5%;
+}
+
+
 }
