@@ -135,6 +135,8 @@ class ProfilePage extends React.Component {
             <main className="container-fluid">
                 <div className="row w-75 mx-auto">
 
+                    <p className="error">{error}</p>
+
                     <Profile user={this.state.profile} />
 
                     <div className="col-12">
