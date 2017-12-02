@@ -18,7 +18,6 @@ class LoginForm extends React.Component {
             password: "",
             error: false
         };
-
     }
 
     bindEventHandlers() {
@@ -80,9 +79,9 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="form">
+            <div className="form mx-auto" style={{width: 90 + "%"}}>
                 <div>
-                    <Link to="/login"><button className="btn btn-dark">Login</button></Link>
+                    <Link to="/login"><button className="btn btn-dark ">Login</button></Link>
                     <Link to="/register"><button className="btn btn-dark">Register</button></Link>
                 </div>
 
@@ -106,7 +105,6 @@ class LoginForm extends React.Component {
                     <button type="submit" className="btn buttonDark" onClick={this.logIn}>Login</button>
 
                 </form>
-
             </div>
         );
     }

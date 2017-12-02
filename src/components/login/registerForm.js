@@ -93,14 +93,13 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <div className="form">
+            <div className="form mx-auto" style={{width: 90 + "%"}}>
                 <div>
                     <Link to="/login"><button className="btn btn-light">Login</button></Link>
                     <Link to="/register"><button className="btn btn-light">Register</button></Link>
                 </div>
 
                 <form>
-
                     <div className="form-group">
                         <label htmlFor="exampleInputText1">Full Name</label>
                         <input type="text" className="form-control" id="exampleInputText1" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
@@ -130,9 +129,7 @@ class RegisterForm extends React.Component {
                     </div>
 
                     <button type="submit" className="btn buttonDark" onClick={this.register}>Register</button>
-
                 </form>
-
             </div>
         );
     }

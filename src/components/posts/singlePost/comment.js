@@ -1,5 +1,7 @@
 import React from "react";
+
 import moment from "moment";
+
 import { dataService } from "../../services/serviceData";
 
 class Comment extends React.Component {
@@ -10,7 +12,7 @@ class Comment extends React.Component {
 
     initState() {
         return {
-            userImage: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"
+            userImage: "../../../images/batman.jpg"
         };
     }
 
@@ -28,16 +30,16 @@ class Comment extends React.Component {
         const postDate = moment(dateCreated).fromNow();
 
         return (
-            <div className="card mt-4 w-100" style={{ height: 120 + "px" }} >
+            <div className="card mt-4 w-100" >
                 <div className="card-body row pt-2 pb-2">
-                    <div className="col-2 h-100 mt-2 text-center">
-                        <img src={this.state.userImage} className="w-50 rounded-circle my-auto" style={{width: 62 + "px", height: 62 + "px"}} />
-                        <p>{authorName}</p>
+                    <div className="h-100 mt-2 text-center col-md-3 textMobile">
+                        <img src={this.state.userImage} className="rounded-circle imageMobile" style={{width: 5 + "rem", height: 5 + "rem"}} />
+                        <p className="pt-2 nameMobile">{authorName}</p>
                     </div>
-                    <div className="col-10 h-100 my-auto pt-3">
+                    <div className="h-100 my-auto pb-4 pt-2 pl-3 col-md-9 position-relative">
                         <p className="text-justify">{body}</p>
-                        <small className="float-right">{postDate}</small>
                     </div>
+                    <small className="float-right postTime">{postDate}</small>
                 </div>
             </div>
         );

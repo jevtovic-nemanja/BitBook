@@ -31,6 +31,28 @@ body {
     background-color: whitesmoke;
 }
 
+.wrapper {
+    height: 100%;
+
+}
+
+
+.mainAndFooter {
+    position: relative;
+    height: 100%;
+    margin-bottom: -121px;
+}
+
+
+.mainContent {
+  height: 90%;
+    position: relative;
+}
+
+profileContainer {
+  height: 100%;
+}
+
 /* Navbar */
 
 .navbar-light .navbar-nav .nav-link {
@@ -44,6 +66,7 @@ body {
 a:-webkit-any-link {
     text-decoration: none;
 }
+
 
 /* All inputs */
 
@@ -129,6 +152,7 @@ button:focus {
     color: #17252a;
 }
 
+
 .loginTitle{
     font-size: 47px;
     font-family: Arial, Helvetica, sans-serif;
@@ -136,6 +160,7 @@ button:focus {
     margin-bottom: 20px;
     font-weight: bold;
     text-shadow: 4px -3px 5px rgba(150, 150, 150, 1);
+    text-align: left;
 }
 
 .loginParagraph{
@@ -146,6 +171,7 @@ button:focus {
 .form {
     margin: 9% auto 0;
     margin-left: 30px;
+    margin-bottom: 30px;
     padding: 20px;
     border-radius: 5%;
     background-color: rgba(254, 255, 255, 0.9);
@@ -153,6 +179,14 @@ button:focus {
     -moz-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
     box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
 }
+
+.modalButtons {
+    width: 100px;
+    position: fixed;
+    bottom: 100px;
+    right: 0;
+}
+
 
 .btn-dark {
     margin-bottom: 10px;
@@ -170,66 +204,56 @@ button:focus {
 
 /* Profile and user profile pages */
 
-.profilecontent{
-    text-align: center;
-    margin: 8% auto 0;
-    width: 50%;
-}
 .profileimage{
     border-radius: 15%;
-    -webkit-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
-    -moz-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
-    box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
-    margin-bottom: 2%;
-    width: 250px;
-    height: 250px;
 }
 
 .profilename{
     font-family: 'PT Serif', serif;
-    margin-bottom: 1%;
-    margin-top: 10px;
-}
-
-.profileabout {
-    width: 50%;
-    margin: 20px auto;
-    text-align: center;
 }
 
 .profilecounter {
     background-color: #3aafa9;
     color: #feffff;
-    border-radius: 10%;
-    border: 1px solid #feffff;
-    width: 50%;
-    text-align: center;
-    margin: 10px auto 0;
-}
-
-.editButton {
-    margin: 30px auto 0;
+    border-color: white;
 }
 
 /*Modal dialog */
 
 .saveButtonStyle {
-    position: absolute;
-    right: 45px;
-    bottom: 10px;
-    min-width: 100px;
+    /* position: absolute;
+    right: 1%;
+    bottom: 10px;   
+    min-width: 10%; */
 }
 
 .closeButtonStyle {
-    position: absolute;
-    right: 155px;
+    margin-left: 10px;
+
+    /* position: absolute;
+    right: 20%;
     bottom: 10px;
-    min-width: 100px;
+    min-width: 10%; */
+   
+} 
+
+
+.buttonWrapper {
+    float: left;
+    margin-top: 5%;
 }
 
 .newPost {
-    min-height: 250px;
+    min-height: 270px;
     margin-top: 10%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    
+    
 }
 
 /*People page */
@@ -280,4 +304,104 @@ button:focus {
     -webkit-box-shadow: rgba(43, 122, 120, 0.5) 0px 0 20px;
     -moz-box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
     box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
+}
+
+/* Adapt for mobile */
+
+@media only screen and (max-width: 578px){
+    .welcomeText{
+        width:100%;
+        margin-left: 0px;
+        padding: 0px;
+        margin-top: 0;
+    }
+    
+
+    .loginParagraph {
+        display: none;
+    }
+
+    .loginTitle {
+        font-size: 33px;
+        text-align: center;
+        margin-top: 35px;
+    }
+
+    .modalButtons {
+        width: 400px;
+        position: fixed;
+        bottom: 20px;
+        right: 0;
+    }
+
+
+    .modalButtonsText {
+        display: none;
+}
+
+    .modalRoundButtons {
+         margin: 0 12px;
+
+}
+
+
+  
+    /* .editForm {
+        width: 300px;
+        position: relative;
+        right: 0px;
+    } */
+
+    .editProfileModal {
+        left: 15%;
+        right: 15%;
+    }
+
+}
+
+
+/* Adapt for tablet */
+
+@media only screen and (max-width: 1024px){
+
+.form {
+    margin-top: 0px;
+}
+
+.welcomeText {
+    margin: 10% auto 0;
+}
+
+.textMobile {
+    font-size: 0.9rem;
+}
+
+.imageMobile {
+    width: 3rem !important;
+    height: 3rem !important;
+}
+
+
+}
+
+@media only screen and (max-width: 587px) {
+    .imageMobile {
+        width: 3rem !important;
+        height: 3rem !important;
+        float: left;
+    }
+
+    .textMobile {
+        font-size: 0.8rem;
+    }
+
+    .nameMobile {
+        padding-top: 1rem !important;
+    }
+}
+
+.postTime {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 }

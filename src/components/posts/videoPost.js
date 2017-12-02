@@ -1,4 +1,5 @@
 import React from "react";
+
 import moment from "moment";
 import { Link } from "react-router-dom";
 
@@ -10,7 +11,7 @@ export const VideoPost = props => {
     if (error) {
         return (
             <div className={props.show}>
-                <div className="card" style={{ width: 100 + "%" }} >
+                <div className="card w-100" >
                     <div className="card-body">
                         <p>{error}</p>
                     </div>
@@ -23,7 +24,7 @@ export const VideoPost = props => {
         <div className={props.show}>
             <div className="card mb-4" >
                 <div className="embed-responsive embed-responsive-16by9" >
-                    <iframe src={videoUrl} style={{ width: 100 + "%" }} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item"></iframe>
+                    <iframe src={videoUrl} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item w-100"></iframe>
                 </div>
                 <div className="card-body" >
                     <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>

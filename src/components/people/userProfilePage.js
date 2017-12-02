@@ -8,7 +8,6 @@ import { Profile } from "../profile/profile";
 class UserProfilePage extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
     }
 
@@ -51,11 +50,15 @@ class UserProfilePage extends React.Component {
         let { error } = this.state;
 
         return (
-            <main className="container">
-                <Profile user={this.state.profile} />
+            <main className="container-fluid">
+                <div className="row w-75 mx-auto">
+                    <Profile user={this.state.profile} />
+                </div>
             </main>
         );
     }
 }
 
 export default UserProfilePage;
+
+

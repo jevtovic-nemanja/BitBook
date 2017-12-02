@@ -1,4 +1,5 @@
 import React from "react";
+
 import moment from "moment";
 import { Link } from "react-router-dom";
 
@@ -11,7 +12,7 @@ export const TextPost = props => {
     if (error) {
         return (
             <div className={props.show}>
-                <div className="card" style={{ width: 100 + "%" }} >
+                <div className="card w-100" >
                     <div className="card-body">
                         <p>{error}</p>
                     </div>
@@ -22,7 +23,7 @@ export const TextPost = props => {
 
     return (
         <div className={props.show}>
-            <div className="card mb-4" style={{ width: 100 + "%" }} >
+            <div className="card mb-4 w-100" >
                 <div className="card-body">
                     <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>
                     <p>{text}</p>

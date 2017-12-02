@@ -1,14 +1,15 @@
 import React from "react";
-import { dataService } from "../services/serviceData";
-import Search from "../common/search";
 
+import { dataService } from "../services/serviceData";
+
+import Search from "../common/search";
 import { UserDescription } from "./userDescription";
 
 class PeoplePage extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
+
         this.bindEventHandlers();
     }
 
@@ -19,15 +20,15 @@ class PeoplePage extends React.Component {
             error: ""
         };
     }
-
-    componentDidMount() {
-        this.getPeople();
-    }
-
+    
     bindEventHandlers() {
         this.filterUsers = this.filterUsers.bind(this);
     }
-
+    
+    componentDidMount() {
+        this.getPeople();
+    }
+    
     filterUsers(searchItem) {
         const usersOriginal = this.state.usersOriginal;
 
@@ -70,7 +71,7 @@ class PeoplePage extends React.Component {
                 <div className="row">
                     {this.state.users.map(user => {
                         return (
-                            <div className="col-sm-12 col-md-6 col-lg-4 mb-4" key={user._id}>
+                            <div className="col-sm-12 col-md-6 col-lg-4 mb-2" key={user._id}>
                                 <UserDescription userData={user} id={user._id} />
                             </div>
                         );
