@@ -18,7 +18,7 @@ class UserProfilePage extends React.Component {
                 email: "",
                 aboutShort: "",
                 about: "",
-                avatarUrl: "http://3.bp.blogspot.com/JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg",
+                avatarUrl: "../../images/batman.jpg",
                 postsCount: 0,
                 commentsCount: 0
             },
