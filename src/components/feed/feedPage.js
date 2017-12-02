@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { TextPost } from "../posts/textPost";
 import { ImagePost } from "../posts/imagePost";
 import { VideoPost } from "../posts/videoPost";
+import NewPost from "./newPost";
 
 import Modal from "react-modal";
 
@@ -24,15 +25,10 @@ class FeedPage extends React.Component {
         return {
             posts: [],
             networkError: "",
-            validationError: "",
             postError: "",
+            error: "",
             modal: false,
             show: "text",
-            new: {
-                textPostContent: "",
-                imagePostContent: "",
-                videoPostContent: ""
-            },
             filterTitle: "All Posts",
             filter: {
                 text: "",
@@ -44,8 +40,6 @@ class FeedPage extends React.Component {
 
     bindEventHandlers() {
         this.toggleModalShow = this.toggleModalShow.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.selectPostType = this.selectPostType.bind(this);
         this.sendPost = this.sendPost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
     }
@@ -88,17 +82,6 @@ class FeedPage extends React.Component {
             error => this.handleNetworkRequestError(error));
     }
 
-    handleInputChange(event) {
-        const name = event.target.name;
-        const value = event.target.value;
-
-        this.setState(prevState => {
-            prevState.new[name] = value;
-            prevState.validationError = "";
-            return prevState;
-        });
-    }
-
     handleNetworkRequestError(error) {
         if (error.request) {
             this.setState({ networkError: "There is no response from server." });
@@ -124,45 +107,22 @@ class FeedPage extends React.Component {
         }
     }
 
-    selectPostType(event) {
-        event.preventDefault();
+    sendPost(type, newData) {
+        if (type === "text") {
 
-        const type = event.target.value;
+            dataService.postTextPost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            this.jumpToTop();
 
-        this.setState({
-            show: type,
-            validationError: ""
-        });
-    }
+        } else if (type === "image") {
 
-    sendPost(event) {
-        event.preventDefault();
+            dataService.postImagePost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            this.jumpToTop();
 
-        const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
+        } else if (type === "video") {
 
-        const isValid = this.validateInput();
+            dataService.postVideoPost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            this.jumpToTop();
 
-        if (isValid) {
-            if (textPostContent) {
-
-                const postData = { text: this.state.new.textPostContent };
-                dataService.postTextPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
-                this.jumpToTop();
-
-            } else if (imagePostContent) {
-
-                const postData = { imageUrl: this.state.new.imagePostContent };
-                dataService.postImagePost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
-                this.jumpToTop();
-
-            } else if (videoPostContent) {
-
-                const videoUrl = this.state.new.videoPostContent.replace("watch?v=", "embed/");
-                const postData = { videoUrl: videoUrl };
-                dataService.postVideoPost(postData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
-                this.jumpToTop();
-
-            }
         }
     }
 
@@ -170,179 +130,61 @@ class FeedPage extends React.Component {
         event.preventDefault();
 
         if (this.state.modal === false) {
-            this.setState({
-                modal: true,
-                new: {
-                    textPostContent: "",
-                    imagePostContent: "",
-                    videoPostContent: ""
-                }
-            });
+            this.setState({ modal: true });
         } else {
             this.setState({
                 modal: false,
-                validationError: ""
+                error: ""
             });
         }
     }
 
-    togglePostType(type) {
-        const { show, error, modal, filterTitle } = this.state;
-        const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
+    getModalStyle() {
+        if (screen.width < 579) {
+            return {
+                content: {
+                    position: "absolute",
+                    top: "10%",
+                    left: "15%",
+                    right: "15%",
+                    bottom: "",
+                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                    background: "#feffff",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                    borderRadius: "4px",
+                    outline: "none",
+                    padding: "20px"
+                }
+            };
 
-        if (type === "text") {
-            return (
-                <div>
-                    <h2>New Post</h2>
-                    <form>
-                        <label htmlFor="exampleInputText1"><small>Post content</small></label>
-                        <input
-                            type="text"
-                            className="form-control modalInput"
-                            id="exampleInputText1"
-                            name="textPostContent"
-                            value={textPostContent}
-                            onChange={this.handleInputChange}
-                        />
-                    </form>
-                    <div className="buttonWrapper">
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
-                            Post
-                        </button>
-                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            );
-        } else if (type === "image") {
-            return (
-                <div>
-                    <h2>New Image Post</h2>
-                    <form>
-                        <label htmlFor="exampleInputText1"><small>Image Link</small></label>
-                        <input
-                            type="text"
-                            className="form-control modalInput"
-                            id="exampleInputText1"
-                            name="imagePostContent"
-                            value={imagePostContent}
-                            onChange={this.handleInputChange}
-                        />
-                    </form>
-
-                    <div className="buttonWrapper">
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
-                            Post
-                        </button>
-                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            );
-        } else if (type === "video") {
-            return (
-                <div>
-                    <h2>New Video Post</h2>
-                    <form>
-                        <label htmlFor="exampleInputText1"><small>YouTube Video Link</small></label>
-                        <input
-                            type="text"
-                            className="form-control mb-2"
-                            id="exampleInputText1"
-                            name="videoPostContent"
-                            value={videoPostContent}
-                            onChange={this.handleInputChange}
-                        />
-                    </form>
-
-                    <div className="buttonWrapper">
-                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
-                            Post
-                        </button>
-                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.toggleModalShow}>
-                            Close
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-    }
-
-    validateInput() {
-
-        if (this.state.show === "text") {
-            const text = this.state.new.textPostContent;
-
-            if (!text) {
-                this.setState({ validationError: "Please enter some text." });
-                return false;
-            } else {
-                return true;
-            }
-
-        } else if (this.state.show === "image") {
-            const imageUrl = this.state.new.imagePostContent;
-
-            if (!imageUrl) {
-                this.setState({ validationError: "Please enter image URL." });
-                return false;
-            } else if (!imageUrl.includes("http://") && !imageUrl.includes("https://")) {
-                this.setState({ validationError: "Image URL is invalid!" });
-                return false;
-            } else {
-                return true;
-            }
-
-        } else if (this.state.show === "video") {
-            const videoUrl = this.state.new.videoPostContent;
-
-            if (!videoUrl) {
-                this.setState({ validationError: "Please enter video URL." });
-                return false;
-            } else if (!videoUrl.includes("http://www.youtube.com/") && !videoUrl.includes("https://www.youtube.com/")) {
-                this.setState({ validationError: "Input must be YouTube video URL!" });
-                return false;
-            } else {
-                return true;
-            }
-        }
+        } else {
+            return {
+                content: {
+                    position: "absolute",
+                    top: "10%",
+                    left: "15%",
+                    right: "15%",
+                    bottom: "",
+                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                    background: "#feffff",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                    borderRadius: "4px",
+                    outline: "none",
+                    padding: "20px"
+                }
+            };
+        };
     }
 
     render() {
         const { show, validationError, modal, filterTitle } = this.state;
-        const { textPostContent, imagePostContent, videoPostContent } = this.state.new;
-
-        const modalStyle = {
-            overlay: {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: "rgba(255, 255, 255, 0.75)"
-            },
-            content: {
-                position: "absolute",
-                top: "10%",
-                left: "15%",
-                right: "15%",
-                bottom: "",
-                border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                background: "#feffff",
-                overflow: "auto",
-                WebkitOverflowScrolling: "touch",
-                borderRadius: "4px",
-                outline: "none",
-                padding: "20px"
-            }
-        };
 
         if (this.state.posts.length < 1) {
             return (
                 <main className="row">
-                    <h1 className="text-center">Loading posts...</h1>
+                    <h1 className="text-center mx-auto">Loading posts...</h1>
                 </main>
             );
         }
@@ -369,23 +211,9 @@ class FeedPage extends React.Component {
                     {this.state.posts.map(post => this.renderPosts(post))}
 
                     <div className="row modalWrapper">
-                        <Modal isOpen={modal} style={modalStyle} >
+                        <Modal isOpen={modal} style={this.getModalStyle()} >
 
-                            {this.togglePostType(show)}
-
-
-                            <div className="error">
-                                {validationError
-                                    ? <p>{validationError}</p>
-                                    : <p></p>
-                                }
-                            </div>
-
-                            <div className="text-center modalButtons">
-                                <button className="buttonLight round modalRoundButtons" value="text" onClick={this.selectPostType}>T</button><p className="modalButtonsText">Text</p>
-                                <button className="buttonLight round modalRoundButtons" value="image" onClick={this.selectPostType}>I</button><p className="modalButtonsText" >Image</p>
-                                <button className="buttonLight round modalRoundButtons" value="video" onClick={this.selectPostType}>V</button>  <p className="modalButtonsText">Video</p>
-                            </div>
+                            <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} />
 
                         </Modal >
                     </div>
