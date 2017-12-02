@@ -400,10 +400,6 @@ button:focus {
     }
 }
 
-.card {
-    word-wrap: normal;
-}
-
 .postTime {
     position: absolute;
     bottom: 1rem;
