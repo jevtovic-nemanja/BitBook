@@ -10,7 +10,7 @@ export const ImagePost = props => {
     if (error) {
         return (
             <div className={props.show}>
-                <div className="card" style={{ width: 100 + "%" }} >
+                <div className="card w-100" >
                     <div className="card-body">
                         <p>{error}</p>
                     </div>
@@ -21,7 +21,7 @@ export const ImagePost = props => {
 
     return (
         <div className={props.show}>
-            <div className="card mb-4" style={{ width: 100 + "%", height: 100 + "%" }} >
+            <div className="card mb-4 w-100 h-100" >
                 <img src={imageUrl} className="card-img-top" />
                 <div className="card-body">
                     <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>

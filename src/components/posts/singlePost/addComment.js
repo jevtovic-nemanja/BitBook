@@ -51,9 +51,11 @@ class AddComment extends React.Component {
 
     render() {
         return (
-            <form className="mt-4 mb-4">
-                <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} />
-                <button onClick={this.postComment} >Send</button>
+            <form className="w-100">
+                <div className="w-100">
+                    <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} style={{width: 80 + "%"}} />
+                    <button onClick={this.postComment} style={{width: 20 + "%"}} >Send</button>
+                </div>
             </form>
         );
     }

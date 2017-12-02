@@ -90,14 +90,18 @@ class SinglePostPage extends React.Component {
         const postDate = moment(dateCreated).fromNow();
 
         return (
-            <div className="mb-4 mt-4">
-                {this.renderPost(this.state.post)}
+            <main className="container">
+                <div className="row w-100 mx-auto mb-4 mt-4">
+                    <div className="w-100 col-sm-12 col-md-8 offset-md-2">
+                        {this.renderPost(this.state.post)}
 
-                <AddComment onPostComment={this.postComment} id={id} />
+                        <AddComment onPostComment={this.postComment} id={id} />
 
-                {this.state.comments.map(comment => <Comment key={comment.id} comment={comment} />)}
+                        {this.state.comments.map(comment => <Comment key={comment.id} comment={comment} />)}
 
-            </div>
+                    </div>
+                </div>
+            </main>
         );
     }
 }

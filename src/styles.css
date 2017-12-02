@@ -372,5 +372,40 @@ button:focus {
     margin: 10% auto 0;
 }
 
+.textMobile {
+    font-size: 0.9rem;
+}
 
+.imageMobile {
+    width: 3rem !important;
+    height: 3rem !important;
+}
+
+
+}
+
+@media only screen and (max-width: 587px) {
+    .imageMobile {
+        width: 3rem !important;
+        height: 3rem !important;
+        float: left;
+    }
+
+    .textMobile {
+        font-size: 0.8rem;
+    }
+
+    .nameMobile {
+        padding-top: 1rem !important;
+    }
+}
+
+.card {
+    word-wrap: normal;
+}
+
+.postTime {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 }
