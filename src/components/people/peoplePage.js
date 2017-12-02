@@ -70,7 +70,7 @@ class PeoplePage extends React.Component {
                 <div className="row">
                     {this.state.users.map(user => {
                         return (
-                            <div className="col-sm-12 col-md-6 col-lg-4 mb-4" key={user._id}>
+                            <div className="col-sm-12 col-md-6 col-lg-4 mb-2" key={user._id}>
                                 <UserDescription userData={user} id={user._id} />
                             </div>
                         );
