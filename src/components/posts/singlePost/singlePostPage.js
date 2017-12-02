@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Link } from "react-router-dom";
 import moment from "moment";
 
@@ -14,6 +15,7 @@ class SinglePostPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.initState();
+
         this.bindEventHandlers();
     }
 
@@ -93,6 +95,7 @@ class SinglePostPage extends React.Component {
             <main className="container">
                 <div className="row w-100 mx-auto mb-4 mt-4">
                     <div className="w-100 col-sm-12 col-md-8 offset-md-2">
+                    
                         {this.renderPost(this.state.post)}
 
                         <AddComment onPostComment={this.postComment} id={id} />

@@ -18,7 +18,6 @@ class LoginForm extends React.Component {
             password: "",
             error: false
         };
-
     }
 
     bindEventHandlers() {
@@ -106,7 +105,6 @@ class LoginForm extends React.Component {
                     <button type="submit" className="btn buttonDark" onClick={this.logIn}>Login</button>
 
                 </form>
-
             </div>
         );
     }

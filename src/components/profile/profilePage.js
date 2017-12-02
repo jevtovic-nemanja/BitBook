@@ -1,17 +1,18 @@
 import React from "react";
 
+import Modal from "react-modal";
+
 import { dataService } from "../services/serviceData";
 import { redirect } from "../services/serviceRedirect";
 
 import { Profile } from "../profile/profile";
-import Modal from "react-modal";
 import EditProfile from "./editProfile";
 
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
+
         this.bindEventHandlers();
     }
 
@@ -148,6 +149,7 @@ class ProfilePage extends React.Component {
                     <Modal isOpen={show} style={this.getModalStyle()} className="editProfileModal" >
                         <EditProfile toggleModal={this.toggleModalShow} updateProfile={this.updateProfile} edit={this.state.edit} />
                     </Modal>
+                    
                 </div>
             </main>
         );

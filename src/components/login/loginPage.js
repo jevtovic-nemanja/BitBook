@@ -1,7 +1,9 @@
 import React from "react";
+
+import { Switch, Route, Link } from "react-router-dom";
+
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
-import { Switch, Route, Link } from "react-router-dom";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -23,7 +25,6 @@ class LoginPage extends React.Component {
                    during the Renaissance.</p>
                         </div>
 
-
                         <div className="col-sm-12 col-md-12 col-lg-6  welcomeText">
                             <Switch>
                                 <Route exact path="/login" component={LoginForm} />
@@ -32,10 +33,8 @@ class LoginPage extends React.Component {
                             </Switch>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         );
     }
 }

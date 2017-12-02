@@ -8,7 +8,6 @@ import { Profile } from "../profile/profile";
 class UserProfilePage extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
     }
 

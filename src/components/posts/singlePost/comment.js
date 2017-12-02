@@ -1,5 +1,7 @@
 import React from "react";
+
 import moment from "moment";
+
 import { dataService } from "../../services/serviceData";
 
 class Comment extends React.Component {
@@ -10,7 +12,7 @@ class Comment extends React.Component {
 
     initState() {
         return {
-            userImage: "http://3.bp.blogspot.com/_JBHfzEovWs8/S8X3wH9vbTI/AAAAAAAAAPM/O8r2xpeeur0/s1600/batman-for-facebook.jpg"
+            userImage: "../../../images/batman.jpg"
         };
     }
 

@@ -1,23 +1,23 @@
 import React from "react";
 
-import { dataService } from "../services/serviceData";
-import { storageService } from "../services/serviceStorage";
+import { Link } from "react-router-dom";
+import Modal from "react-modal";
 
 import { USER_ID } from "../../constants";
-import { Link } from "react-router-dom";
+
+import { dataService } from "../services/serviceData";
+import { storageService } from "../services/serviceStorage";
 
 import { TextPost } from "../posts/textPost";
 import { ImagePost } from "../posts/imagePost";
 import { VideoPost } from "../posts/videoPost";
 import NewPost from "./newPost";
 
-import Modal from "react-modal";
-
 class FeedPage extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = this.initState();
+
         this.bindEventHandlers();
     }
 
@@ -28,7 +28,6 @@ class FeedPage extends React.Component {
             postError: "",
             error: "",
             modal: false,
-            show: "text",
             filterTitle: "All Posts",
             filter: {
                 text: "",
@@ -39,9 +38,9 @@ class FeedPage extends React.Component {
     }
 
     bindEventHandlers() {
-        this.toggleModalShow = this.toggleModalShow.bind(this);
-        this.sendPost = this.sendPost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
+        this.sendPost = this.sendPost.bind(this);
+        this.toggleModalShow = this.toggleModalShow.bind(this);
     }
 
     componentDidMount() {
@@ -211,11 +210,11 @@ class FeedPage extends React.Component {
                     {this.state.posts.map(post => this.renderPosts(post))}
 
                     <div className="row modalWrapper">
+
                         <Modal isOpen={modal} style={this.getModalStyle()} >
-
                             <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} />
-
                         </Modal >
+                        
                     </div>
                 </div>
 

@@ -4,6 +4,7 @@ class EditProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.initState();
+
         this.bindEventHandlers();
     }
 
@@ -133,12 +134,14 @@ class EditProfile extends React.Component {
 
                     </form>
                 </div>
+
                 <div className="error">
                     {validationError
                         ? <p>{validationError}</p>
                         : <p></p>
                     }
                 </div>
+                
                 <div>
                     <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
                         Save

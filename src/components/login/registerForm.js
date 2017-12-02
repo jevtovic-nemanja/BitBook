@@ -100,7 +100,6 @@ class RegisterForm extends React.Component {
                 </div>
 
                 <form>
-
                     <div className="form-group">
                         <label htmlFor="exampleInputText1">Full Name</label>
                         <input type="text" className="form-control" id="exampleInputText1" placeholder="Full Name" name="name" value={this.state.name} onChange={this.handleInputChange} />
@@ -130,9 +129,7 @@ class RegisterForm extends React.Component {
                     </div>
 
                     <button type="submit" className="btn buttonDark" onClick={this.register}>Register</button>
-
                 </form>
-
             </div>
         );
     }

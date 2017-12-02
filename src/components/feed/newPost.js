@@ -4,6 +4,7 @@ class NewPost extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.initState();
+
         this.bindEventHandlers();
     }
 
@@ -20,8 +21,8 @@ class NewPost extends React.Component {
 
     bindEventHandlers() {
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.sendPost = this.sendPost.bind(this);
         this.selectPostType = this.selectPostType.bind(this);
+        this.sendPost = this.sendPost.bind(this);
     }
 
     handleInputChange(event) {
