@@ -141,7 +141,7 @@ class NewPost extends React.Component {
     }
 
     render() {
-        const { name, title, smallText, content, validationError, showImage, showTV } = this.state;
+        const { type, name, title, smallText, content, validationError, showImage, showTV } = this.state;
 
         return (
             <div>
@@ -149,14 +149,21 @@ class NewPost extends React.Component {
                     <h2>{title}</h2>
                     <form>
                         <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
-                        <input
-                            type="text"
-                            className="form-control modalInput"
-                            id="exampleInputText1"
-                            name={name}
-                            value={content}
-                            onChange={this.handleInputChange}
-                        />
+                        {type === "text"
+                            ? <textarea
+                                name={name}
+                                value={content}
+                                onChange={this.handleInputChange}
+                            ></textarea>
+                            : <input
+                                type="text"
+                                className="form-control modalInput"
+                                id="exampleInputText1"
+                                name={name}
+                                value={content}
+                                onChange={this.handleInputChange}
+                            />
+                        }
                     </form>
                     <div className="buttonWrapper">
                         <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
