@@ -41,11 +41,15 @@ class ServiceData {
         return profile;
     }
 
-    getPosts(callback, errorCallback) {
-        APIService.getFromAPI("/Posts", responseData => {
+    getPosts(top, callback, errorCallback) {
+        APIService.getFromAPI(`/Posts?$skip=0&$top=${top}`, responseData => {
             let posts = responseData.map(item => this.packPost(item));
             callback(posts);
         }, errorCallback);
+    }
+
+    getPostsCount(callback, errorCallback) {
+        APIService.getFromAPI("/posts/count/", callback, errorCallback);
     }
 
     getTextPost(id, callback, errorCallback) {

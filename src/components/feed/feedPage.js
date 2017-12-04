@@ -2,6 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { USER_ID } from "../../constants";
 
@@ -25,6 +26,7 @@ class FeedPage extends React.Component {
     initState() {
         return {
             posts: [],
+            postsCount: "",
             networkError: "",
             postError: "",
             error: "",
@@ -33,13 +35,16 @@ class FeedPage extends React.Component {
                 text: "",
                 image: "",
                 video: ""
-            }
+            },
+            top: 10,
+            hasMore: true
         };
     }
 
     bindEventHandlers() {
         this.deletePost = this.deletePost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
+        this.getPosts = this.getPosts.bind(this);
         this.sendPost = this.sendPost.bind(this);
         this.toggleModalShow = this.toggleModalShow.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
@@ -48,6 +53,7 @@ class FeedPage extends React.Component {
     componentDidMount() {
         this.getUserId();
         this.getPosts();
+        this.getPostsCount();
     }
 
     cannotDeletePost(error) {
@@ -82,7 +88,20 @@ class FeedPage extends React.Component {
     }
 
     getPosts() {
-        dataService.getPosts(posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+        const { top, posts, postsCount } = this.state;
+
+        if (posts.length === postsCount) {
+            this.setState({ hasMore: false });
+        }
+
+        dataService.getPosts(top, posts => this.setState({
+            posts: posts,
+            top: this.state.top + 10
+        }), error => this.handleNetworkRequestError(error));
+    }
+
+    getPostsCount() {
+        dataService.getPostsCount(postsCount => this.setState({ postsCount: postsCount }), error => this.handleNetworkRequestError(error));
     }
 
     getUserId() {
@@ -158,7 +177,7 @@ class FeedPage extends React.Component {
     }
 
     uploadImage(imageUrl) {
-        const postData = {imageUrl: imageUrl};
+        const postData = { imageUrl: imageUrl };
         this.sendPost("image", postData);
     }
 
@@ -202,7 +221,7 @@ class FeedPage extends React.Component {
     }
 
     render() {
-        const { show, validationError, modal, filterTitle } = this.state;
+        const { show, validationError, modal, filterTitle, top, hasMore } = this.state;
 
         if (this.state.posts.length < 1) {
             return (
@@ -220,14 +239,24 @@ class FeedPage extends React.Component {
 
                     <p className="error">{this.state.networkError}</p>
 
-                    {this.state.posts.map(post => this.renderPosts(post))}
+                    <InfiniteScroll
+                        next={this.getPosts}
+                        hasMore={hasMore}
+                        loader={<h4>Loading...</h4>}
+                        endMessage={
+                            <p style={{ textAlign: "center" }}>
+                                <b>No more posts.</b>
+                            </p>
+                        }>
+                        {this.state.posts.map(post => this.renderPosts(post))}
+                    </InfiniteScroll>
 
                     <div className="row modalWrapper">
 
                         <Modal isOpen={modal} style={this.getModalStyle()} >
                             <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} uploadImage={this.uploadImage} />
                         </Modal >
-                        
+
                     </div>
                 </div>
 
