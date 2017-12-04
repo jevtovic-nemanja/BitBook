@@ -1,6 +1,6 @@
 import React from "react";
 
-import UploadImage from "./uploadImage";
+import UploadImage from "../common/uploadImage";
 
 class EditProfile extends React.Component {
     constructor(props) {
