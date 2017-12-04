@@ -41,11 +41,15 @@ class ServiceData {
         return profile;
     }
 
-    getPosts(callback, errorCallback) {
-        APIService.getFromAPI("/Posts", responseData => {
+    getPosts(top, callback, errorCallback) {
+        APIService.getFromAPI(`/Posts?$skip=0&$top=${top}&$orderby=DateCreated desc`, responseData => {
             let posts = responseData.map(item => this.packPost(item));
             callback(posts);
         }, errorCallback);
+    }
+
+    getPostsCount(callback, errorCallback) {
+        APIService.getFromAPI("/posts/count/", callback, errorCallback);
     }
 
     getTextPost(id, callback, errorCallback) {
@@ -66,18 +70,18 @@ class ServiceData {
         return post;
     }
 
-    postTextPost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(callback, errorCallback),
+    postTextPost(top, dataObject, callback, errorCallback) {
+        APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(top, callback, errorCallback),
             errorCallback);
     }
 
-    postImagePost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/ImagePosts", dataObject, response => this.getPosts(callback, errorCallback),
+    postImagePost(top, dataObject, callback, errorCallback) {
+        APIService.postToAPI("/ImagePosts", dataObject, response => this.getPosts(top, callback, errorCallback),
             errorCallback);
     }
 
-    postVideoPost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/VideoPosts", dataObject, response => this.getPosts(callback, errorCallback),
+    postVideoPost(top, dataObject, callback, errorCallback) {
+        APIService.postToAPI("/VideoPosts", dataObject, response => this.getPosts(top, callback, errorCallback),
             errorCallback);
     }
 
@@ -100,6 +104,10 @@ class ServiceData {
 
     uploadImage(data, callback, errorCallback) {
         APIService.postToAPI("/upload", data, callback, errorCallback);
+    }
+
+    deletePost(id, callback, errorCallback) {
+        APIService.deleteFromAPI(`/Posts/${id}`, callback, errorCallback);
     }
 }
 

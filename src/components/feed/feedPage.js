@@ -2,6 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { USER_ID } from "../../constants";
 
@@ -25,6 +26,7 @@ class FeedPage extends React.Component {
     initState() {
         return {
             posts: [],
+            postsCount: "",
             networkError: "",
             postError: "",
             error: "",
@@ -33,12 +35,18 @@ class FeedPage extends React.Component {
                 text: "",
                 image: "",
                 video: ""
-            }
+            },
+            top: 10,
+            hasMore: true,
+            backToTop: "hide"
         };
     }
 
     bindEventHandlers() {
+        this.backToTop = this.backToTop.bind(this);
+        this.deletePost = this.deletePost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
+        this.getPosts = this.getPosts.bind(this);
         this.sendPost = this.sendPost.bind(this);
         this.toggleModalShow = this.toggleModalShow.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
@@ -47,12 +55,27 @@ class FeedPage extends React.Component {
     componentDidMount() {
         this.getUserId();
         this.getPosts();
+        this.getPostsCount();
+    }
+
+    backToTop() {
+        window.scroll(0, 0);
+    }
+
+    cannotDeletePost(error) {
+        if (error.request) {
+            this.setState({ postError: "Unable to delete post." });
+        }
     }
 
     cannotLoadPost(error) {
         if (error.request) {
             this.setState({ postError: "Unable to load post." });
         }
+    }
+
+    deletePost(id) {
+        dataService.deletePost(id, response => this.getPosts(), error => this.cannotDeletePost(error));
     }
 
     filterPosts(type) {
@@ -71,7 +94,23 @@ class FeedPage extends React.Component {
     }
 
     getPosts() {
-        dataService.getPosts(posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+        const { top, posts, postsCount } = this.state;
+
+        if (posts.length === postsCount) {
+            this.setState({
+                hasMore: false,
+                backToTop: ""
+            });
+        }
+
+        dataService.getPosts(top, posts => this.setState({
+            posts: posts,
+            top: this.state.top + 10
+        }), error => this.handleNetworkRequestError(error));
+    }
+
+    getPostsCount() {
+        dataService.getPostsCount(postsCount => this.setState({ postsCount: postsCount }), error => this.handleNetworkRequestError(error));
     }
 
     getUserId() {
@@ -95,30 +134,45 @@ class FeedPage extends React.Component {
         const { text, image, video } = this.state.filter;
         const { postError } = this.state;
 
+        const userId = parseInt(storageService.getStorageItem(USER_ID));
+        let usersPost = "";
+
+        if (userId === post.userId) {
+            usersPost = true;
+        } else {
+            usersPost = false;
+        }
+
+        const imagePostStyle = {
+            objectFit: "cover",
+            maxHeight: 450 + "px"
+        };
+
         if (post.type === "text") {
-            return <TextPost post={post} key={post.id} show={text} error={postError} />;
+            return <TextPost post={post} key={post.id} show={text} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post} key={post.id} show={image} error={postError} />;
+            return <ImagePost post={post} key={post.id} show={image} error={postError} usersPost={usersPost} deletePost={this.deletePost} style={imagePostStyle} />;
         } else if (post._type === "video") {
-            return <VideoPost post={post} key={post.id} show={video} error={postError} />;
+            return <VideoPost post={post} key={post.id} show={video} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
         }
     }
 
     sendPost(type, newData) {
+        const { top } = this.state;
 
         if (type === "text") {
 
-            dataService.postTextPost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            dataService.postTextPost(top, newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
             this.jumpToTop();
 
         } else if (type === "image") {
 
-            dataService.postImagePost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            dataService.postImagePost(top, newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
             this.jumpToTop();
 
         } else if (type === "video") {
 
-            dataService.postVideoPost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            dataService.postVideoPost(top, newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
             this.jumpToTop();
 
         }
@@ -138,7 +192,7 @@ class FeedPage extends React.Component {
     }
 
     uploadImage(imageUrl) {
-        const postData = {imageUrl: imageUrl};
+        const postData = { imageUrl: imageUrl };
         this.sendPost("image", postData);
     }
 
@@ -182,7 +236,7 @@ class FeedPage extends React.Component {
     }
 
     render() {
-        const { show, validationError, modal, filterTitle } = this.state;
+        const { show, validationError, modal, filterTitle, top, hasMore, backToTop } = this.state;
 
         if (this.state.posts.length < 1) {
             return (
@@ -200,20 +254,32 @@ class FeedPage extends React.Component {
 
                     <p className="error">{this.state.networkError}</p>
 
-                    {this.state.posts.map(post => this.renderPosts(post))}
+                    <InfiniteScroll
+                        next={this.getPosts}
+                        hasMore={hasMore}
+                        loader={<h4>Loading...</h4>}
+                        endMessage={
+                            <p style={{ textAlign: "center" }}>
+                                <b>No more posts.</b>
+                            </p>
+                        }>
+                        {this.state.posts.map(post => this.renderPosts(post))}
+                    </InfiniteScroll>
 
                     <div className="row modalWrapper">
 
                         <Modal isOpen={modal} style={this.getModalStyle()} >
                             <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} uploadImage={this.uploadImage} />
                         </Modal >
-                        
+
                     </div>
                 </div>
 
                 <div className="col-lg-2"></div>
 
                 <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
+
+                <button onClick={this.backToTop} className={backToTop} >^</button>
 
             </main >
         );
