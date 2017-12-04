@@ -143,10 +143,15 @@ class FeedPage extends React.Component {
             usersPost = false;
         }
 
+        const imagePostStyle = {
+            objectFit: "cover",
+            maxHeight: 450 + "px"
+        };
+
         if (post.type === "text") {
             return <TextPost post={post} key={post.id} show={text} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post} key={post.id} show={image} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
+            return <ImagePost post={post} key={post.id} show={image} error={postError} usersPost={usersPost} deletePost={this.deletePost} style={imagePostStyle} />;
         } else if (post._type === "video") {
             return <VideoPost post={post} key={post.id} show={video} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
         }
