@@ -23,7 +23,7 @@ class ProfilePage extends React.Component {
                 email: "",
                 aboutShort: "",
                 about: "",
-                avatarUrl: "../../images/batman.jpg",
+                avatarUrl: "../../assets/images/batman.jpg",
                 postsCount: 0,
                 commentsCount: 0
             },

@@ -12,7 +12,7 @@ class Comment extends React.Component {
 
     initState() {
         return {
-            userImage: "../../../images/batman.jpg"
+            userImage: "../../../assets/images/batman.jpg"
         };
     }
 

@@ -14,7 +14,7 @@ export const UserDescription = (props) => {
             <div className="card mb-4 w-100" style={{ height: 450 + "px"}} >
                 <img src={avatarUrl
                     ? avatarUrl
-                    : "../../images/batman.jpg"
+                    : "../../assets/images/batman.jpg"
                 }
                 className="mx-auto mt-3 rounded-circle card-img-top"
                 style={{ width: 250 + "px", height: 230 + "px"}} />

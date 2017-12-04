@@ -7,7 +7,7 @@ export const Profile = props => {
         <div className="text-center w-100 mx-auto mt-5 col-lg-8">
             <img src={avatarUrl
                 ? avatarUrl
-                : "../../images/batman.jpg"
+                : "../../assets/images/batman.jpg"
             } className="profileimage w-50" />
             <div className="w-75 mx-auto">
                 <h2 className="profilename mt-3">{name}</h2>
