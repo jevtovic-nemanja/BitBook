@@ -70,18 +70,18 @@ class ServiceData {
         return post;
     }
 
-    postTextPost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(callback, errorCallback),
+    postTextPost(top, dataObject, callback, errorCallback) {
+        APIService.postToAPI("/TextPosts", dataObject, response => this.getPosts(top, callback, errorCallback),
             errorCallback);
     }
 
-    postImagePost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/ImagePosts", dataObject, response => this.getPosts(callback, errorCallback),
+    postImagePost(top, dataObject, callback, errorCallback) {
+        APIService.postToAPI("/ImagePosts", dataObject, response => this.getPosts(top, callback, errorCallback),
             errorCallback);
     }
 
-    postVideoPost(dataObject, callback, errorCallback) {
-        APIService.postToAPI("/VideoPosts", dataObject, response => this.getPosts(callback, errorCallback),
+    postVideoPost(top, dataObject, callback, errorCallback) {
+        APIService.postToAPI("/VideoPosts", dataObject, response => this.getPosts(top, callback, errorCallback),
             errorCallback);
     }
 

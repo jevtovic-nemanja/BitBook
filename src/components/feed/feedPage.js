@@ -59,7 +59,7 @@ class FeedPage extends React.Component {
     }
 
     backToTop() {
-        window.scroll(0,0);
+        window.scroll(0, 0);
     }
 
     cannotDeletePost(error) {
@@ -158,20 +158,21 @@ class FeedPage extends React.Component {
     }
 
     sendPost(type, newData) {
+        const { top } = this.state;
 
         if (type === "text") {
 
-            dataService.postTextPost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            dataService.postTextPost(top, newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
             this.jumpToTop();
 
         } else if (type === "image") {
 
-            dataService.postImagePost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            dataService.postImagePost(top, newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
             this.jumpToTop();
 
         } else if (type === "video") {
 
-            dataService.postVideoPost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
+            dataService.postVideoPost(top, newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
             this.jumpToTop();
 
         }
