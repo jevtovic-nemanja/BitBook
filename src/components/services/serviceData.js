@@ -97,6 +97,10 @@ class ServiceData {
         APIService.postToAPI("/Comments", commentData, response => this.getComments(postId, callback, errorCallback),
             errorCallback);
     }
+
+    uploadImage(data, callback, errorCallback) {
+        APIService.postToAPI("/upload", data, callback, errorCallback);
+    }
 }
 
 

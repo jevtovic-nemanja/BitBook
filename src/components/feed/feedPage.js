@@ -41,6 +41,7 @@ class FeedPage extends React.Component {
         this.filterPosts = this.filterPosts.bind(this);
         this.sendPost = this.sendPost.bind(this);
         this.toggleModalShow = this.toggleModalShow.bind(this);
+        this.uploadImage = this.uploadImage.bind(this);
     }
 
     componentDidMount() {
@@ -104,6 +105,7 @@ class FeedPage extends React.Component {
     }
 
     sendPost(type, newData) {
+
         if (type === "text") {
 
             dataService.postTextPost(newData, posts => this.setState({ posts: posts }), error => this.handleNetworkRequestError(error));
@@ -133,6 +135,11 @@ class FeedPage extends React.Component {
                 error: ""
             });
         }
+    }
+
+    uploadImage(imageUrl) {
+        const postData = {imageUrl: imageUrl};
+        this.sendPost("image", postData);
     }
 
     getModalStyle() {
@@ -198,7 +205,7 @@ class FeedPage extends React.Component {
                     <div className="row modalWrapper">
 
                         <Modal isOpen={modal} style={this.getModalStyle()} >
-                            <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} />
+                            <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} uploadImage={this.uploadImage} />
                         </Modal >
                         
                     </div>

@@ -42,6 +42,7 @@ class ProfilePage extends React.Component {
     bindEventHandlers() {
         this.toggleModalShow = this.toggleModalShow.bind(this);
         this.updateProfile = this.updateProfile.bind(this);
+        this.uploadImage = this.uploadImage.bind(this);
     }
 
     componentDidMount() {
@@ -85,6 +86,14 @@ class ProfilePage extends React.Component {
         dataService.updateProfile(newData, profile => this.loadProfile(profile),
             error => this.handleNetworkRequestError(error));
         this.toggleModalShow();
+    }
+
+    uploadImage(imageUrl) {
+        this.setState(prevState => {
+            prevState.edit.avatarUrl = imageUrl;
+            return prevState;
+        });
+        this.updateProfile(this.state.edit);
     }
 
     getModalStyle() {
@@ -147,7 +156,7 @@ class ProfilePage extends React.Component {
                     </div>
 
                     <Modal isOpen={show} style={this.getModalStyle()} className="editProfileModal" >
-                        <EditProfile toggleModal={this.toggleModalShow} updateProfile={this.updateProfile} edit={this.state.edit} />
+                        <EditProfile toggleModal={this.toggleModalShow} updateProfile={this.updateProfile} edit={this.state.edit} uploadImage={this.uploadImage} />
                     </Modal>
                     
                 </div>

@@ -1,5 +1,7 @@
 import React from "react";
 
+import UploadImage from "../common/uploadImage";
+
 class NewPost extends React.Component {
     constructor(props) {
         super(props);
@@ -15,12 +17,15 @@ class NewPost extends React.Component {
             title: "New Post",
             smallText: "Post Content",
             content: "",
-            validationError: ""
+            validationError: "",
+            showImage: "hide",
+            showTV: ""
         };
     }
 
     bindEventHandlers() {
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.newUploadedImage = this.newUploadedImage.bind(this);
         this.selectPostType = this.selectPostType.bind(this);
         this.sendPost = this.sendPost.bind(this);
     }
@@ -34,6 +39,10 @@ class NewPost extends React.Component {
         });
     }
 
+    newUploadedImage(imageUrl) {
+        this.props.uploadImage(imageUrl);
+    }
+
     selectPostType(event) {
         event.preventDefault();
 
@@ -45,14 +54,15 @@ class NewPost extends React.Component {
                 name: "textPostContent",
                 title: "New Post",
                 smallText: "Post Content",
-                validationError: ""
+                validationError: "",
+                showImage: "hide",
+                showTV: ""
             });
         } else if (type === "image") {
             this.setState({
                 type: "image",
-                name: "imagePostContent",
-                title: "New Image Post",
-                smallText: "Image Link",
+                showImage: "",
+                showTV: "hide",
                 validationError: ""
             });
         } else if (type === "video") {
@@ -61,7 +71,9 @@ class NewPost extends React.Component {
                 name: "videoPostContent",
                 title: "New Video Post",
                 smallText: "Youtube Video Link",
-                validationError: ""
+                validationError: "",
+                showImage: "hide",
+                showTV: ""
             });
         }
     }
@@ -78,8 +90,6 @@ class NewPost extends React.Component {
 
             if (type === "text") {
                 postData = { text: content };
-            } else if (type === "image") {
-                postData = { imageUrl: content };
             } else if (type === "video") {
                 const videoUrl = content.replace("watch?v=", "embed/");
                 postData = { videoUrl: videoUrl };
@@ -131,36 +141,43 @@ class NewPost extends React.Component {
     }
 
     render() {
-        const { name, title, smallText, content, validationError } = this.state;
+        const { name, title, smallText, content, validationError, showImage, showTV } = this.state;
 
         return (
             <div>
-                <h2>{title}</h2>
-                <form>
-                    <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
-                    <input
-                        type="text"
-                        className="form-control modalInput"
-                        id="exampleInputText1"
-                        name={name}
-                        value={content}
-                        onChange={this.handleInputChange}
-                    />
-                </form>
-                <div className="buttonWrapper">
-                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
-                        Post
-                    </button>
-                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
-                        Close
-                    </button>
+                <div className={showTV}>
+                    <h2>{title}</h2>
+                    <form>
+                        <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
+                        <input
+                            type="text"
+                            className="form-control modalInput"
+                            id="exampleInputText1"
+                            name={name}
+                            value={content}
+                            onChange={this.handleInputChange}
+                        />
+                    </form>
+                    <div className="buttonWrapper">
+                        <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
+                            Post
+                        </button>
+                        <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
+                            Close
+                        </button>
+                    </div>
+
+                    <div className="error" >
+                        {validationError
+                            ? <p>{validationError}</p>
+                            : <p></p>
+                        }
+                    </div>
                 </div>
 
-                <div className="error" >
-                    {validationError
-                        ? <p>{validationError}</p>
-                        : <p></p>
-                    }
+                <div className={showImage}>
+                    <h2>New Image Post</h2>
+                    <UploadImage uploadImage={this.newUploadedImage} />
                 </div>
 
                 <div className="text-center modalButtons">

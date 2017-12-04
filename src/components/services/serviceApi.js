@@ -63,7 +63,7 @@ class ServiceAPI {
         };
 
         if (requestData.body) {
-            axiosConfig.data = JSON.stringify(requestData.body);
+            axiosConfig.data = requestData.body;
         }
 
         axios(axiosConfig)

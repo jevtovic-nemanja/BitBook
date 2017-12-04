@@ -1,5 +1,7 @@
 import React from "react";
 
+import UploadImage from "../common/uploadImage";
+
 class EditProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -11,12 +13,14 @@ class EditProfile extends React.Component {
     initState() {
         return {
             edit: this.props.edit,
-            validationError: ""
+            validationError: "",
+            newImage: ""
         };
     }
 
     bindEventHandlers() {
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.newUploadedImage = this.newUploadedImage.bind(this);
         this.updateProfile = this.updateProfile.bind(this);
     }
 
@@ -31,10 +35,14 @@ class EditProfile extends React.Component {
         });
     }
 
+    newUploadedImage(imageUrl) {
+        this.props.uploadImage(imageUrl);
+    }
+
     updateProfile(event) {
         event.preventDefault();
         const isValid = this.validateInput();
- 
+
         if (isValid) {
             const dataObject = this.state.edit;
             this.props.updateProfile(dataObject);
@@ -121,16 +129,7 @@ class EditProfile extends React.Component {
                             onChange={this.handleInputChange}
                         />
 
-                        <label htmlFor="exampleInputText4">Picture</label>
-                        <input
-                            type="text"
-                            className="form-control mb-3"
-                            id="exampleInputText4"
-                            placeholder="Picture URL"
-                            name="avatarUrl"
-                            value={avatarUrl}
-                            onChange={this.handleInputChange}
-                        />
+                        <UploadImage uploadImage={this.newUploadedImage} />
 
                     </form>
                 </div>
@@ -141,7 +140,7 @@ class EditProfile extends React.Component {
                         : <p></p>
                     }
                 </div>
-                
+
                 <div>
                     <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
                         Save
