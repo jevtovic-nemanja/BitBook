@@ -1,5 +1,7 @@
 import React from "react";
 
+import UploadImage from "./uploadImage";
+
 class EditProfile extends React.Component {
     constructor(props) {
         super(props);
@@ -131,6 +133,8 @@ class EditProfile extends React.Component {
                             value={avatarUrl}
                             onChange={this.handleInputChange}
                         />
+
+                        <UploadImage />
 
                     </form>
                 </div>
