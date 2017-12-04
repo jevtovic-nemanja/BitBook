@@ -4,7 +4,7 @@ class AddComment extends React.Component {
     constructor(props) {
         super(props);
         this.state = this.initState();
-        
+
         this.bindEventHandlers();
     }
 
@@ -38,6 +38,8 @@ class AddComment extends React.Component {
             const commentData = { postId: postId, body: this.state.newComment };
 
             this.props.onPostComment(commentData);
+
+            this.setState({ newComment: "" });
         }
     }
 
@@ -54,8 +56,8 @@ class AddComment extends React.Component {
         return (
             <form className="w-100">
                 <div className="w-100">
-                    <input type="text" placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} style={{width: 80 + "%"}} />
-                    <button onClick={this.postComment} style={{width: 20 + "%"}} >Send</button>
+                    <textarea placeholder="Add your comment..." value={this.state.newComment} onChange={this.handleInputChange} style={{ width: 80 + "%" }}></textarea>
+                    <button onClick={this.postComment} style={{ width: 20 + "%" }} >Send</button>
                 </div>
             </form>
         );
