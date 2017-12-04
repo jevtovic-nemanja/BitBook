@@ -37,11 +37,13 @@ class FeedPage extends React.Component {
                 video: ""
             },
             top: 10,
-            hasMore: true
+            hasMore: true,
+            backToTop: "hide"
         };
     }
 
     bindEventHandlers() {
+        this.backToTop = this.backToTop.bind(this);
         this.deletePost = this.deletePost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
         this.getPosts = this.getPosts.bind(this);
@@ -54,6 +56,10 @@ class FeedPage extends React.Component {
         this.getUserId();
         this.getPosts();
         this.getPostsCount();
+    }
+
+    backToTop() {
+        window.scroll(0,0);
     }
 
     cannotDeletePost(error) {
@@ -91,7 +97,10 @@ class FeedPage extends React.Component {
         const { top, posts, postsCount } = this.state;
 
         if (posts.length === postsCount) {
-            this.setState({ hasMore: false });
+            this.setState({
+                hasMore: false,
+                backToTop: ""
+            });
         }
 
         dataService.getPosts(top, posts => this.setState({
@@ -221,7 +230,7 @@ class FeedPage extends React.Component {
     }
 
     render() {
-        const { show, validationError, modal, filterTitle, top, hasMore } = this.state;
+        const { show, validationError, modal, filterTitle, top, hasMore, backToTop } = this.state;
 
         if (this.state.posts.length < 1) {
             return (
@@ -263,6 +272,8 @@ class FeedPage extends React.Component {
                 <div className="col-lg-2"></div>
 
                 <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
+
+                <button onClick={this.backToTop} className={backToTop} >^</button>
 
             </main >
         );
