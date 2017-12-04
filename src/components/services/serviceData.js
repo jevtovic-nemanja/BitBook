@@ -42,7 +42,7 @@ class ServiceData {
     }
 
     getPosts(top, callback, errorCallback) {
-        APIService.getFromAPI(`/Posts?$skip=0&$top=${top}`, responseData => {
+        APIService.getFromAPI(`/Posts?$skip=0&$top=${top}&$orderby=DateCreated desc`, responseData => {
             let posts = responseData.map(item => this.packPost(item));
             callback(posts);
         }, errorCallback);
