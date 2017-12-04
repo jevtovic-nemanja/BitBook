@@ -38,6 +38,7 @@ class FeedPage extends React.Component {
     }
 
     bindEventHandlers() {
+        this.deletePost = this.deletePost.bind(this);
         this.filterPosts = this.filterPosts.bind(this);
         this.sendPost = this.sendPost.bind(this);
         this.toggleModalShow = this.toggleModalShow.bind(this);
@@ -49,10 +50,20 @@ class FeedPage extends React.Component {
         this.getPosts();
     }
 
+    cannotDeletePost(error) {
+        if (error.request) {
+            this.setState({ postError: "Unable to delete post." });
+        }
+    }
+
     cannotLoadPost(error) {
         if (error.request) {
             this.setState({ postError: "Unable to load post." });
         }
+    }
+
+    deletePost(id) {
+        dataService.deletePost(id, response => this.getPosts(), error => this.cannotDeletePost(error));
     }
 
     filterPosts(type) {
@@ -95,12 +106,21 @@ class FeedPage extends React.Component {
         const { text, image, video } = this.state.filter;
         const { postError } = this.state;
 
+        const userId = parseInt(storageService.getStorageItem(USER_ID));
+        let usersPost = "";
+
+        if (userId === post.userId) {
+            usersPost = true;
+        } else {
+            usersPost = false;
+        }
+
         if (post.type === "text") {
-            return <TextPost post={post} key={post.id} show={text} error={postError} />;
+            return <TextPost post={post} key={post.id} show={text} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
         } else if (post._type === "image") {
-            return <ImagePost post={post} key={post.id} show={image} error={postError} />;
+            return <ImagePost post={post} key={post.id} show={image} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
         } else if (post._type === "video") {
-            return <VideoPost post={post} key={post.id} show={video} error={postError} />;
+            return <VideoPost post={post} key={post.id} show={video} error={postError} usersPost={usersPost} deletePost={this.deletePost} />;
         }
     }
 

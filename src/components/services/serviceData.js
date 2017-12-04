@@ -101,6 +101,10 @@ class ServiceData {
     uploadImage(data, callback, errorCallback) {
         APIService.postToAPI("/upload", data, callback, errorCallback);
     }
+
+    deletePost(id, callback, errorCallback) {
+        APIService.deleteFromAPI(`/Posts/${id}`, callback, errorCallback);
+    }
 }
 
 

@@ -41,6 +41,17 @@ class ServiceAPI {
         this.createRequest(requestData);
     }
 
+    deleteFromAPI(url, callback, errorCallback) {
+        const requestData = {
+            url: url,
+            method: "DELETE",
+            callback: callback,
+            errorCallback: errorCallback
+        };
+
+        this.createRequest(requestData);
+    }
+
     createRequest(requestData) {
         const sessionId = storageService.getStorageItem(SESSION_ID);
 

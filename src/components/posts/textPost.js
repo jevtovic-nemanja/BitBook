@@ -3,6 +3,8 @@ import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
+import DeletePost from "../posts/deletePost";
+
 export const TextPost = props => {
 
     const { id, text, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
@@ -25,6 +27,10 @@ export const TextPost = props => {
         <div className={props.show}>
             <div className="card mb-4 w-100" >
                 <div className="card-body">
+                    {props.usersPost
+                        ? <DeletePost id={id} deletePost={props.deletePost} />
+                        : <p></p>
+                    }
                     <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>
                     <p>{text}</p>
                     <small>{postDate}</small>

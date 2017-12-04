@@ -3,6 +3,8 @@ import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
+import DeletePost from "../posts/deletePost";
+
 export const VideoPost = props => {
     const { id, videoUrl, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const { error } = props.error;
@@ -27,6 +29,10 @@ export const VideoPost = props => {
                     <iframe src={videoUrl} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item w-100"></iframe>
                 </div>
                 <div className="card-body" >
+                    {props.usersPost
+                        ? <DeletePost id={id} deletePost={props.deletePost} />
+                        : <p></p>
+                    }
                     <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>
                     <small>{postDate}</small>
                     <Link to={`/posts/video/${id}`} ><h6 className="float-right">{commentsNum} Comments</h6></Link>
