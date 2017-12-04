@@ -8,7 +8,7 @@ import DeletePost from "../posts/deletePost";
 export const ImagePost = props => {
     const { id, imageUrl, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const { error } = props.error;
-    const postDate = moment(dateCreated).fromNow();
+    const postDate = moment.utc(dateCreated).fromNow();
 
     if (error) {
         return (

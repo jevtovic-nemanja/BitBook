@@ -9,7 +9,7 @@ export const TextPost = props => {
 
     const { id, text, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
     const { error } = props.error;
-    const postDate = moment(dateCreated).fromNow();
+    const postDate = moment.utc(dateCreated).fromNow();
 
     if (error) {
         return (

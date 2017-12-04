@@ -7,7 +7,7 @@ import { BASEURL } from "../../constants";
 
 export const UserDescription = (props) => {
     const { id, name, aboutShort, lastPostDate, avatarUrl } = props.userData;
-    const lastPostTime = moment(lastPostDate).fromNow();
+    const lastPostTime = moment.utc(lastPostDate).fromNow();
 
     return (
         <Link to={`/people/${id}`} >
