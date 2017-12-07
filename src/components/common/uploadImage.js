@@ -63,10 +63,15 @@ class UploadImage extends React.Component {
 
     render() {
         const { image, previewImage, showCloseButton, validationError } = this.state;
-        const previewStyle = {
-            maxWidth: 25 + "rem",
-            maxHeight: 25 + "rem"
-        };
+        const previewStyle = showCloseButton
+            ? {
+                maxWidth: 25 + "rem",
+                maxHeight: 25 + "rem"
+            }
+            : {
+                maxWidth: 18 + "rem",
+                maxHeight: 18 + "rem"
+            };
 
         return (
             <div className="position-relative">
@@ -78,7 +83,7 @@ class UploadImage extends React.Component {
                         : <p></p>
                     }
                 </div>
-                <img src={previewImage} style={previewStyle} className="d-block mx-auto mb-4 w-100" />
+                <img src={previewImage} style={previewStyle} className="d-block mx-auto mb-3 w-100" />
                 <div className="text-right">
                     <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0 saveButtonStyle" >Upload</button>
                     {showCloseButton

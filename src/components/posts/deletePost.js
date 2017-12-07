@@ -1,6 +1,6 @@
 import React from "react";
 
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 
 import { deletePostStyle } from "../common/utils/modalStyles";
 
@@ -42,7 +42,7 @@ class DeletePost extends React.Component {
         return (
             <div>
                 <i className="fa fa-trash deleteButton fa-lg" aria-hidden="true" onClick={this.toggleModal}></i>
-                <Modal isOpen={modal} style={deletePostStyle()}>
+                <Modal open={modal} onClose={this.toggleModal} little showCloseIcon={false} >
                     <div className="p-1">
                         <p>Are you sure you want to delete this post?</p>
                         <div className="float-right">

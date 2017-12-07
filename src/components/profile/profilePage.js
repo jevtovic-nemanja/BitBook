@@ -1,6 +1,6 @@
 import React from "react";
 
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 
 import { dataService } from "../services/serviceData";
 import { redirect } from "../services/serviceRedirect";
@@ -116,7 +116,7 @@ class ProfilePage extends React.Component {
                         </div>
                     </div>
 
-                    <Modal isOpen={show} style={editProfileStyle()} className="editProfileModal" >
+                    <Modal open={show} onClose={this.toggleModalShow} showCloseIcon={false} classNames={{ modal: "custom-modal" }} >
                         <EditProfile toggleModal={this.toggleModalShow} updateProfile={this.updateProfile} edit={this.state.edit} uploadImage={this.uploadImage} />
                     </Modal>
 

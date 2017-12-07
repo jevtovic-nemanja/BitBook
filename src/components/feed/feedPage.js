@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { USER_ID } from "../../constants";
@@ -228,7 +228,7 @@ class FeedPage extends React.Component {
 
                     <div className="row modalWrapper">
 
-                        <Modal isOpen={modal} style={newPostStyle()} >
+                        <Modal open={modal} onClose={this.toggleModalShow} little showCloseIcon={false} classNames={{ modal: "custom-modal" }} >
                             <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} uploadImage={this.uploadImage} />
                         </Modal >
 

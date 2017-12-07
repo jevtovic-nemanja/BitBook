@@ -82,12 +82,12 @@ class EditProfile extends React.Component {
 
         return (
             <div>
-                <div className="editForm">
+                <div>
                     <form>
                         <label htmlFor="exampleInputText1">Name</label>
                         <input
                             type="text"
-                            className="form-control mb-3"
+                            className="form-control mb-2"
                             id="exampleInputText1"
                             placeholder="Name"
                             name="name"
@@ -98,7 +98,7 @@ class EditProfile extends React.Component {
                         <label htmlFor="exampleInputEmail1">Contact Email</label>
                         <input
                             type="email"
-                            className="form-control mb-3"
+                            className="form-control mb-2"
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             placeholder="Enter email"
@@ -110,7 +110,7 @@ class EditProfile extends React.Component {
 
                         <label htmlFor="exampleInputText2">Bio</label>
                         <textarea
-                            className="form-control mb-3"
+                            className="form-control mb-2"
                             id="exampleInputText2"
                             placeholder="Short Bio"
                             name="aboutShort"
@@ -120,11 +120,11 @@ class EditProfile extends React.Component {
 
                         <label htmlFor="exampleInputText3">About</label>
                         <textarea
-                            className="form-control mb-3"
+                            className="form-control mb-2"
                             id="exampleInputText3"
                             placeholder="About"
                             name="about"
-                            rows="5"
+                            rows="3"
                             value={about}
                             onChange={this.handleInputChange}
                         />

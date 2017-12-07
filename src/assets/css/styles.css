@@ -56,9 +56,12 @@ body {
 }
 
 .navbar-light .navbar-nav .nav-link:focus,
-.navbar-light .navbar-nav .nav-link:hover,
-.navbar-light .navbar-nav .nav-link:active {
-    color: rgba(0,0,0,.7);
+.navbar-light .navbar-nav .nav-link:hover {
+    color: rgb(43, 122, 120);
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #17252a;
 }
 
 a:-webkit-any-link {
@@ -354,12 +357,6 @@ button:focus {
          margin: 0 12px;
 
 }
-
-    .editProfileModal {
-        left: 15%;
-        right: 15%;
-    }
-
 }
 
 
@@ -409,7 +406,7 @@ button:focus {
     right: 2rem;
 }
 
-a h5:hover, a h6:hover  {
+a h5:hover, a h6:hover, a h3:hover, a p:hover, a em:hover  {
     color: #17252a;
 }
 
@@ -423,4 +420,8 @@ a h5, a h6, a h3, a p, a em {
 
 .false {
     visibility: hidden;
+}
+
+.custom-modal {
+    width: 35rem;
 }

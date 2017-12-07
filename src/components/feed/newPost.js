@@ -156,15 +156,15 @@ class NewPost extends React.Component {
                                     name={name}
                                     value={content}
                                     onChange={this.handleInputChange}
-                                    className="d-block w-100 p-5 mt-2"
-                                    rows="9"
+                                    className="d-block w-100 mt-2"
+                                    rows="5"
                                 ></textarea>
                             </div>
                             : <div>
                                 <div className="mx-auto text-center mb-1 mt-3 w-100">
                                     <img src={youtubePlaceholder} style={{ maxWidth: 30 + "rem" }} className="w-100" />
                                 </div>
-                                <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
+                                <label htmlFor="exampleInputText1" className="mt-1"><small>{smallText}</small></label>
                                 <input
                                     type="text"
                                     className="form-control modalInput"
