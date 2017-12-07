@@ -69,7 +69,7 @@ class UploadImage extends React.Component {
         };
 
         return (
-            <div>
+            <div className="position-relative">
                 <label>Select image for upload:</label>
                 <input type="file" onChange={this.previewImage} className="d-block" />
                 <div className="error">

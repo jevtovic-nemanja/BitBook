@@ -141,7 +141,7 @@ class EditProfile extends React.Component {
                     }
                 </div>
 
-                <div>
+                <div className="float-right">
                     <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
                         Save
                     </button>
