@@ -38,7 +38,6 @@ class FeedPage extends React.Component {
             },
             top: 10,
             hasMore: true,
-            backToTop: "hide"
         };
     }
 
@@ -99,7 +98,6 @@ class FeedPage extends React.Component {
         if (posts.length === postsCount) {
             this.setState({
                 hasMore: false,
-                backToTop: ""
             });
         }
 
@@ -279,7 +277,9 @@ class FeedPage extends React.Component {
 
                 <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
 
-                <button onClick={this.backToTop} className={backToTop} >^</button>
+                <div className="backToTop">
+                    <i className="fa fa-chevron-up fa-3x" aria-hidden="true" onClick={this.backToTop}></i>
+                </div>
 
             </main >
         );
