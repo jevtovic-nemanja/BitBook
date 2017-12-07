@@ -7,6 +7,7 @@ import { redirect } from "../services/serviceRedirect";
 
 import { Profile } from "../profile/profile";
 import EditProfile from "./editProfile";
+import { editProfileStyle } from "../common/utils/modalStyles";
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -96,81 +97,6 @@ class ProfilePage extends React.Component {
         this.updateProfile(this.state.edit);
     }
 
-    getModalStyle() {
-        if (screen.width < 579) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "15%",
-                    left: "8%",
-                    right: "8%",
-                    bottom: "15%",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "30px"
-
-                }
-            };
-
-        } else if (screen.width >= 768 && screen.height >= 1366) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "15%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "31%",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "30px"
-
-                }
-            };
-        } else if (screen.width >= 768 && screen.height >= 1280) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "15%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "27%",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "30px"
-                }
-            };
-        } else if (screen.width >= 768 && screen.height >= 1024) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "11%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "17%",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "30px"
-                }
-            };
-        }
-    }
-
     render() {
 
         const { name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = this.state.profile;
@@ -190,10 +116,10 @@ class ProfilePage extends React.Component {
                         </div>
                     </div>
 
-                    <Modal isOpen={show} style={this.getModalStyle()} className="editProfileModal" >
+                    <Modal isOpen={show} style={editProfileStyle()} className="editProfileModal" >
                         <EditProfile toggleModal={this.toggleModalShow} updateProfile={this.updateProfile} edit={this.state.edit} uploadImage={this.uploadImage} />
                     </Modal>
-                    
+
                 </div>
             </main>
         );

@@ -142,32 +142,41 @@ class NewPost extends React.Component {
 
     render() {
         const { type, name, title, smallText, content, validationError, showImage, showTV } = this.state;
+        const youtubePlaceholder = "../../assets/images/youtube.jpg";
 
         return (
             <div>
                 <div className={showTV}>
                     <h2>{title}</h2>
                     <form>
-                        <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
                         {type === "text"
-                            ? <textarea
-                                name={name}
-                                value={content}
-                                onChange={this.handleInputChange}
-                                className="d-block w-100"
-                                rows="3"
-                            ></textarea>
-                            : <input
-                                type="text"
-                                className="form-control modalInput"
-                                id="exampleInputText1"
-                                name={name}
-                                value={content}
-                                onChange={this.handleInputChange}
-                            />
+                            ? <div>
+                                <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
+                                <textarea
+                                    name={name}
+                                    value={content}
+                                    onChange={this.handleInputChange}
+                                    className="d-block w-100 p-5 mt-2"
+                                    rows="9"
+                                ></textarea>
+                            </div>
+                            : <div>
+                                <div className="mx-auto text-center mb-1 mt-3 w-100">
+                                    <img src={youtubePlaceholder} style={{ maxWidth: 30 + "rem" }} className="w-100" />
+                                </div>
+                                <label htmlFor="exampleInputText1"><small>{smallText}</small></label>
+                                <input
+                                    type="text"
+                                    className="form-control modalInput"
+                                    id="exampleInputText1"
+                                    name={name}
+                                    value={content}
+                                    onChange={this.handleInputChange}
+                                />
+                            </div>
                         }
                     </form>
-                    <div className="mt-3">
+                    <div className="mt-3 float-right">
                         <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
                             Post
                         </button>
@@ -185,8 +194,10 @@ class NewPost extends React.Component {
                 </div>
 
                 <div className={showImage}>
-                    <h2>New Image Post</h2>
-                    <UploadImage uploadImage={this.newUploadedImage} toggleModal={this.props.toggleModal} showCloseButton={true} />
+                    <div>
+                        <h2>New Image Post</h2>
+                        <UploadImage uploadImage={this.newUploadedImage} toggleModal={this.props.toggleModal} showCloseButton={true} />
+                    </div>
                 </div>
 
                 <div className="text-center modalButtons">

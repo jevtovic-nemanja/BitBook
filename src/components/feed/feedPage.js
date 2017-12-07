@@ -8,6 +8,7 @@ import { USER_ID } from "../../constants";
 
 import { dataService } from "../services/serviceData";
 import { storageService } from "../services/serviceStorage";
+import { newPostStyle } from "../common/utils/modalStyles";
 
 import { TextPost } from "../posts/textPost";
 import { ImagePost } from "../posts/imagePost";
@@ -194,45 +195,6 @@ class FeedPage extends React.Component {
         this.sendPost("image", postData);
     }
 
-    getModalStyle() {
-        if (screen.width < 579) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "10%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "20px"
-                }
-            };
-
-        } else {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "10%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "20px"
-                }
-            };
-        };
-    }
-
     render() {
         const { show, validationError, modal, filterTitle, top, hasMore, backToTop } = this.state;
 
@@ -266,7 +228,7 @@ class FeedPage extends React.Component {
 
                     <div className="row modalWrapper">
 
-                        <Modal isOpen={modal} style={this.getModalStyle()} >
+                        <Modal isOpen={modal} style={newPostStyle()} >
                             <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} uploadImage={this.uploadImage} />
                         </Modal >
 

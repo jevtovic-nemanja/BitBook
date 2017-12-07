@@ -2,6 +2,8 @@ import React from "react";
 
 import Modal from "react-modal";
 
+import { deletePostStyle } from "../common/utils/modalStyles";
+
 class DeletePost extends React.Component {
     constructor(props) {
         super(props);
@@ -34,55 +36,20 @@ class DeletePost extends React.Component {
         });
     }
 
-    getModalStyle() {
-        if (screen.width < 579) {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "10%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "20px"
-                }
-            };
-
-        } else {
-            return {
-                content: {
-                    position: "absolute",
-                    top: "10%",
-                    left: "15%",
-                    right: "15%",
-                    bottom: "",
-                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
-                    background: "#feffff",
-                    overflow: "auto",
-                    WebkitOverflowScrolling: "touch",
-                    borderRadius: "4px",
-                    outline: "none",
-                    padding: "20px"
-                }
-            };
-        };
-    }
-
     render() {
-        const {modal} = this.state;
+        const { modal } = this.state;
 
         return (
             <div>
                 <i className="fa fa-trash deleteButton fa-lg" aria-hidden="true" onClick={this.toggleModal}></i>
-                <Modal isOpen={modal} style={this.getModalStyle()}>
-                    <p>Are you sure you want to delete this post?</p>
-                    <button onClick={this.deletePost}>Yes</button>
-                    <button onClick={this.toggleModal}>No</button>
+                <Modal isOpen={modal} style={deletePostStyle()}>
+                    <div className="p-1">
+                        <p>Are you sure you want to delete this post?</p>
+                        <div className="float-right">
+                            <button onClick={this.deletePost} className="btn buttonLight my-2 my-sm-0 saveButtonStyle">Yes</button>
+                            <button onClick={this.toggleModal} className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle">No</button>
+                        </div>
+                    </div>
                 </Modal>
             </div>
         );
