@@ -78,7 +78,7 @@ class UploadImage extends React.Component {
                     }
                 </div>
                 <img src={previewImage} style={previewStyle} className="d-block mx-auto" />
-                <div className="">
+                <div>
                     <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0 saveButtonStyle" >Upload</button>
                     <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
                         Close

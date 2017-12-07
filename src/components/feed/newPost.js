@@ -167,7 +167,7 @@ class NewPost extends React.Component {
                             />
                         }
                     </form>
-                    <div className="buttonWrapper">
+                    <div className="mt-3">
                         <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.sendPost}>
                             Post
                         </button>
