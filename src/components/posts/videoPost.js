@@ -28,11 +28,10 @@ export const VideoPost = props => {
                 <div className="embed-responsive embed-responsive-16by9" >
                     <iframe src={videoUrl} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item w-100"></iframe>
                 </div>
-                <div className="card-body pt-1" >
-                    {props.usersPost
-                        ? <DeletePost id={id} deletePost={props.deletePost} />
-                        : <p></p>
-                    }
+                <div className="card-body pt-3" >
+                    <div className={props.usersPost.toString()}>
+                        <DeletePost id={id} deletePost={props.deletePost} />
+                    </div>
                     <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>
                     <small>{postDate}</small>
                     <Link to={`/posts/video/${id}`} ><h6 className="float-right">{commentsNum} Comments</h6></Link>

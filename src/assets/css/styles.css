@@ -139,6 +139,25 @@ button:focus {
     font-weight: 600;
 }
 
+.deleteButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #2b7a78;
+}
+
+.deleteButton:hover {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #2b7a78;
+    -webkit-transform:scale(1.3);
+    -moz-transform:scale(1.3);
+    -ms-transform:scale(1.3);
+    -o-transform:scale(1.3);
+    transform:scale(1.3);
+}
+
 /* Login/register pages */
 
 .welcomeText{
@@ -387,4 +406,12 @@ a h5:hover, a h6:hover  {
 
 a h5, a h6 {
     color: rgb(43, 122, 120);
+}
+
+.card-body {
+    position: relative;
+}
+
+.false {
+    visibility: hidden;
 }

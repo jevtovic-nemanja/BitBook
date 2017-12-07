@@ -78,7 +78,7 @@ class DeletePost extends React.Component {
 
         return (
             <div>
-                <button onClick={this.toggleModal}>X</button>
+                <i className="fa fa-trash deleteButton" aria-hidden="true" onClick={this.toggleModal}></i>
                 <Modal isOpen={modal} style={this.getModalStyle()}>
                     <p>Are you sure you want to delete this post?</p>
                     <button onClick={this.deletePost}>Yes</button>

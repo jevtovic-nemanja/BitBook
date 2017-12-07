@@ -26,11 +26,10 @@ export const TextPost = props => {
     return (
         <div className={props.show}>
             <div className="card mb-4 w-100" >
-                <div className="card-body pt-1">
-                    {props.usersPost
-                        ? <DeletePost id={id} deletePost={props.deletePost} />
-                        : <p></p>
-                    }
+                <div className="card-body pt-3">
+                    <div className={props.usersPost.toString()}>
+                        <DeletePost id={id} deletePost={props.deletePost} />
+                    </div>
                     <Link to={`/people/${userId}`} ><h5>{userDisplayName}</h5></Link>
                     <p>{text}</p>
                     <small>{postDate}</small>
