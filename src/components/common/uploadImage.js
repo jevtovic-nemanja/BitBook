@@ -51,7 +51,7 @@ class UploadImage extends React.Component {
         event.preventDefault();
 
         const image = this.state.image;
-        
+
         let postData = new FormData();
         postData.append("file", image);
 
@@ -63,14 +63,14 @@ class UploadImage extends React.Component {
     render() {
         const { image, previewImage, validationError } = this.state;
         const previewStyle = {
-            width: 15 + "rem",
-            maxHeight: 15 + "rem"
+            width: 25 + "rem",
+            maxHeight: 25 + "rem"
         };
 
         return (
             <div>
                 <label>Select image for upload:</label>
-                <input type="file" onChange={this.previewImage} />
+                <input type="file" onChange={this.previewImage} className="d-block" />
                 <div className="error">
                     {validationError
                         ? <p>{validationError}</p>
@@ -78,7 +78,12 @@ class UploadImage extends React.Component {
                     }
                 </div>
                 <img src={previewImage} style={previewStyle} className="d-block mx-auto" />
-                <button onClick={this.uploadImage} >Upload</button>
+                <div className="">
+                    <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0 saveButtonStyle" >Upload</button>
+                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
+                        Close
+                    </button>
+                </div>
             </div>
         );
     }
