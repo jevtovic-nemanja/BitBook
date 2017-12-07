@@ -413,7 +413,7 @@ a h5:hover, a h6:hover  {
     color: #17252a;
 }
 
-a h5, a h6 {
+a h5, a h6, a h3, a p, a em {
     color: rgb(43, 122, 120);
 }
 

@@ -18,7 +18,7 @@ export const UserDescription = (props) => {
                 }
                 className="mx-auto mt-3 rounded-circle card-img-top"
                 style={{ width: 250 + "px", height: 230 + "px"}} />
-                <div className="card-body w-100 text-center">
+                <div className="card-body w-100 text-center position-relative">
                     <h3>{name}</h3>
                     <em>{aboutShort}</em>
                     <p className="mt-5">{lastPostTime}</p>
