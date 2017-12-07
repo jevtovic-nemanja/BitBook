@@ -49,10 +49,6 @@ body {
     position: relative;
 }
 
-profileContainer {
-  height: 100%;
-}
-
 /* Navbar */
 
 .navbar-light .navbar-nav .nav-link {
@@ -220,21 +216,8 @@ button:focus {
 
 /*Modal dialog */
 
-.saveButtonStyle {
-    /* position: absolute;
-    right: 1%;
-    bottom: 10px;   
-    min-width: 10%; */
-}
-
 .closeButtonStyle {
     margin-left: 10px;
-
-    /* position: absolute;
-    right: 20%;
-    bottom: 10px;
-    min-width: 10%; */
-   
 } 
 
 
@@ -344,14 +327,6 @@ button:focus {
 
 }
 
-
-  
-    /* .editForm {
-        width: 300px;
-        position: relative;
-        right: 0px;
-    } */
-
     .editProfileModal {
         left: 15%;
         right: 15%;
@@ -404,4 +379,12 @@ button:focus {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
+}
+
+a h5:hover, a h6:hover  {
+    color: #17252a;
+}
+
+a h5, a h6 {
+    color: rgb(43, 122, 120);
 }
