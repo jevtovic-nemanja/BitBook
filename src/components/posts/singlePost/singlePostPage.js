@@ -73,7 +73,10 @@ class SinglePostPage extends React.Component {
     }
 
     postComment(commentData) {
-        dataService.postComment(commentData, comments => this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error));
+        dataService.postComment(commentData, comments => {
+            this.setState({ comments: comments }), error => this.handleCommentsNetworkRequestError(error);
+            scrollTo(0,document.body.scrollHeight);
+        });
     }
 
     renderPost(post) {
