@@ -154,6 +154,8 @@ class NewPost extends React.Component {
                                 name={name}
                                 value={content}
                                 onChange={this.handleInputChange}
+                                className="d-block w-100"
+                                rows="3"
                             ></textarea>
                             : <input
                                 type="text"
