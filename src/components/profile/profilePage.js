@@ -116,14 +116,32 @@ class ProfilePage extends React.Component {
                 }
             };
 
-        } else {
+        } else if (screen.width >= 768 && screen.height >= 1366) {
             return {
                 content: {
                     position: "absolute",
                     top: "15%",
-                    left: "30%",
-                    right: "30%",
-                    bottom: "15%",
+                    left: "15%",
+                    right: "15%",
+                    bottom: "31%",
+                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                    background: "#feffff",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                    borderRadius: "4px",
+                    outline: "none",
+                    padding: "30px"
+
+                }
+            };
+        } else if (screen.width >= 768 && screen.height >= 1280) {
+            return {
+                content: {
+                    position: "absolute",
+                    top: "15%",
+                    left: "15%",
+                    right: "15%",
+                    bottom: "27%",
                     border: "0.5px solid rgba(43, 122, 120, 0.5)",
                     background: "#feffff",
                     overflow: "auto",
@@ -133,7 +151,24 @@ class ProfilePage extends React.Component {
                     padding: "30px"
                 }
             };
-        };
+        } else if (screen.width >= 768 && screen.height >= 1024) {
+            return {
+                content: {
+                    position: "absolute",
+                    top: "11%",
+                    left: "15%",
+                    right: "15%",
+                    bottom: "17%",
+                    border: "0.5px solid rgba(43, 122, 120, 0.5)",
+                    background: "#feffff",
+                    overflow: "auto",
+                    WebkitOverflowScrolling: "touch",
+                    borderRadius: "4px",
+                    outline: "none",
+                    padding: "30px"
+                }
+            };
+        }
     }
 
     render() {
