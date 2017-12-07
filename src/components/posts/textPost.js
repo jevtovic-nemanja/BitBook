@@ -26,7 +26,7 @@ export const TextPost = props => {
     return (
         <div className={props.show}>
             <div className="card mb-4 w-100" >
-                <div className="card-body">
+                <div className="card-body pt-1">
                     {props.usersPost
                         ? <DeletePost id={id} deletePost={props.deletePost} />
                         : <p></p>

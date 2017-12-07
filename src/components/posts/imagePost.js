@@ -26,7 +26,7 @@ export const ImagePost = props => {
         <div className={props.show}>
             <div className="card mb-4 w-100" >
                 <img src={imageUrl} className="card-img-top w-100" style={props.style} />
-                <div className="card-body">
+                <div className="card-body pt-1">
                     {props.usersPost
                         ? <DeletePost id={id} deletePost={props.deletePost} />
                         : <p></p>

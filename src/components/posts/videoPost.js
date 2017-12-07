@@ -28,7 +28,7 @@ export const VideoPost = props => {
                 <div className="embed-responsive embed-responsive-16by9" >
                     <iframe src={videoUrl} frameBorder="0" allowFullScreen className="card-img-top embed-responsive-item w-100"></iframe>
                 </div>
-                <div className="card-body" >
+                <div className="card-body pt-1" >
                     {props.usersPost
                         ? <DeletePost id={id} deletePost={props.deletePost} />
                         : <p></p>
