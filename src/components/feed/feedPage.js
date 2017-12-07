@@ -59,7 +59,7 @@ class FeedPage extends React.Component {
     }
 
     backToTop() {
-        window.scroll(0, 0);
+        scrollTo(0, 0);
     }
 
     cannotDeletePost(error) {
