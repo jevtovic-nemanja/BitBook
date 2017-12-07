@@ -129,7 +129,7 @@ class EditProfile extends React.Component {
                             onChange={this.handleInputChange}
                         />
 
-                        <UploadImage uploadImage={this.newUploadedImage} />
+                        <UploadImage uploadImage={this.newUploadedImage} showCloseButton={false} />
 
                     </form>
                 </div>

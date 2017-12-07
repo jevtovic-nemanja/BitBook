@@ -186,7 +186,7 @@ class NewPost extends React.Component {
 
                 <div className={showImage}>
                     <h2>New Image Post</h2>
-                    <UploadImage uploadImage={this.newUploadedImage} toggleModal={this.props.toggleModal} />
+                    <UploadImage uploadImage={this.newUploadedImage} toggleModal={this.props.toggleModal} showCloseButton={true} />
                 </div>
 
                 <div className="text-center modalButtons">

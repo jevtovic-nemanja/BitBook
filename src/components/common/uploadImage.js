@@ -16,6 +16,7 @@ class UploadImage extends React.Component {
         return {
             image: "",
             previewImage: "",
+            showCloseButton: this.props.showCloseButton,
             validationError: ""
         };
     }
@@ -61,7 +62,7 @@ class UploadImage extends React.Component {
     }
 
     render() {
-        const { image, previewImage, validationError } = this.state;
+        const { image, previewImage, showCloseButton, validationError } = this.state;
         const previewStyle = {
             width: 25 + "rem",
             maxHeight: 25 + "rem"
@@ -78,12 +79,13 @@ class UploadImage extends React.Component {
                     }
                 </div>
                 <img src={previewImage} style={previewStyle} className="d-block mx-auto" />
-                <div>
-                    <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0 saveButtonStyle" >Upload</button>
-                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
+                <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0 saveButtonStyle" >Upload</button>
+                {showCloseButton
+                    ? <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
                         Close
                     </button>
-                </div>
+                    : <p></p>
+                }
             </div>
         );
     }
