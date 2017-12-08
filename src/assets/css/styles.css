@@ -232,15 +232,14 @@ button:focus {
 
 /* Adapt for mobile */
 
-@media only screen and (max-width: 578px){
+@media only screen and (max-width: 578px) {
     .welcomeText{
-        width:100%;
+        width: 100%;
         margin-left: 0px;
         padding: 0px;
         margin-top: 0;
     }
     
-
     .loginParagraph {
         display: none;
     }
@@ -258,39 +257,34 @@ button:focus {
         right: 0;
     }
 
-
     .modalButtonsText {
         display: none;
-}
+    }
 
     .modalRoundButtons {
          margin: 0 12px;
+    }
 }
-}
-
 
 /* Adapt for tablet */
 
-@media only screen and (max-width: 1024px){
+@media only screen and (max-width: 1024px) {
+    .form {
+        margin-top: 0px;
+    }
 
-.form {
-    margin-top: 0px;
-}
+    .welcomeText {
+        margin: 10% auto 0;
+    }
 
-.welcomeText {
-    margin: 10% auto 0;
-}
+    .textMobile {
+        font-size: 0.9rem;
+    }
 
-.textMobile {
-    font-size: 0.9rem;
-}
-
-.imageMobile {
-    width: 3rem !important;
-    height: 3rem !important;
-}
-
-
+    .imageMobile {
+        width: 3rem !important;
+        height: 3rem !important;
+    }
 }
 
 @media only screen and (max-width: 587px) {
