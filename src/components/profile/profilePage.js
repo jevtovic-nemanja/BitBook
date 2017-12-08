@@ -111,12 +111,22 @@ class ProfilePage extends React.Component {
 
                     <div className="col-12">
                         <div className="text-center ">
-                            <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow} >Edit Profile</button>
+                            <button className="btn buttonLight my-2 my-sm-0" onClick={this.toggleModalShow}>Edit Profile</button>
                         </div>
                     </div>
 
-                    <Modal open={show} onClose={this.toggleModalShow} showCloseIcon={false} classNames={{ modal: "custom-modal" }} >
-                        <EditProfile toggleModal={this.toggleModalShow} updateProfile={this.updateProfile} edit={this.state.edit} uploadImage={this.uploadImage} />
+                    <Modal
+                        open={show}
+                        onClose={this.toggleModalShow}
+                        showCloseIcon={false}
+                        classNames={{ modal: "custom-modal" }}
+                    >
+                        <EditProfile
+                            toggleModal={this.toggleModalShow}
+                            updateProfile={this.updateProfile}
+                            edit={this.state.edit}
+                            uploadImage={this.uploadImage}
+                        />
                     </Modal>
 
                 </div>

@@ -214,6 +214,22 @@ button:focus {
     right: 2rem;
 }
 
+/* Profile */
+
+.profileimage{
+    border-radius: 15%;
+}
+
+.profilename{
+    font-family: 'PT Serif', serif;
+}
+
+.profilecounter {
+    background-color: #3aafa9;
+    color: #feffff;
+    border-color: white;
+}
+
 /* Adapt for mobile */
 
 @media only screen and (max-width: 578px){
