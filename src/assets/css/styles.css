@@ -14,6 +14,15 @@ body {
     background-color: whitesmoke;
 }
 
+/* Link Colors */
+a h5:hover, a h6:hover, a h3:hover, a p:hover, a em:hover  {
+    color: #17252a;
+}
+
+a h5, a h6, a h3, a p, a em {
+    color: rgb(43, 122, 120);
+}
+
 /* Navbar */
 
 .navbar-light .navbar-nav .nav-link {
@@ -165,74 +174,10 @@ button:focus {
     font-size: 14px;
 }
 
-/* Profile and user profile pages */
+/* Modal style */
 
-.profileimage{
-    border-radius: 15%;
-}
-
-.profilename{
-    font-family: 'PT Serif', serif;
-}
-
-.profilecounter {
-    background-color: #3aafa9;
-    color: #feffff;
-    border-color: white;
-}
-
-/*Modal dialog */
-
-.buttonWrapper {
-    float: left;
-    margin-top: 5%;
-}
-
-.newPost {
-    min-height: 270px;
-    margin-top: 10%;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    
-    
-}
-
-/*People page */
-
-.userDescription {
-  height: 200px;
-  width: 100%;
-  margin-bottom: 40px;
-  box-sizing: border-box;
-  padding: 10px;
-}
-
-.userDescription:hover {
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
-   /* box-shadow */
-    -webkit-box-shadow: rgba(43, 122, 120, 0.5) 0px 0 10px;
-    -moz-box-shadow: rgba(43, 122, 120, 0.5) 0 0 10px;
-    box-shadow: rgba(43, 122, 120, 0.5) 0 0 10px;
-    background-color: #feffff;
-}
-
-.userInfo {
-    padding-left: 50px; 
-}
-
-.userInfo h3 {
-    color: #2b7a78;
-}
-
-.userInfo, .userLastPost {
-    margin: auto 0;
-    color: #17252a;
+.custom-modal {
+    width: 35rem;
 }
 
 /* Dropdown */
@@ -241,14 +186,32 @@ button:focus {
     background-color: white;
 }
 
+/* Classes for selecting what can be seen */
+
 .hide {
     display: none;
 }
+
+.false {
+    visibility: hidden;
+}
+
+/* Hover on all cards, positioning inside cards */
 
 .card:hover {
     -webkit-box-shadow: rgba(43, 122, 120, 0.5) 0px 0 20px;
     -moz-box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
     box-shadow: rgba(43, 122, 120, 0.5) 0 0 20px;
+}
+
+.card-body {
+    position: relative;
+}
+
+.postTime {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
 }
 
 /* Adapt for mobile */
@@ -286,7 +249,6 @@ button:focus {
 
     .modalRoundButtons {
          margin: 0 12px;
-
 }
 }
 
@@ -329,30 +291,4 @@ button:focus {
     .nameMobile {
         padding-top: 1rem !important;
     }
-}
-
-.postTime {
-    position: absolute;
-    bottom: 1rem;
-    right: 2rem;
-}
-
-a h5:hover, a h6:hover, a h3:hover, a p:hover, a em:hover  {
-    color: #17252a;
-}
-
-a h5, a h6, a h3, a p, a em {
-    color: rgb(43, 122, 120);
-}
-
-.card-body {
-    position: relative;
-}
-
-.false {
-    visibility: hidden;
-}
-
-.custom-modal {
-    width: 35rem;
 }
