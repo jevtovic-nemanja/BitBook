@@ -76,18 +76,29 @@ class UploadImage extends React.Component {
         return (
             <div className="position-relative">
                 <label>Select image for upload:</label>
-                <input type="file" onChange={this.previewImage} className="d-block" />
+                <input
+                    type="file"
+                    onChange={this.previewImage}
+                    className="d-block"
+                />
+
                 <div className="error">
                     {validationError
                         ? <p>{validationError}</p>
                         : <p></p>
                     }
                 </div>
-                <img src={previewImage} style={previewStyle} className="d-block mx-auto mb-3 w-100" />
+
+                <img
+                    src={previewImage}
+                    style={previewStyle}
+                    className="d-block mx-auto mb-3 w-100"
+                />
+
                 <div className="text-right">
-                    <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0 saveButtonStyle" >Upload</button>
+                    <button onClick={this.uploadImage} className="btn buttonLight my-2 my-sm-0">Upload</button>
                     {showCloseButton
-                        ? <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
+                        ? <button className="btn btn-outline-danger my-2 my-sm-0 ml-2" onClick={this.props.toggleModal}>
                             Close
                         </button>
                         : <p></p>

@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import { authenticationService } from "./services/serviceAuthentication";
 
 import { LoginPage } from "./login/loginPage";
-import MainPage from "./common/mainPage";
+import { MainPage } from "./common/mainPage";
 
 class App extends React.Component {
     constructor(props) {

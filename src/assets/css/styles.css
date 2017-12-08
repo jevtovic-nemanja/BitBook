@@ -183,11 +183,6 @@ button:focus {
 
 /*Modal dialog */
 
-.closeButtonStyle {
-    margin-left: 10px;
-} 
-
-
 .buttonWrapper {
     float: left;
     margin-top: 5%;

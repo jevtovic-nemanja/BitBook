@@ -142,10 +142,10 @@ class EditProfile extends React.Component {
                 </div>
 
                 <div className="float-right">
-                    <button className="btn buttonLight my-2 my-sm-0 saveButtonStyle" onClick={this.updateProfile}>
+                    <button className="btn buttonLight my-2 my-sm-0 mr-2" onClick={this.updateProfile}>
                         Save
                     </button>
-                    <button className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle" onClick={this.props.toggleModal}>
+                    <button className="btn btn-outline-danger my-2 my-sm-0" onClick={this.props.toggleModal}>
                         Close
                     </button>
                 </div>
