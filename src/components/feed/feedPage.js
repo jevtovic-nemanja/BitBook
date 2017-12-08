@@ -36,7 +36,7 @@ class FeedPage extends React.Component {
                 image: "",
                 video: ""
             },
-            top: 10,
+            top: 20,
             hasMore: true,
         };
     }
@@ -103,7 +103,7 @@ class FeedPage extends React.Component {
 
         dataService.getPosts(top, posts => this.setState({
             posts: posts,
-            top: this.state.top + 10
+            top: this.state.top + 20
         }), error => this.handleNetworkRequestError(error));
     }
 
@@ -220,23 +220,37 @@ class FeedPage extends React.Component {
                         endMessage={
                             <p style={{ textAlign: "center" }}>
                                 <b>No more posts.</b>
-                            </p>
-                        }>
+                            </p>}
+                    >
+
                         {this.state.posts.map(post => this.renderPosts(post))}
+
                     </InfiniteScroll>
 
-                    <div className="row modalWrapper">
+                    <div className="row">
 
-                        <Modal open={modal} onClose={this.toggleModalShow} little showCloseIcon={false} classNames={{ modal: "custom-modal" }} >
-                            <NewPost sendPost={this.sendPost} toggleModal={this.toggleModalShow} error={this.state.error} uploadImage={this.uploadImage} />
+                        <Modal
+                            open={modal}
+                            onClose={this.toggleModalShow}
+                            little
+                            showCloseIcon={false}
+                            classNames={{ modal: "custom-modal" }}
+                        >
+                            <NewPost
+                                sendPost={this.sendPost}
+                                toggleModal={this.toggleModalShow}
+                                error={this.state.error}
+                                uploadImage={this.uploadImage}
+                            />
                         </Modal >
-
                     </div>
                 </div>
 
                 <div className="col-lg-2"></div>
 
-                <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><i className="fa fa-plus" aria-hidden="true"></i></button>
+                <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}>
+                    <i className="fa fa-plus" aria-hidden="true"></i>
+                </button>
 
                 <div className="backToTop">
                     <i className="fa fa-chevron-up fa-3x" aria-hidden="true" onClick={this.backToTop}></i>
