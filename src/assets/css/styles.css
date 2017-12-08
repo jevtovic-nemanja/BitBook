@@ -3,25 +3,8 @@ html {
     height: 100%;
 }
 
-body {
-    height: 100%;
-}
-
-.app {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-}
-
 .background {
-    min-height: 100%;
     background-image: url("../images/background.jpg");
-}
-
-main.container::after {
-    content: "";
-    clear: both;
-    display: block;
 }
 
 /* Body */
@@ -29,24 +12,6 @@ main.container::after {
 body {
     color: #17252a;
     background-color: whitesmoke;
-}
-
-.wrapper {
-    height: 100%;
-
-}
-
-
-.mainAndFooter {
-    position: relative;
-    height: 100%;
-    margin-bottom: -121px;
-}
-
-
-.mainContent {
-  height: 90%;
-    position: relative;
 }
 
 /* Navbar */
@@ -68,16 +33,11 @@ a:-webkit-any-link {
     text-decoration: none;
 }
 
-
 /* All inputs */
 
 input:focus, textarea:focus {
     box-shadow: 0 0 0 0.2rem #2b7a7880 !important;
     border: none;
-}
-
-small {
-    color: rgba(23, 37, 42, 0.7);
 }
 
 /*All buttons */
@@ -112,16 +72,16 @@ small {
 
 .round {
     border-radius: 100%;
-    height: 60px;
-    width: 60px;
-    font-size: 40px;
+    height: 4rem;
+    width: 4rem;
+    font-size: 2rem;
 }
 
 .round:hover {
     border-radius: 100%;
-    height: 60px;
-    width: 60px;
-    font-size: 40px;
+    height: 4rem;
+    width: 4rem;
+    font-size: 2rem;
 }
 
 button:focus {
@@ -130,18 +90,15 @@ button:focus {
 
 .postButton {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 1rem;
+    right: 0.5rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.postTypeButtons{
-    text-align: center;
+.modalButtons {
     position: fixed;
-    bottom: 90px;
-    right: 30px;
-    color: #2b7a78;
-    font-weight: 600;
+    bottom: 6rem;
+    right: 0.5rem;
 }
 
 .deleteButton {
@@ -165,41 +122,30 @@ button:focus {
 
 .backToTop {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
+    bottom: 1rem;
+    left: 0.5rem;
     color: #2b7a78;
 }
 
 /* Login/register pages */
 
 .welcomeText{
-    width: 80%;
     margin: 15% auto 0;
-    text-align: justify;
-    color: #17252a;
 }
 
-
 .loginTitle{
-    font-size: 47px;
-    font-family: Arial, Helvetica, sans-serif;
     color: #def2f1;
-    margin-bottom: 20px;
-    font-weight: bold;
     text-shadow: 4px -3px 5px rgba(150, 150, 150, 1);
-    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .loginParagraph{
-    font-size: 18px;
+    font-size: 1.2rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .form {
-    margin: 9% auto 0;
-    margin-left: 30px;
-    margin-bottom: 30px;
-    padding: 20px;
+    margin: 10% auto 0;
     border-radius: 5%;
     background-color: rgba(254, 255, 255, 0.9);
     -webkit-box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
@@ -207,17 +153,7 @@ button:focus {
     box-shadow: 11px -11px 40px -8px rgba(74,74,74,0.81);
 }
 
-.modalButtons {
-    width: 100px;
-    position: fixed;
-    bottom: 100px;
-    right: 0;
-}
-
-
 .btn-dark {
-    margin-bottom: 10px;
-    margin-right: 5px;
     opacity: 0.6;
 }
 

@@ -21,9 +21,9 @@ class MainPage extends React.Component {
         const userId = storageService.getStorageItem(USER_ID);
 
         return (
-            <div className="wrapper">
+            <div className="w-100">
                 <Header />
-                <div className="container mainContent">
+                <div className="container">
                     <Switch>
                         <Route exact path="/" component={FeedPage} />
                         <Route path="/feed" component={FeedPage} />

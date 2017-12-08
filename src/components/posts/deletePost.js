@@ -2,8 +2,6 @@ import React from "react";
 
 import Modal from "react-responsive-modal";
 
-import { deletePostStyle } from "../common/utils/modalStyles";
-
 class DeletePost extends React.Component {
     constructor(props) {
         super(props);

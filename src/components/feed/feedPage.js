@@ -8,7 +8,6 @@ import { USER_ID } from "../../constants";
 
 import { dataService } from "../services/serviceData";
 import { storageService } from "../services/serviceStorage";
-import { newPostStyle } from "../common/utils/modalStyles";
 
 import { TextPost } from "../posts/textPost";
 import { ImagePost } from "../posts/imagePost";
@@ -237,7 +236,7 @@ class FeedPage extends React.Component {
 
                 <div className="col-lg-2"></div>
 
-                <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><p>+</p></button>
+                <button className="btn-block buttonDark round postButton" onClick={this.toggleModalShow}><i className="fa fa-plus" aria-hidden="true"></i></button>
 
                 <div className="backToTop">
                     <i className="fa fa-chevron-up fa-3x" aria-hidden="true" onClick={this.backToTop}></i>

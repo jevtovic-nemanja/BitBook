@@ -7,7 +7,6 @@ import { redirect } from "../services/serviceRedirect";
 
 import { Profile } from "../profile/profile";
 import EditProfile from "./editProfile";
-import { editProfileStyle } from "../common/utils/modalStyles";
 
 class ProfilePage extends React.Component {
     constructor(props) {

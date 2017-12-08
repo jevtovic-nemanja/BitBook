@@ -79,10 +79,10 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="form mx-auto" style={{width: 90 + "%"}}>
+            <div className="form mx-auto p-4" style={{width: 90 + "%"}}>
                 <div>
-                    <Link to="/login"><button className="btn btn-dark ">Login</button></Link>
-                    <Link to="/register"><button className="btn btn-dark">Register</button></Link>
+                    <Link to="/login"><button className="btn btn-dark mr-2 mb-2">Login</button></Link>
+                    <Link to="/register"><button className="btn btn-dark mb-2">Register</button></Link>
                 </div>
 
                 <form>
