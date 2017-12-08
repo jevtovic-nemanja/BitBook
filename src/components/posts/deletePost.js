@@ -40,14 +40,32 @@ class DeletePost extends React.Component {
         return (
             <div>
                 <i className="fa fa-trash deleteButton fa-lg" aria-hidden="true" onClick={this.toggleModal}></i>
-                <Modal open={modal} onClose={this.toggleModal} little showCloseIcon={false} >
+
+                <Modal
+                    open={modal}
+                    onClose={this.toggleModal}
+                    little
+                    showCloseIcon={false}
+                >
+
                     <div className="p-1">
                         <p>Are you sure you want to delete this post?</p>
+
                         <div className="float-right">
-                            <button onClick={this.deletePost} className="btn buttonLight my-2 my-sm-0 saveButtonStyle">Yes</button>
-                            <button onClick={this.toggleModal} className="btn btn-outline-danger my-2 my-sm-0 closeButtonStyle">No</button>
+                            <button
+                                onClick={this.deletePost}
+                                className="btn buttonLight my-2 my-sm-0 mr-2"
+                            >Yes
+                            </button>
+
+                            <button
+                                onClick={this.toggleModal}
+                                className="btn btn-outline-danger my-2 my-sm-0"
+                            >No
+                            </button>
                         </div>
                     </div>
+
                 </Modal>
             </div>
         );
