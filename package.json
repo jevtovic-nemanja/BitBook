@@ -1,5 +1,5 @@
 {
-  "name": "blog",
+  "name": "bitbook",
   "version": "1.0.0",
   "description": "Sample Blog app in React",
   "scripts": {
@@ -31,5 +31,14 @@
     "path": "^0.12.7",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
-  }
+  },
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jevtovic-nemanja/BitBook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jevtovic-nemanja/BitBook/issues"
+  },
+  "homepage": "https://github.com/jevtovic-nemanja/BitBook#readme"
 }
