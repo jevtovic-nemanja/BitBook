@@ -56,9 +56,7 @@ class UploadImage extends React.Component {
         let postData = new FormData();
         postData.append("file", image);
 
-        dataService.uploadImage(postData, imageUrl => {
-            this.props.uploadImage(imageUrl);
-        }, error => this.handleError(error));
+        dataService.uploadImage(postData, imageUrl => this.props.uploadImage(imageUrl), error => this.handleError(error));
     }
 
     render() {
