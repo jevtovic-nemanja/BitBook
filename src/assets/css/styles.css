@@ -139,6 +139,10 @@ button:focus {
     color: #2b7a78;
 }
 
+.modalButtonsText {
+    color: white;
+}
+
 /* Login/register pages */
 
 .login-title {
