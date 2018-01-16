@@ -47,6 +47,7 @@ a:-webkit-any-link {
 input:focus, textarea:focus {
     box-shadow: 0 0 0 0.2rem #2b7a7880 !important;
     border: none;
+    outline: none;
 }
 
 /*All buttons */
@@ -232,24 +233,7 @@ button:focus {
 
 /* Adapt for mobile */
 
-@media only screen and (max-width: 578px) {
-    .welcomeText{
-        width: 100%;
-        margin-left: 0px;
-        padding: 0px;
-        margin-top: 0;
-    }
-    
-    .loginParagraph {
-        display: none;
-    }
-
-    .loginTitle {
-        font-size: 33px;
-        text-align: center;
-        margin-top: 35px;
-    }
-
+@media only screen and (max-width: 579px) {
     .modalButtons {
         width: 400px;
         position: fixed;
@@ -264,30 +248,11 @@ button:focus {
     .modalRoundButtons {
          margin: 0 12px;
     }
-}
 
-/* Adapt for tablet */
-
-@media only screen and (max-width: 1024px) {
-    .form {
-        margin-top: 0px;
+    .profileimage {
+        width: 75% !important;
     }
 
-    .welcomeText {
-        margin: 10% auto 0;
-    }
-
-    .textMobile {
-        font-size: 0.9rem;
-    }
-
-    .imageMobile {
-        width: 3rem !important;
-        height: 3rem !important;
-    }
-}
-
-@media only screen and (max-width: 587px) {
     .imageMobile {
         width: 3rem !important;
         height: 3rem !important;
@@ -300,5 +265,18 @@ button:focus {
 
     .nameMobile {
         padding-top: 1rem !important;
+    }
+}
+
+/* Adapt for tablet */
+
+@media only screen and (max-width: 1024px) {
+    .textMobile {
+        font-size: 0.9rem;
+    }
+
+    .imageMobile {
+        width: 3rem !important;
+        height: 3rem !important;
     }
 }
