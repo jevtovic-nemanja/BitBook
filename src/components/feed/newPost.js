@@ -212,25 +212,25 @@ class NewPost extends React.Component {
 
                 <div className="text-center modalButtons">
                     <button
-                        className="buttonLight round"
+                        className="buttonLight round modalRoundButtons"
                         value="text"
                         onClick={this.selectPostType}
                     >T</button>
-                    <p>Text</p>
+                    <p className="modalButtonsText">Text</p>
 
                     <button
-                        className="buttonLight round"
+                        className="buttonLight round modalRoundButtons"
                         value="image"
                         onClick={this.selectPostType}
                     >I</button>
-                    <p>Image</p>
+                    <p className="modalButtonsText">Image</p>
 
                     <button
-                        className="buttonLight round"
+                        className="buttonLight round modalRoundButtons"
                         value="video"
                         onClick={this.selectPostType}
                     >V</button>
-                    <p>Video</p>
+                    <p className="modalButtonsText">Video</p>
                 </div>
             </div>
         );
