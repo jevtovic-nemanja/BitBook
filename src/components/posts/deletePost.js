@@ -44,6 +44,7 @@ class DeletePost extends React.Component {
                 <Modal
                     open={modal}
                     onClose={this.toggleModal}
+                    closeOnEsc={false}
                     little
                     showCloseIcon={false}
                 >
