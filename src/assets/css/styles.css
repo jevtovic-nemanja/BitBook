@@ -139,6 +139,10 @@ button:focus {
     color: #2b7a78;
 }
 
+.modalButtonsText {
+    color: white;
+}
+
 /* Login/register pages */
 
 .login-title {
@@ -246,7 +250,7 @@ button:focus {
     }
 
     .modalRoundButtons {
-         margin: 0 12px;
+         margin: 0 0.5rem;
     }
 
     .profileimage {
